@@ -3,26 +3,26 @@ extends layout
 block content
 
   //- Header with Background Image
-  header(class="business-header")
+  header.business-header
     .container
       .row
         .col-lg-12
-          h1(class="display-3 text-center text-white mt-4") Business Name or Tagline
+          h1.display-3.text-center.text-white.mt-4 Business Name or Tagline
   
   .container.my-4
-    ol(class="breadcrumb")
-      li(class="breadcrumb-item")
+    ol.breadcrumb
+      li.breadcrumb-item
         a(href="#") Home
-      li(class="breadcrumb-item")
+      li.breadcrumb-item
         a(href="#") Library
-      li(class="breadcrumb-item active") Data
+      li.breadcrumb-item.active Data
 
   //- Jumbotron Header
   .container
-    section(class="jumbotron my-4")
-      h1(class="display-3") A Warm Welcome!
-      p(class="lead") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.
-      a(href="#", class="btn btn-primary btn-lg") Call to action!
+    section.jumbotron.my-4
+      h1.display-3 A Warm Welcome!
+      p.lead Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.
+      a.btn.btn-primary.btn-lg(href="#") Call to action!
 
     h1= title
     p Welcome to #{title}
