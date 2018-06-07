@@ -27,8 +27,7 @@ body {
 .background-filter {
   background: rgba(153, 153, 153, 0.8);
   //backdrop-filter: grayscale(1) contrast(3) blur(1px);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  //-webkit-backdrop-filter: grayscale(1) contrast(3) blur(1px);
   height: 100%;
 }
 
