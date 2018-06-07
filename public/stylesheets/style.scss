@@ -1,6 +1,6 @@
-@import "bootswatch/spacelab/variables";
+@import "bootswatch/flatly/variables";
 @import "bootstrap/bootstrap";
-@import "bootswatch/spacelab/bootswatch";
+@import "bootswatch/flatly/bootswatch";
 
 /*
 body {
@@ -25,7 +25,7 @@ body {
 }
 
 .background-filter {
-  background: rgba(153, 153, 153, 0.8);
+  background: rgba(119, 119, 119, 0.7);
   //backdrop-filter: grayscale(1) contrast(3) blur(1px);
   //-webkit-backdrop-filter: grayscale(1) contrast(3) blur(1px);
   height: 100%;
