@@ -16,23 +16,41 @@ html
           span.navbar-toggler-icon
         #navbarResponsive.collapse.navbar-collapse
           ul.navbar-nav.ml-auto
-            li.nav-item.active
-              a.nav-link(href="#") Home
+            -var activeNavItem = 'active'
+            li.nav-item(class = (activeView === 'index' ? activeNavItem : ''))
+              a.nav-link(href="/") Home
                 span.sr-only (current)
-            li.nav-item
-              a.nav-link(href="#") About
-            li.nav-item
-              a.nav-link(href="#") Сервис
-            li.nav-item
-              a.nav-link(href="#") Контакты
+            li.nav-item(class = (activeView === 'catalog' ? activeNavItem : ''))
+              a.nav-link(href="/catalog") Каталог
+            li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
+              a.nav-link(href="/service") Сервис
+            li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
+              a.nav-link(href="/contacts") Контакты
 
-    block content
+    .block-content
+      block content
     
     footer.bg-primary
       .container-fluid.text-white
         .row
-          .col-lg-4
-            p.mt-4 Business Name or Tagline
+          .col.m-4
+            h3 Контакты
+            p 
+              | 220089, г.Минск, пр-т Дзержинского, 57, 8 этаж
+              br 
+              | Отдел продаж: +375 (17) 239-57-02 
+              br
+              | Техническая поддержка: +375 (17) 239-57-03 
+              br 
+              | Факс: +375 (17) 239-57-20
+            p
+              a(href="#") Все контакты
+              br
+              a(href="#") Написать письмо
+          .col.m-4
+            p qwerty
+          .col.m-4
+            p asdf
 
     script(src="/javascripts/jquery-3.3.1.slim.min.js")
     script(src="/javascripts/popper.min.js")

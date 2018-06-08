@@ -1,18 +1,6 @@
-@import "bootswatch/flatly/variables";
+@import "bootswatch/sandstone/variables";
 @import "bootstrap/bootstrap";
-@import "bootswatch/flatly/bootswatch";
-
-/*
-body {
-  padding-top: 54px;
-}
-
-@media (min-width: 992px) {
-  body {
-    padding-top: 56px;
-  }
-}
-*/
+@import "bootswatch/sandstone/bootswatch";
 
 .business-header {
   //height: 30vh;
@@ -29,6 +17,10 @@ body {
   background: rgba(119, 119, 119, 0.7);
   height: 100%;
   min-height: inherit;
+}
+
+.block-content {
+  min-height: 70vh;
 }
 
 .card {

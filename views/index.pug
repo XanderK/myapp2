@@ -5,11 +5,13 @@ block content
   //- Header with Background Image
   header
     .jumbotron-fluid.business-header
-      .container-fluid.background-filter
+      .jumbotron-fluid.background-filter
         .container
           .row
             .col-lg-12
               h1.display-3.text-center.text-white.mt-4 Запчасти для вашего автомобиля
+              p.text-center
+                button.btn.btn-primary.btn-lg(type="button") Large button
   
   .container.my-4
     ol.breadcrumb
@@ -29,3 +31,7 @@ block content
     h1= title
     p Welcome to #{title}
     p Добро пожаловать в #{title}
+
+  .jumbotron-fluid
+    section
+      include map.html
