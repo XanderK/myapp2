@@ -8,33 +8,15 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     
-    // Navigation
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-      .container
-        a.navbar-brand(href="#") Start Bootstrap
-        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarResponsive", aria-controls="navbarResponsive", aria-expanded="false", aria-label="Toggle navigation")
-          span.navbar-toggler-icon
-        #navbarResponsive.collapse.navbar-collapse
-          ul.navbar-nav.ml-auto
-            -var activeNavItem = 'active'
-            li.nav-item(class = (activeView === 'index' ? activeNavItem : ''))
-              a.nav-link(href="/") Home
-                span.sr-only (current)
-            li.nav-item(class = (activeView === 'catalog' ? activeNavItem : ''))
-              a.nav-link(href="/catalog") Каталог
-            li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
-              a.nav-link(href="/service") Сервис
-            li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
-              a.nav-link(href="/contacts") Контакты
+    include includes/navbar.pug
 
-    .block-content
-      block content
+    block content
     
     footer.bg-primary
-      .container-fluid.text-white
+      .container.text-white
         .row
-          .col.m-4
-            h3 Контакты
+          .col.my-2
+            h1 Адрес и телефоны
             p 
               | 220089, г.Минск, пр-т Дзержинского, 57, 8 этаж
               br 
@@ -47,10 +29,8 @@ html
               a(href="#") Все контакты
               br
               a(href="#") Написать письмо
-          .col.m-4
+          .col.my-2
             p qwerty
-          .col.m-4
-            p asdf
 
     script(src="/javascripts/jquery-3.3.1.slim.min.js")
     script(src="/javascripts/popper.min.js")

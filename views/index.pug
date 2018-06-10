@@ -3,17 +3,15 @@ extends layout
 block content
 
   //- Header with Background Image
-  header
-    .jumbotron-fluid.business-header
-      .jumbotron-fluid.background-filter
-        .container
-          .row
-            .col-lg-12
-              h1.display-3.text-center.text-white.mt-4 Запчасти для вашего автомобиля
-              p.text-center
-                button.btn.btn-primary.btn-lg(type="button") Large button
+  header.business-header
+    section.container
+      .row
+        .col-lg-12
+          h1.display-1.text-center.text-white.mt-4 Запчасти для вашего автомобиля
+          p.text-center
+            button.btn.btn-primary.btn-lg(type="button") Large button
   
-  .container.my-4
+  section.container.my-2
     ol.breadcrumb
       li.breadcrumb-item
         a(href="#") Home
@@ -21,17 +19,17 @@ block content
         a(href="#") Library
       li.breadcrumb-item.active Data
 
-  //- Jumbotron Header
-  .container
-    section.jumbotron.my-4
+  section.container
+    .jumbotron
       h1.display-3 A Warm Welcome!
+      h1.display-3 Тепло приветствуем!
       p.lead Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.
-      a.btn.btn-primary.btn-lg(href="#") Call to action!
+      a.btn.btn-primary.btn-sm(href="#") Call to action!
 
+  section.container
     h1= title
     p Welcome to #{title}
     p Добро пожаловать в #{title}
 
-  .jumbotron-fluid
-    section
-      include map.html
+  section.container.my-2
+    include includes/map.html

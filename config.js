@@ -1,24 +1,16 @@
 const env = process.env.NODE_ENV;
 
 const development = {
-  app: {
-    port: 3000
-  },
   db: {
     host: 'localhost',
-    port: 27017,
-    name: 'db'
+    name: 'carparts-test',
   }
 };
 
 const productive = {
- app: {
-   port: 3000
- },
  db: {
    host: 'localhost',
-   port: 27017,
-   name: 'test'
+   name: 'carparts'
  }
 };
 

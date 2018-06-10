@@ -1,0 +1,24 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+  .container
+    a.navbar-brand(href="/") Start Bootstrap
+    button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarResponsive", aria-controls="navbarResponsive", aria-expanded="false", aria-label="Toggle navigation")
+      span.navbar-toggler-icon
+    #navbarResponsive.collapse.navbar-collapse
+      ul.navbar-nav.ml-auto
+        -var activeNavItem = 'active'
+        //-
+          li.nav-item(class = (activeView === 'index' ? activeNavItem : ''))
+          a.nav-link(href="/") Home
+            span.sr-only (current)
+        li.nav-item(class = (activeView === 'catalog' ? activeNavItem : ''))
+          a.nav-link(href="/catalog") Каталог
+        li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
+          a.nav-link(href="/service") Сервис
+        li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
+          a.nav-link(href="/contacts") Контакты
+        li.nav-item.dropdown
+          a#dropdown01.nav-link.dropdown-toggle(href="#", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false") Администрирование
+          .dropdown-menu(aria-labelledby="dropdown01")
+            a.dropdown-item(href="/admin/register") Регистрация пользователя
+            a.dropdown-item(href="#") Another action
+            a.dropdown-item(href="#") Something else here
