@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "DEBUG=myapp:* nodemon --inspect ./bin/www"
+    "debug": "DEBUG=myapp:* nodemon --inspect ./bin/www",
+    "debug-win": "set DEBUG=myapp:* & nodemon --inspect ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

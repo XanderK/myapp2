@@ -1,0 +1,22 @@
+//- Управление пользователями
+extends layout
+
+block content
+  .container.my-2
+    ol.breadcrumb
+      li.breadcrumb-item
+        a(href="/") Главная
+      li.breadcrumb-item Администрирование
+      li.breadcrumb-item.active #{title}
+
+  .container
+    h1 #{title}
+    p Здесь можно добавлять новых пользователей, редактировать и удалять существуюших.
+
+  .container
+    .row
+      .col-md-8.order-md-1
+        h2 Список пользователей
+      .col-md-4.order-md-2
+        button.btn.btn-primary Новый пользователь
+      

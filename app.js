@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var catalogRouter = require('./routes/catalog');
 
-require('./models/db');
+//require('./api/db');
 
 var app = express();
 
