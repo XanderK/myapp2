@@ -13,7 +13,7 @@ block content
 
   .container
     h2 Checkout form
-    p.lead Below is an example form built entirely with Bootstrap's form controls. 
+    p.lead Below is an example form built entirely with Bootstrap's form controls.&nbsp;
       | Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
 
     .row
@@ -45,7 +45,7 @@ block content
 
       .col-md-8.order-md-1
         h4.mb-3 Billing address
-        form.needs-validation(novalidate)
+        form.needs-validation(method="POST", novalidate)
           .row
             .col-md-6.mb-3
               label(for="firstName") First name

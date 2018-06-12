@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 // Управление пользователями
 router.get('/users', function(req, res, next) {
   // TODO: Запрос списка пользователей
-  let users = Array();
+  let users = [];
   users.push(userController);
 
   activeView = 'users';
@@ -23,8 +23,18 @@ router.get('/users', function(req, res, next) {
   });
 });
 
+// Создание нового пользователя
+router.post('/users', function(req, res, next) {
+  // TODO: Добавление пользователя через API
+  res.render(activeView, { 
+    title: 'Управление пользователями',
+    activeView: activeView,
+    users: []
+  });
+});
+
 // Редактирование пользователя
-router.get('/users/edit', function(req, res, next) {
+router.get('/user', function(req, res, next) {
   activeView = 'user';
   res.render(activeView, { 
     title: 'Редактирование пользователя',

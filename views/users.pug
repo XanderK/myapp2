@@ -18,5 +18,24 @@ block content
       .col-md-8.order-md-1
         h2 Список пользователей
       .col-md-4.order-md-2
-        button.btn.btn-primary Новый пользователь
-      
+        a.btn.btn-primary(href="/admin/user") Новый пользователь
+      //-
+        form(action="/admin/user")
+          button.btn.btn-primary Новый пользователь
+  
+  if users.length > 0
+    .container.mt-2
+      table.table.table-hover
+        thead.thead-dark
+          tr
+            th(scope="col") #
+            th(scope="col") First
+            th(scope="col") Last
+            th(scope="col") Handle
+        tbody
+          each user, index in users
+           tr
+             th(scope="row")= index + 1
+             td= user.name
+             td !
+             td !
