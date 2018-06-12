@@ -1,5 +1,4 @@
 var express = require('express');
-var userController = require('../api/controllers/user');
 var router = express.Router();
 
 let activeView = '';
@@ -13,23 +12,13 @@ router.get('/', function(req, res, next) {
 router.get('/users', function(req, res, next) {
   // TODO: Запрос списка пользователей
   let users = [];
-  users.push(userController);
+  users.push(new Object);
 
   activeView = 'users';
   res.render(activeView, { 
     title: 'Управление пользователями',
     activeView: activeView,
     users: users
-  });
-});
-
-// Создание нового пользователя
-router.post('/users', function(req, res, next) {
-  // TODO: Добавление пользователя через API
-  res.render(activeView, { 
-    title: 'Управление пользователями',
-    activeView: activeView,
-    users: []
   });
 });
 

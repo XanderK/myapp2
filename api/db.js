@@ -49,4 +49,4 @@ process.on('SIGTERM', function() {
 });
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('../models/user');
+require('./models/user');
