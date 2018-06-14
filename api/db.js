@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var config = require('../config');
+const mongoose = require('mongoose');
+const config = require('./config');
 
-var gracefulShutdown;
-var dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
+let gracefulShutdown;
+const dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
 
 if (process.env.NODE_ENV === 'production') {
     dbUri = process.env.MONGOLAB_URI;
@@ -50,3 +50,5 @@ process.on('SIGTERM', function() {
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./models/user');
+
+module.exports.mongooseConnection = mongoose.connection;

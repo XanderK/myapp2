@@ -8,7 +8,7 @@ module.exports.createUser = function(req, res) {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role,
-        created: req.body.created, 
+        created: Date.now(),
     }).then(user => { 
         console.log(user);
         helpers.sendJSONresponse(res, 201, user);
