@@ -8,6 +8,7 @@
     "debug_win": "set DEBUG=myapp:* & nodemon --inspect ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",

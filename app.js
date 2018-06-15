@@ -4,17 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const passport = require('passport');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const catalogRouter = require('./routes/catalog');
 const apiRouter = require('./api/routes/routes');
 
-const config = require('./api/config');
-const db = require('./api/db');
+//require('./api/config');
+//require('./api/db');
 
 const app = express();
 
@@ -35,17 +32,7 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-  store: new MongoStore({
-    mongooseConnection: db.mongooseConnection,
-    ttl: 3 * 24 * 60 * 60 // 3 days
-  }),
-  secret: config.secret,
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+require('./api/auth').init(app)
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
@@ -67,8 +54,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-require('./api/config');
-require('./api/auth');
 
 module.exports = app;
