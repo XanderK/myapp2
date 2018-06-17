@@ -1,4 +1,6 @@
-function authenticationMiddleware () {
+const passport = require('passport');
+/*
+module.exports.authenticationMiddleware  = function() {
     return function (req, res, next) {
       if (req.isAuthenticated()) {
         return next()
@@ -6,5 +8,6 @@ function authenticationMiddleware () {
       res.redirect('/')
     }
   }
-  
-  module.exports = authenticationMiddleware
+ */
+
+  module.exports.authenticationMiddleware = passport.authenticate('local', { failureRedirect: '/login' });

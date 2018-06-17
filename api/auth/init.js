@@ -1,11 +1,7 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 
-const config = require('../config')
-const db = require('../db')
 const authenticationMiddleware = require('./middleware')
 
 // Generate Password
@@ -36,18 +32,6 @@ passport.deserializeUser(function (username, cb) {
 })
 
 function initAuth (app) {
-  app.use(session({
-      store: new MongoStore({
-        mongooseConnection: db.mongooseConnection,
-        ttl: 3 * 24 * 60 * 60 // 3 days
-      }),
-      secret: config.secret,
-      resave: false,
-      saveUninitialized: false
-    }));
-    app.use(passport.initialize());
-    app.use(passport.session());
-
   passport.use(new LocalStrategy(
     (username, password, done) => {
       findUser(username, (err, user) => {

@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const adminController = require('../controllers/adminController');
+const router = express.Router();
 
 //let activeView = '';
 
@@ -9,18 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Управление пользователями
-router.get('/users', function(req, res, next) {
-  // TODO: Запрос списка пользователей
-  let users = [];
-  users.push(new Object);
-
-  activeView = 'users';
-  res.render(activeView, { 
-    title: 'Управление пользователями',
-    activeView: activeView,
-    users: users
-  });
-});
+router.get('/users', adminController.getAllUsers);
 
 // Редактирование пользователя
 router.get('/user', function(req, res, next) {

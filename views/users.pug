@@ -29,13 +29,19 @@ block content
         thead.thead-dark
           tr
             th(scope="col") #
-            th(scope="col") First
-            th(scope="col") Last
-            th(scope="col") Handle
+            th(scope="col") Логин
+            th(scope="col") Email
+            th(scope="col") Роль
+            th(scope="col") Действия
         tbody
           each user, index in users
            tr
              th(scope="row")= index + 1
              td= user.name
-             td !
-             td !
+             td= user.email
+             td= user.role
+             td
+               a(href="#")
+                 i.material-icons.success create
+               a(href="#")
+                 i.material-icons.danger delete

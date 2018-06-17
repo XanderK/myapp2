@@ -4,14 +4,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const passport = require('passport')
+
+//const config = require('./api/config')
+//const db = require('./api/db')
 
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const catalogRouter = require('./routes/catalog');
 const apiRouter = require('./api/routes/routes');
 
-//require('./api/config');
-//require('./api/db');
+require('./api/config');
+require('./api/db');
 
 const app = express();
 
@@ -32,7 +36,21 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./api/auth').init(app)
+//require('./api/auth').init(app)
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport config
+var User = require('./api/models/user');
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
