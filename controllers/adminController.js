@@ -12,12 +12,14 @@ module.exports.getAllUsers = function(req, res) {
     qs : {}
   };
   
-  request(options, function(err, response, body) {
-      var i, data;
-      data = body;
+  request(options, (err, response, body) => {
+      let data = body;
       let users = new Array();
-      if (response.statusCode === 200) {
-        for (i=0; i<data.length; i++) {
+      if(err) {
+        console.log(err);
+      }
+      else if (response.statusCode === 200) {
+        for (let i=0; i<data.length; i++) {
           users.push(data[i]);
         }
       }

@@ -15,7 +15,7 @@ const catalogRouter = require('./routes/catalog');
 const apiRouter = require('./api/routes/routes');
 
 require('./api/config');
-require('./api/db');
+//require('./api/db');
 
 const app = express();
 

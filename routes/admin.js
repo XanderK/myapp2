@@ -4,9 +4,17 @@ const router = express.Router();
 
 //let activeView = '';
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
+});
+
+// Вход в систему
+router.get('/login', function(req, res, next) {
+  let activeView = 'login';
+  res.render(activeView, { 
+    title: 'Вход в систему',
+    activeView: activeView
+  });
 });
 
 // Управление пользователями
@@ -14,7 +22,7 @@ router.get('/users', adminController.getAllUsers);
 
 // Редактирование пользователя
 router.get('/user', function(req, res, next) {
-  activeView = 'user';
+  let activeView = 'user';
   res.render(activeView, { 
     title: 'Редактирование пользователя',
     activeView: activeView,
