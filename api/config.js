@@ -5,15 +5,18 @@ const development = {
     host: 'localhost',
     name: 'carparts-test',
   },
-  secret: '(+*|~=qNI9_LJa*IVa;8Fc&r"2PYc$s0LUXD|L73H^6mdlfL2f][y$eg%HTS$iA'
+  //strategy: 'local'
+  //secret: '(+*|~=qNI9_LJa*IVa;8Fc&r"2PYc$s0LUXD|L73H^6mdlfL2f][y$eg%HTS$iA'
+
 };
 
 const productive = {
- db: {
-   host: 'localhost',
-   name: 'carparts'
- },
- secret: '(+*|~=qNI9_LJa*IVa;8Fc&r"2PYc$s0LUXD|L73H^6mdlfL2f][y$eg%HTS$iA'
+  db: {
+    host: 'localhost',
+    name: 'carparts'
+  },
+  //strategy: 'local'
+  //secret: '(+*|~=qNI9_LJa*IVa;8Fc&r"2PYc$s0LUXD|L73H^6mdlfL2f][y$eg%HTS$iA'
 };
 
 const config = {

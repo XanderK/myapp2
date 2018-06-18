@@ -15,7 +15,7 @@ const catalogRouter = require('./routes/catalog');
 const apiRouter = require('./api/routes/routes');
 
 require('./api/config');
-//require('./api/db');
+require('./api/db');
 
 const app = express();
 
@@ -26,6 +26,8 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
