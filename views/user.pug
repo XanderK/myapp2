@@ -61,12 +61,13 @@ block content
             .invalid-feedback Please enter your shipping address.
           h4.mb-3 Роль
           .form-group.d-block.my-3
-            .custom-control.custom-radio
+            //-
+             .custom-control.custom-radio
               input#read.custom-control-input(name="role", type="radio", checked, required)
-              label.custom-control-label(for="read") Чтение
+              label.custom-control-label(for="guest") Чтение
             .custom-control.custom-radio
               input#write.custom-control-input(name="role", type="radio", required)
-              label.custom-control-label(for="write") Чтение и запись
+              label.custom-control-label(for="manager") Менеджер
             .custom-control.custom-radio
               input#admin.custom-control-input(name="role", type="radio", required)
               label.custom-control-label(for="admin") Администратор
