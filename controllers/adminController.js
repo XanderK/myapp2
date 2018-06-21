@@ -1,7 +1,53 @@
+const User = require('../api/models/user');
+
 const request = require('request');
 var apiOptions = {
     server : "http://localhost:3000"
   };
+
+var renderLogin = function(req, res) {
+  const activeView = 'login';
+  res.render(activeView, { 
+    title: 'Вход в систему',
+    activeView: activeView
+  });
+}
+
+var renderUsers = function(req, res)
+{
+  const activeView = 'users';
+  res.render(activeView, { 
+    title: 'Управление пользователями',
+    activeView: activeView,
+    users: users
+  });
+}
+
+var renderUser = function(req, res, user)
+{
+  const activeView = 'user';
+  res.render(activeView, { 
+    title: 'Редактирование пользователя',
+    activeView: activeView,
+    user: user
+  });
+}
+
+module.exports.login = (req, res) => {
+   renderLogin(req, res);
+}
+
+module.exports.user = (req, res) => {
+  let user = null;
+  if(req.params.id)
+  {
+    // найти пользователя в БД
+  }
+  else {
+    user = new User();
+  }
+  renderUser(req, res, user);
+}
 
 module.exports.logout = (req, res, next) => {
   const path = '/api/logout';
@@ -18,12 +64,12 @@ module.exports.logout = (req, res, next) => {
       console.log(err);
     }
     else if (response.statusCode === 200) {
-      next(response);
+      response.redirect('/');
     }
   });
 }
 
-module.exports.getAllUsers = (req, res) => {
+module.exports.users = (req, res) => {
   const path = '/api/users';
   let options = {
     url : apiOptions.server + path,
@@ -46,13 +92,7 @@ module.exports.getAllUsers = (req, res) => {
       else {
         console.log(body);
       }
-
-      activeView = 'users';
-      res.render(activeView, { 
-        title: 'Управление пользователями',
-        activeView: activeView,
-        users: users
-      });
+      renderUsers(req, res);
     }
   );
 }

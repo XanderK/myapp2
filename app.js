@@ -9,10 +9,8 @@ const passport = require('passport')
 //const config = require('./api/config')
 //const db = require('./api/db')
 
-const indexRouter = require('./routes/index');
-const adminRouter = require('./routes/admin');
-const catalogRouter = require('./routes/catalog');
-const apiRouter = require('./api/routes/routes');
+const appRouter = require('./routes');
+const apiRouter = require('./api/routes');
 
 require('./api/config');
 require('./api/db');
@@ -54,9 +52,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
-app.use('/catalog', catalogRouter);
+app.use('/', appRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
