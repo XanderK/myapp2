@@ -9,27 +9,18 @@ router.post('/', (req, res, next) => {
 });
 
 // Список всех пользователей
-router.post('/users', passport.authenticate('local'), (req, res, next) => {
-  userController.getAllUsers(req, res);
-});
+router.post('/users', passport.authenticate('local'), userController.getAllUsers);
 
-router.post('/register', passport.authenticate('local'), (req, res) => {
-  if(req.user.role === 'admin') {
-    userController.registerUser(req, res);
-  }
-});
+// Регистрация нового пользователя
+router.post('/register', passport.authenticate('local'), userController.registerUser);
 
-router.post('/login', passport.authenticate('local'), (req, res) => { 
-    helpers.sendJSONresponse(res, 200, req.user);
-  }
-);
+// Вход на сайт
+router.post('/login', passport.authenticate('local'), userController.login);
 
-router.post('/logout', passport.authenticate('local'), (req, res) => {
-  userController.logout(req, res, () => {
-    helpers.sendJSONresponse(res, 200, 'Logout comlete.');
-  });
-});
+// Выход
+router.post('/logout', passport.authenticate('local'), userController.logout);
 
+// Проверка доступности сервиса
 router.get('/ping', (req, res) => {
   res.status(200).send("pong!");
 });
