@@ -17,6 +17,13 @@ router.get('/login', (req, res, next) => {
   });
 });
 
+// Выход
+router.get('/logout', (req, res, next) => {
+  adminController.logout(req, res, (response) => {
+    response.redirect('/');
+  });
+})
+
 // Управление пользователями
 router.get('/users', adminController.getAllUsers);
 

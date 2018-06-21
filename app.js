@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //require('./api/auth').init(app)
 
 app.use(require('express-session')({
-  secret: 'keyboard cat',
+  secret: 'work hard',
   resave: false,
   saveUninitialized: false
 }));
