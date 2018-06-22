@@ -17,6 +17,7 @@ require('./api/config');
 require('./api/db');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,11 +1,11 @@
 const User = require('../api/models/user');
 
 const request = require('request');
-var apiOptions = {
+const apiOptions = {
     server : "http://localhost:3000"
   };
 
-var renderLogin = function(req, res) {
+const renderLogin = function(req, res) {
   const activeView = 'login';
   res.render(activeView, { 
     title: 'Вход в систему',
@@ -13,7 +13,7 @@ var renderLogin = function(req, res) {
   });
 }
 
-var renderUsers = function(req, res)
+const renderUsers = function(req, res, users)
 {
   const activeView = 'users';
   res.render(activeView, { 
@@ -23,7 +23,7 @@ var renderUsers = function(req, res)
   });
 }
 
-var renderUser = function(req, res, user)
+const renderUser = function(req, res, user)
 {
   const activeView = 'user';
   res.render(activeView, { 
@@ -75,7 +75,8 @@ module.exports.users = (req, res) => {
     url : apiOptions.server + path,
     method : "POST",
     json : req.body,
-    qs : {}
+    qs : {},
+    session: req.session
   };
   
   request(options, (err, response, body) => {
@@ -92,7 +93,7 @@ module.exports.users = (req, res) => {
       else {
         console.log(body);
       }
-      renderUsers(req, res);
+      renderUsers(req, res, users);
     }
   );
 }
