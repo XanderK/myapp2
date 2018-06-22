@@ -5,7 +5,7 @@ const apiOptions = {
     server : "http://localhost:3000"
   };
 
-const renderLogin = function(req, res) {
+const renderLogin = (req, res) => {
   const activeView = 'login';
   res.render(activeView, { 
     title: 'Вход в систему',
@@ -13,8 +13,7 @@ const renderLogin = function(req, res) {
   });
 }
 
-const renderUsers = function(req, res, users)
-{
+const renderUsers = (req, res, users) => {
   const activeView = 'users';
   res.render(activeView, { 
     title: 'Управление пользователями',
@@ -23,8 +22,7 @@ const renderUsers = function(req, res, users)
   });
 }
 
-const renderUser = function(req, res, user)
-{
+const renderUser = (req, res, user) => {
   const activeView = 'user';
   res.render(activeView, { 
     title: 'Редактирование пользователя',

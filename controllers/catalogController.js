@@ -1,4 +1,4 @@
-var renderCatalog = function (req, res) {
+var renderCatalog = (req, res) => {
   const viewName = 'catalog';
   res.render(viewName, {
     title: 'Каталог',
@@ -6,6 +6,6 @@ var renderCatalog = function (req, res) {
   });
 }
 
-module.exports.catalog = function (req, res) {
+module.exports.catalog = (req, res) => {
   renderCatalog(req, res);
 }

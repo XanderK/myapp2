@@ -1,7 +1,7 @@
 const User = require('./models/user');
 const config = require('./config');
 
-module.exports.sendJSONresponse = function (res, status, content) {
+module.exports.sendJSONresponse = (res, status, content) => {
   res.status(status);
   res.json(content);
 };

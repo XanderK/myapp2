@@ -1,4 +1,4 @@
-var renderHomePage = function (req, res) {
+var renderHomePage = (req, res) => {
   const viewName = 'index';
   res.render(viewName, {
     title: 'Главная',
@@ -6,6 +6,6 @@ var renderHomePage = function (req, res) {
   });
 }
 
-module.exports.homePage = function (req, res) {
+module.exports.homePage = (req, res) => {
   renderHomePage(req, res);
 }
