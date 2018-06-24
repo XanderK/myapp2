@@ -1,13 +1,14 @@
 const User = require('../api/models/user');
+const config = require('../api/config');
 
 const request = require('request');
 const apiOptions = {
-    server : "http://localhost:3000"
-  };
+  server: config.server
+};
 
 const renderLogin = (req, res) => {
   const activeView = 'login';
-  res.render(activeView, { 
+  res.render(activeView, {
     title: 'Вход в систему',
     activeView: activeView
   });
@@ -15,7 +16,7 @@ const renderLogin = (req, res) => {
 
 const renderUsers = (req, res, users) => {
   const activeView = 'users';
-  res.render(activeView, { 
+  res.render(activeView, {
     title: 'Управление пользователями',
     activeView: activeView,
     users: users
@@ -24,7 +25,7 @@ const renderUsers = (req, res, users) => {
 
 const renderUser = (req, res, user) => {
   const activeView = 'user';
-  res.render(activeView, { 
+  res.render(activeView, {
     title: 'Редактирование пользователя',
     activeView: activeView,
     user: user
@@ -32,13 +33,38 @@ const renderUser = (req, res, user) => {
 }
 
 module.exports.login = (req, res) => {
-   renderLogin(req, res);
+  if (req.method === 'GET') {
+    renderLogin(req, res);
+  }
+  else {
+    const path = '/api/login';
+    let options = {
+      url: apiOptions.server + path,
+      method: "POST",
+      form: {
+        name: req.body.name,
+        password: req.body.password
+      },
+      json: true
+    };
+    request(options, (err, response, body) => {
+      if (err) {
+        req.app.token = '';
+        console.log(err);
+      }
+      else if (response.statusCode === 200) {
+        if(body.auth) req.app.token = body.token;
+        else req.app.token = '';
+      }
+      res.redirect('/');
+    });
+
+  }
 }
 
 module.exports.user = (req, res) => {
   let user = null;
-  if(req.params.id)
-  {
+  if (req.params.id) {
     // найти пользователя в БД
   }
   else {
@@ -50,18 +76,14 @@ module.exports.user = (req, res) => {
 module.exports.logout = (req, res, next) => {
   const path = '/api/logout';
   let options = {
-    url : apiOptions.server + path,
-    method : "POST",
-    json : {},
-    qs : {}
+    url: apiOptions.server + path,
+    method: "POST"
   };
-  
+
   request(options, (err, response, body) => {
-    let data = body;
-    if(err) {
-      console.log(err);
-    }
+    if (err) console.log(err);
     else if (response.statusCode === 200) {
+      req.app.token = '';
       response.redirect('/');
     }
   });
@@ -70,28 +92,27 @@ module.exports.logout = (req, res, next) => {
 module.exports.users = (req, res) => {
   const path = '/api/users';
   let options = {
-    url : apiOptions.server + path,
-    method : "POST",
-    json : req.body,
-    qs : {},
-    session: req.session
+    url: apiOptions.server + path,
+    method: "POST",
+    headers: {
+      'x-access-token': req.app.token
+    },
+    json: true
   };
-  
+
   request(options, (err, response, body) => {
-      let data = body;
-      let users = new Array();
-      if(err) {
-        console.log(err);
-      }
-      else if (response.statusCode === 200) {
-        for (let i=0; i<data.length; i++) {
-          users.push(data[i]);
-        }
-      }
-      else {
-        console.log(body);
-      }
-      renderUsers(req, res, users);
+    let users = [];
+    if (err) {
+      console.log(err);
     }
-  );
+    else if (response.statusCode === 200) {
+      for (let i = 0; i < body.length; i++) {
+        users.push(body[i]);
+      }
+    }
+    else {
+      console.log(body);
+    }
+    renderUsers(req, res, users);
+  });
 }
