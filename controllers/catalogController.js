@@ -2,7 +2,8 @@ var renderCatalog = (req, res) => {
   const viewName = 'catalog';
   res.render(viewName, {
     title: 'Каталог',
-    activeView: viewName
+    activeView: viewName,
+    user: req.user
   });
 }
 

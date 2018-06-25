@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const passport = require('passport')
+const session = require('express-session');
+const passport = require('passport');
 
 //const config = require('./api/config')
 //const db = require('./api/db')
@@ -40,10 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //require('./api/auth').init(app)
 
-app.use(require('express-session')({
-  secret: 'work hard',
+app.use(session({
+  secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24h
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,12 +60,12 @@ app.use('/', appRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404, 'Страница не найдена'));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

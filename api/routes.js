@@ -2,8 +2,8 @@ const express = require('express');
 const userController = require('./controllers/userController');
 const helpers = require('./helpers')
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const config = require('./config');
+const jwt = require('jsonwebtoken');
 
 // Проверка прав пользователя
 const authenticate = (roles) => {
@@ -12,7 +12,7 @@ const authenticate = (roles) => {
     if (!token) return helpers.sendJSONresponse(res, 401, { auth: false, message: 'No token provided.' });
     jwt.verify(token, config.secret, (err, decoded) => {
       if (err) return helpers.sendJSONresponse(res, 401, { auth: false, message: 'Failed to authenticate token.' });
-      next();
+      if(roles.includes(decoded.role)) next();
     });
   }
 }
@@ -25,20 +25,14 @@ router.post('/', (req, res, next) => {
 router.post('/users', authenticate(['admin']), userController.getAllUsers);
 
 // Регистрация нового пользователя
-router.post('/register', userController.registerUser);
-
-// Вход на сайт
-router.post('/login', userController.login);
-
-// Выход
-router.post('/logout', userController.logout);
+router.post('/register', authenticate(['admin']), userController.registerUser);
 
 // Проверка доступности сервиса
 router.get('/ping', (req, res) => {
   res.status(200).send("pong!");
 });
 
-// Проверка залогинен ли кто-нибудь
-router.get('/checklogged', (req, res) => helpers.sendJSONresponse(res, 200, req.user));
+// Удаление пользователя
+router.delete('/delete/:id', authenticate(['admin']), userController.deleteUser);
 
 module.exports = router;

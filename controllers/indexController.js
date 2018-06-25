@@ -1,8 +1,10 @@
+
 var renderHomePage = (req, res) => {
   const viewName = 'index';
   res.render(viewName, {
     title: 'Главная',
-    activeView: viewName
+    activeView: viewName,
+    user: req.user
   });
 }
 
