@@ -5,6 +5,30 @@
 @import "bootstrap/bootstrap";
 @import "bootswatch/sandstone/bootswatch";
 
+@include media-breakpoint-up(xs) {
+  h1,h2,h3,h4 {
+    font-size: 0.4rem;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  h1,h2,h3,h4 {
+    font-size: 0.6rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  h1,h2,h3,h4 {
+    font-size: 0.8rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  h1,h2,h3,h4 {
+    font-size: 1rem;
+  }
+}
+
 .business-header {
   //height: 30vh;
   min-height: 300px;
@@ -26,6 +50,10 @@
   min-height: 70vh;
 }
 */
+
+.flex-fill {
+  flex:1 1 auto;
+}
 
 @font-face {
   font-family: 'Material Icons';
