@@ -6,27 +6,31 @@
 @import "bootswatch/sandstone/bootswatch";
 
 @include media-breakpoint-up(xs) {
-  h1,h2,h3,h4 {
-    font-size: 0.4rem;
-  }
+  .display-1 { font-size: $display1-size * 0.5; }
+  .display-2 { font-size: $display2-size * 0.5; }
+  .display-3 { font-size: $display3-size * 0.5; }
+  .display-4 { font-size: $display4-size * 0.5; }
 }
 
 @include media-breakpoint-up(sm) {
-  h1,h2,h3,h4 {
-    font-size: 0.6rem;
-  }
+  .display-1 { font-size: $display1-size * 0.65; }
+  .display-2 { font-size: $display2-size * 0.65; }
+  .display-3 { font-size: $display3-size * 0.65; }
+  .display-4 { font-size: $display4-size * 0.65; }
 }
 
 @include media-breakpoint-up(md) {
-  h1,h2,h3,h4 {
-    font-size: 0.8rem;
-  }
+  .display-1 { font-size: $display1-size * 0.8; }
+  .display-2 { font-size: $display2-size * 0.8; }
+  .display-3 { font-size: $display3-size * 0.8; }
+  .display-4 { font-size: $display4-size * 0.8; }
 }
 
 @include media-breakpoint-up(lg) {
-  h1,h2,h3,h4 {
-    font-size: 1rem;
-  }
+  .display-1 { font-size: $display1-size * 0.95; }
+  .display-2 { font-size: $display2-size * 0.95; }
+  .display-3 { font-size: $display3-size * 0.95; }
+  .display-4 { font-size: $display4-size * 0.95; }
 }
 
 .business-header {
