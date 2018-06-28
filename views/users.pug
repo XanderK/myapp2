@@ -18,7 +18,11 @@ block content
       .col-md-8.order-md-1
         h2 Список пользователей
       .col-md-4.order-md-2
-        a.btn.btn-primary(href="/admin/user") Новый пользователь
+        form(action="/admin/users/new" novalidate)
+          button.btn.btn-primary Новый пользователь
+        
+        //-
+         a.btn.btn-primary(href="/admin/users") Новый пользователь
       //-
         form(action="/admin/user")
           button.btn.btn-primary Новый пользователь

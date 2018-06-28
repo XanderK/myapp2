@@ -18,12 +18,17 @@ router.post('/admin/login', adminController.authenticate);
 
 // Выход 
 router.get('/admin/logout', adminController.logout);
+
 // Управление пользователями
 router.get('/admin/users', adminController.users);
-// Регистрация пользователя
-router.get('/admin/user', adminController.user);
+// Форма регистрация нового пользователя
+router.get('/admin/users/new', adminController.newUser);
+// Создание нового пользователя
+router.post('/admin/users', adminController.createUser);
 // Редактирование пользователя
-router.post('/admin/user/:id', adminController.user);
+router.put('/admin/users/:id', adminController.editUser);
+// Удаление пользователя
+router.delete('/admin/user/:id', adminController.deleteUser);
 
 // Проверка залогинен ли кто-нибудь
 router.get('/admin/checklogged', (req, res) =>

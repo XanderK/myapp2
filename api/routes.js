@@ -22,17 +22,22 @@ router.post('/', (req, res, next) => {
 });
 
 // Список всех пользователей
-router.post('/users', authenticate(['admin']), userController.getAllUsers);
+router.get('/users', authenticate(['admin']), userController.allUsers);
 
-// Регистрация нового пользователя
-router.post('/register', authenticate(['admin']), userController.registerUser);
+// Создание нового пользователя
+router.post('/users', authenticate(['admin']), userController.createUser);
+
+// Обновление пользователя
+router.put('/users/:id', authenticate(['admin']), userController.updateUser);
+
+// Удаление пользователя
+router.delete('/users/:id', authenticate(['admin']), userController.deleteUser);
+
 
 // Проверка доступности сервиса
 router.get('/ping', (req, res) => {
   res.status(200).send("pong!");
 });
 
-// Удаление пользователя
-router.delete('/delete/:id', authenticate(['admin']), userController.deleteUser);
 
 module.exports = router;

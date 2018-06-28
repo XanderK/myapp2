@@ -7,7 +7,7 @@ module.exports.logout = (req, res, next) => {
   });
 }
 
-module.exports.getAllUsers = (req, res) => {
+module.exports.allUsers = (req, res) => {
   User.find().then(users => {
     helpers.sendJSONresponse(res, 200, users);
   }).catch(err => {
@@ -16,7 +16,7 @@ module.exports.getAllUsers = (req, res) => {
   });
 }
 
-module.exports.registerUser = (req, res) => {
+module.exports.createUser = (req, res) => {
   User.register(new User({
     name: req.body.name,
     email: req.body.email,
@@ -28,6 +28,9 @@ module.exports.registerUser = (req, res) => {
       if (err) return helpers.sendJSONresponse(res, 400, err);
       helpers.sendJSONresponse(res, 200, { auth: true, message: 'User "' + user.name + '" successfuly created.' });
     });
+}
+
+module.exports.updateUser = (req, res) => {
 }
 
 module.exports.deleteUser = (req, res) => {

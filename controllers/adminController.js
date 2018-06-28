@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const request = require('request');
 const config = require('../api/config');
 const User = require('../api/models/user');
+const helpers = require('../api/helpers');
 
 const apiOptions = {
   server: config.server
@@ -61,17 +62,6 @@ module.exports.login = (req, res) => {
   }
 }
 
-module.exports.user = (req, res) => {
-  let user = null;
-  if (req.session.id) {
-    // найти пользователя в БД
-  }
-  else {
-    user = new User();
-  }
-  renderUser(req, res, user);
-}
-
 module.exports.logout = (req, res, next) => {
   req.session.token = '';
   req.logout();
@@ -82,7 +72,7 @@ module.exports.users = (req, res) => {
   const path = '/api/users';
   let options = {
     url: apiOptions.server + path,
-    method: "POST",
+    method: "GET",
     headers: {
       'x-access-token': req.session.token
     },
@@ -104,4 +94,39 @@ module.exports.users = (req, res) => {
     }
     renderUsers(req, res, users);
   });
+}
+
+// страница регистрации нового пользователя
+module.exports.newUser = (req, res) => {
+  //let user = new User();
+  renderUser(req, res, null);
+}
+
+// страница редактирования пользователя
+module.exports.editUser = (req, res) => {
+  let userId = req.params.id
+  if (userId) {
+    let user = null;
+
+    renderUser(req, res, user);
+  }
+  else {
+    helpers.sendJSONresponse(res, 400, 'Bad request');
+  }
+}
+
+// страница удаления пользователя
+module.exports.deleteUser = (req, res) => {
+}
+
+// создание пользователя через API
+const createUser = (req, res) => {
+}
+
+// обновление пользователя через API
+const updateUser = (req, res) => {
+}
+
+// удаление пользователя через API
+const destroyUser = (req, res) => {
 }
