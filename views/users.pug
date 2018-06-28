@@ -20,12 +20,6 @@ block content
       .col-md-4.order-md-2
         form(action="/admin/users/new" novalidate)
           button.btn.btn-primary Новый пользователь
-        
-        //-
-         a.btn.btn-primary(href="/admin/users") Новый пользователь
-      //-
-        form(action="/admin/user")
-          button.btn.btn-primary Новый пользователь
   
   if users.length > 0
     .container.mt-2
@@ -47,5 +41,32 @@ block content
              td
                a.mx-2(href="#")
                  i.material-icons.success create
-               a.mx-2(href="#")
+               a.mx-2(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
                  i.material-icons.danger delete
+
+block scripts
+  #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          h5#deleteUserModalLabel.modal-title Удаление пользователя
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+        .modal-body 
+        .modal-footer
+          button.btn.btn-secondary(type="button" data-dismiss="modal") Отмена
+          form(method='POST', action="/admin/users/delete", novalidate)
+            input.userId(type="hidden", value="", name="id")
+            button.btn.btn-primary Удалить
+          
+  script.
+    $('#deleteUserModal').on('show.bs.modal', function (event) {
+      var element = $(event.relatedTarget) // Button that triggered the modal
+      var username = element.data('username') // Extract info from data-* attributes
+      var userid = element.data('userid') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-body').text('Пользователь "' + username + '" будет удален. Продолжить?')
+      modal.find('.userId').val(userid)
+    })

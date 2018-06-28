@@ -12,23 +12,26 @@ router.get('/', indexController.homePage);
 // Показать каталог
 router.get('/catalog', catalogController.catalog);
 
-// Вход на сайт
+// Страница входа на сайт
 router.get('/admin/login', adminController.login);
+// Вход на сайт
 router.post('/admin/login', adminController.authenticate);
-
 // Выход 
 router.get('/admin/logout', adminController.logout);
 
-// Управление пользователями
+// Страница управление пользователями
 router.get('/admin/users', adminController.users);
-// Форма регистрация нового пользователя
+// Страница регистрация нового пользователя
 router.get('/admin/users/new', adminController.newUser);
+// Страница редактирования пользователя
+router.post('/admin/users', adminController.editUser);
+
 // Создание нового пользователя
 router.post('/admin/users', adminController.createUser);
-// Редактирование пользователя
-router.put('/admin/users/:id', adminController.editUser);
+// Обновление пользователя
+router.post('/admin/users/update', adminController.updateUser);
 // Удаление пользователя
-router.delete('/admin/user/:id', adminController.deleteUser);
+router.post('/admin/users/delete', adminController.deleteUser);
 
 // Проверка залогинен ли кто-нибудь
 router.get('/admin/checklogged', (req, res) =>

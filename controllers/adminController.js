@@ -115,18 +115,15 @@ module.exports.editUser = (req, res) => {
   }
 }
 
-// страница удаления пользователя
+// Создание пользователя через API
+module.exports.createUser = (req, res) => {
+}
+
+// Обновление пользователя через API
+module.exports.updateUser = (req, res) => {
+}
+
+// Удаление пользователя через API
 module.exports.deleteUser = (req, res) => {
-}
-
-// создание пользователя через API
-const createUser = (req, res) => {
-}
-
-// обновление пользователя через API
-const updateUser = (req, res) => {
-}
-
-// удаление пользователя через API
-const destroyUser = (req, res) => {
+  helpers.sendJSONresponse(res, 200, req.body);
 }
