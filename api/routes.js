@@ -31,7 +31,7 @@ router.post('/users', authenticate(['admin']), userController.createUser);
 router.put('/users/:id', authenticate(['admin']), userController.updateUser);
 
 // Удаление пользователя
-router.delete('/users/:id', authenticate(['admin']), userController.deleteUser);
+router.delete('/users', authenticate(['admin']), userController.deleteUser);
 
 
 // Проверка доступности сервиса

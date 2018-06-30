@@ -117,6 +117,25 @@ module.exports.editUser = (req, res) => {
 
 // Создание пользователя через API
 module.exports.createUser = (req, res) => {
+  const path = '/api/users';
+  let options = {
+    url: apiOptions.server + path,
+    method: "POST",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true,
+    form: {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      role: req.body.role
+    }
+  };
+
+  request(options, (err, response, body) => {
+    res.redirect('/admin/users');
+  })
 }
 
 // Обновление пользователя через API
@@ -125,5 +144,22 @@ module.exports.updateUser = (req, res) => {
 
 // Удаление пользователя через API
 module.exports.deleteUser = (req, res) => {
-  helpers.sendJSONresponse(res, 200, req.body);
+  //helpers.sendJSONresponse(res, 200, req.body);
+  const path = '/api/users';
+  let options = {
+    url: apiOptions.server + path,
+    method: "DELETE",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true,
+    form: {
+      id: req.body.id
+    }
+  };
+
+  request(options, (err, response, body) => {
+    res.redirect('/admin/users');
+  })
+
 }

@@ -45,19 +45,20 @@ block content
 
       .col-md-8.order-md-1
         h4.mb-3 Редактирование пользователя
-        form.needs-validation(method="POST", action="/api/users", enctype="application/x-www-form-urlencoded", novalidate)
+        form.needs-validation(method="POST", action="/admin/users", enctype="application/x-www-form-urlencoded", novalidate)
+          input(type="hidden", value=(user ? user._id : ''), name="id")
           .form-group.mb-3
             label(for="username") Логин
-            input#username.form-control(type="text" aria-describedby="usernameHelp" placeholder="Введите логин")
+            input#username.form-control(type="text" aria-describedby="usernameHelp" placeholder="Введите логин" name="name")
             small#usernameHelp.form-text.text-muted Имя пользователя по которому осуществляется вход на сайт.
           .form-group.mb-3
             label(for="email") Email 
               span.text-muted (не обязательно)
-            input#email.form-control(type="email", placeholder="you@example.com")
+            input#email.form-control(type="email", placeholder="you@example.com", name="email")
             .invalid-feedback Введите коректный адрес.
           .form-group.mb-3
             label(for="password") Пароль
-            input#password.form-control(type="password", placeholder="" required)
+            input#password.form-control(type="password", placeholder="" required, name="password")
             .invalid-feedback Please enter your shipping address.
           h4.mb-3 Роль
           .form-group.d-block.my-3
@@ -66,10 +67,10 @@ block content
               input#read.custom-control-input(name="role", type="radio", checked, required)
               label.custom-control-label(for="guest") Чтение
             .custom-control.custom-radio
-              input#manager.custom-control-input(name="role", type="radio", required)
+              input#manager.custom-control-input(name="role", type="radio", required, checked, value="manager")
               label.custom-control-label(for="manager") Менеджер
             .custom-control.custom-radio
-              input#admin.custom-control-input(name="role", type="radio", required)
+              input#admin.custom-control-input(name="role", type="radio", required, value="admin")
               label.custom-control-label(for="admin") Администратор
           
           hr.mb-4

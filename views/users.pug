@@ -44,7 +44,8 @@ block content
                a.mx-2(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
                  i.material-icons.danger delete
 
-block scripts
+block scripts              
+  //- модальное окно подтверждения удаления
   #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true")
     .modal-dialog(role="document")
       .modal-content
@@ -56,9 +57,8 @@ block scripts
         .modal-footer
           button.btn.btn-secondary(type="button" data-dismiss="modal") Отмена
           form(method='POST', action="/admin/users/delete", novalidate)
-            input.userId(type="hidden", value="", name="id")
+            input.userId(type="hidden", name="id")
             button.btn.btn-primary Удалить
-          
   script.
     $('#deleteUserModal').on('show.bs.modal', function (event) {
       var element = $(event.relatedTarget) // Button that triggered the modal

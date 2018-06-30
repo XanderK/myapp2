@@ -24,7 +24,7 @@ router.get('/admin/users', adminController.users);
 // Страница регистрация нового пользователя
 router.get('/admin/users/new', adminController.newUser);
 // Страница редактирования пользователя
-router.post('/admin/users', adminController.editUser);
+router.post('/admin/users/edit', adminController.editUser);
 
 // Создание нового пользователя
 router.post('/admin/users', adminController.createUser);

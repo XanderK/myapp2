@@ -34,4 +34,8 @@ module.exports.updateUser = (req, res) => {
 }
 
 module.exports.deleteUser = (req, res) => {
+  User.remove({ _id: req.body.id }, (err) => {
+    if(err) helpers.sendJSONresponse(res, 400, err);
+    helpers.sendJSONresponse(res, 200, { auth: true, message: 'User with ID "' + req.body.id + '" successfuly deleted.' });
+  });
 }
