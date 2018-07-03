@@ -4,7 +4,14 @@ const indexController = require('./controllers/indexController');
 const catalogController = require('./controllers/catalogController');
 const adminController = require('./controllers/adminController');
 const helpers = require('./api/helpers');
-const passport = require('passport')
+
+// Проверка прав пользователя
+const allowAccess = (roles) => {
+  return (req, res, next) => {
+    if(req.user && roles.includes(req.user.role)) next();
+    else res.redirect('/admin/login');
+  }
+}
 
 /* GET home page. */
 router.get('/', indexController.homePage);
@@ -20,18 +27,19 @@ router.post('/admin/login', adminController.authenticate);
 router.get('/admin/logout', adminController.logout);
 
 // Страница управление пользователями
-router.get('/admin/users', adminController.users);
+router.get('/admin/users', allowAccess(['admin']), adminController.users);
 // Страница регистрация нового пользователя
-router.get('/admin/users/new', adminController.newUser);
+router.get('/admin/users/new', allowAccess(['admin']), adminController.newUser);
 // Страница редактирования пользователя
-router.post('/admin/users/edit', adminController.editUser);
+//router.get('/admin/users/edit/:id', allowAccess(['admin']), adminController.editUser);
+router.post('/admin/users/edit', allowAccess(['admin']), adminController.editUser);
 
 // Создание нового пользователя
-router.post('/admin/users', adminController.createUser);
+router.post('/admin/users', allowAccess(['admin']), adminController.createUser);
 // Обновление пользователя
-router.post('/admin/users/update', adminController.updateUser);
+router.post('/admin/users/update', allowAccess(['admin']), adminController.updateUser);
 // Удаление пользователя
-router.post('/admin/users/delete', adminController.deleteUser);
+router.post('/admin/users/delete', allowAccess(['admin']), adminController.deleteUser);
 
 // Проверка залогинен ли кто-нибудь
 router.get('/admin/checklogged', (req, res) =>

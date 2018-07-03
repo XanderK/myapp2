@@ -16,6 +16,14 @@ module.exports.allUsers = (req, res) => {
   });
 }
 
+module.exports.userById = (req, res) => {
+  User.findById(req.params.id).then(user => {
+    helpers.sendJSONresponse(res, 200, user);
+  }).catch(err => {
+    helpers.sendJSONresponse(res, 400, err);
+  });
+}
+
 module.exports.createUser = (req, res) => {
   User.register(new User({
     name: req.body.name,
@@ -31,6 +39,29 @@ module.exports.createUser = (req, res) => {
 }
 
 module.exports.updateUser = (req, res) => {
+  User.findById(req.body.id).then(user => {
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.role = req.body.role;
+    if(req.body.password) {
+      user.setPassword(req.body.password, (err, user, passwordErr) => {
+        if(err) return helpers.sendJSONresponse(res, 400, err);
+        if(passwordErr) return helpers.sendJSONresponse(res, 400, passwordErr);
+        user.save((err, user) => {
+          if(err) return helpers.sendJSONresponse(res, 400, err);
+          helpers.sendJSONresponse(res, 200, user);
+        });
+      });
+    }
+    else {
+      user.save((err, user) => {
+        if(err) return helpers.sendJSONresponse(res, 400, err);
+        helpers.sendJSONresponse(res, 200, user);
+      });
+    }
+  }).catch(err => {
+    helpers.sendJSONresponse(res, 400, err);
+  });
 }
 
 module.exports.deleteUser = (req, res) => {

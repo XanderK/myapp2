@@ -22,7 +22,6 @@ module.exports.authenticate = (req, res, next) => {
           expiresIn: 86400 // expires in 24 hours
       });
       return res.redirect('/');
-
     });
   })(req, res, next);
 }
@@ -89,26 +88,40 @@ module.exports.users = (req, res) => {
         users.push(body[i]);
       }
     }
-    else {
-      console.log(body);
-    }
     renderUsers(req, res, users);
   });
 }
 
 // страница регистрации нового пользователя
 module.exports.newUser = (req, res) => {
-  //let user = new User();
-  renderUser(req, res, null);
+  if(req.user) renderUser(req, res, null);
 }
 
 // страница редактирования пользователя
 module.exports.editUser = (req, res) => {
-  let userId = req.params.id
+  let userId = req.body.id
   if (userId) {
-    let user = null;
-
-    renderUser(req, res, user);
+    const path = '/api/users/' + userId;
+    let options = {
+      url: apiOptions.server + path,
+      method: "GET",
+      headers: {
+        'x-access-token': req.session.token
+      },
+      json: true
+    };
+  
+    request(options, (err, response, body) => {
+      if(err) { 
+        helpers.sendJSONresponse(res, 400, err);
+      }
+      else if (response.statusCode === 200) {
+        renderUser(req, res, body);
+      }
+      else {
+        helpers.sendJSONresponse(res, response.statusCode, body);
+      }
+    })    
   }
   else {
     helpers.sendJSONresponse(res, 400, 'Bad request');
@@ -134,12 +147,47 @@ module.exports.createUser = (req, res) => {
   };
 
   request(options, (err, response, body) => {
-    res.redirect('/admin/users');
+    if(err) helpers.sendJSONresponse(res, 400, err);
+    else res.redirect('/admin/users');
   })
 }
 
 // Обновление пользователя через API
 module.exports.updateUser = (req, res) => {
+  let userId = req.body.id
+  if (userId) {
+    const path = '/api/users';
+    let options = {
+      url: apiOptions.server + path,
+      method: "PUT",
+      headers: {
+        'x-access-token': req.session.token
+      },
+      json: true,
+      form: {
+        id: userId,
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role,
+        password: req.body.password
+      }
+    };
+
+    request(options, (err, response, body) => {
+      if(err) { 
+        helpers.sendJSONresponse(res, 400, err);
+      }
+      else if (response.statusCode === 200) {
+        res.redirect('/admin/users');
+      }
+      else {
+        helpers.sendJSONresponse(res, response.statusCode, body);
+      }
+    })    
+  }
+  else {
+    helpers.sendJSONresponse(res, 400, 'Bad request');
+  }
 }
 
 // Удаление пользователя через API

@@ -24,7 +24,8 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
           li.nav-item.dropdown
             a#dropdown01.nav-link.dropdown-toggle(href="#", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")= user.name
             .dropdown-menu(aria-labelledby="dropdown01")
-              a.dropdown-item(href="/admin/users") Управление пользователями
+              if user.role === 'admin'
+                a.dropdown-item(href="/admin/users") Управление пользователями
               a.dropdown-item(href="/admin/catalog") Редактирование каталога
               a.dropdown-item(href="/admin/logout") Выход
         else

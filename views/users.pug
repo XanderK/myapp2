@@ -18,7 +18,9 @@ block content
       .col-md-8.order-md-1
         h2 Список пользователей
       .col-md-4.order-md-2
-        form(action="/admin/users/new" novalidate)
+        //-
+         form(action="/admin/users/new" novalidate)
+        a(href="/admin/users/new")
           button.btn.btn-primary Новый пользователь
   
   if users.length > 0
@@ -33,16 +35,21 @@ block content
             th(scope="col") Действия
         tbody
           each user, index in users
-           tr
-             th(scope="row")= index + 1
-             td= user.name
-             td= user.email
-             td= user.role
-             td
-               a.mx-2(href="#")
-                 i.material-icons.success create
-               a.mx-2(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
-                 i.material-icons.danger delete
+            tr
+              th(scope="row")= index + 1
+              td= user.name
+              td= user.email
+              td= user.role
+              td
+                .row
+                  .col
+                    form(method='POST', action="/admin/users/edit", novalidate)
+                      input(type="hidden", name="id", value=user._id)
+                      button.btn.btn-link.p-0
+                        i.material-icons.success create
+                  .col
+                    a(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
+                      i.material-icons.danger delete
 
 block scripts              
   //- модальное окно подтверждения удаления

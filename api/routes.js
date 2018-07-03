@@ -24,11 +24,14 @@ router.post('/', (req, res, next) => {
 // Список всех пользователей
 router.get('/users', authenticate(['admin']), userController.allUsers);
 
+// Пользователь с указанным Id
+router.get('/users/:id', authenticate(['admin']), userController.userById);
+
 // Создание нового пользователя
 router.post('/users', authenticate(['admin']), userController.createUser);
 
 // Обновление пользователя
-router.put('/users/:id', authenticate(['admin']), userController.updateUser);
+router.put('/users', authenticate(['admin']), userController.updateUser);
 
 // Удаление пользователя
 router.delete('/users', authenticate(['admin']), userController.deleteUser);
