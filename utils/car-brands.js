@@ -8,10 +8,12 @@ module.exports.allBrands = (callback) => {
     let brands = [];
     files.forEach( file => {
       // Выделение названия бренда из имени файла с логотипом
-      let brandName = file.slice(0, file.indexOf('-logo.png')).replace('-', ' ');
+      let brandName = file.slice(0, file.indexOf('-logo.png')).replace(/-/g, ' ');
       let filePath = path + '/' + file;
       brands.push({'name' : brandName, 'file' : filePath});
     });
-    callback(null, brands);
+    
+  //callback(null, brands.sort((a, b) => { return a.name - b.name }));
+  callback(null, brands);
   });
 }
