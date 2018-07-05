@@ -2,13 +2,13 @@
 extends layout
 
 block content
-  //-
-    .container.my-2
-      ol.breadcrumb
-        li.breadcrumb-item
-          a(href="/") Главная
-        li.breadcrumb-item Администрирование
-        li.breadcrumb-item.active #{title}
+  .container.my-2
+    ol.breadcrumb
+      li.breadcrumb-item
+        a(href="/") Главная
+      li.breadcrumb-item
+        a(href="/admin/users") Управление пользователями
+      li.breadcrumb-item.active #{title}
 
   .container
     h2 Checkout form

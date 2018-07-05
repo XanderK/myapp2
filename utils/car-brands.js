@@ -13,7 +13,11 @@ module.exports.allBrands = (callback) => {
       brands.push({'name' : brandName, 'file' : filePath});
     });
     
-  //callback(null, brands.sort((a, b) => { return a.name - b.name }));
-  callback(null, brands);
+  callback(null, brands.sort((a, b) => { 
+    if(a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+  }));
+  //callback(null, brands);
   });
 }
