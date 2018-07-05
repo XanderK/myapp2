@@ -3,7 +3,10 @@ extends layout
 block content
   header.container.my-2
     h1 Каталог
-    p= activeView
+    each brand, index in brands
+      p
+        img(src=brand.file, alt=brand.name, height="90" width="120")
+        span= brand.name
 
   include includes/footer.pug
 

@@ -81,7 +81,7 @@ module.exports.users = (req, res) => {
   request(options, (err, response, body) => {
     let users = [];
     if (err) {
-      console.log(err);
+      console.error(err);
     }
     else if (response.statusCode === 200) {
       for (let i = 0; i < body.length; i++) {

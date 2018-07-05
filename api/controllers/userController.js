@@ -11,7 +11,7 @@ module.exports.allUsers = (req, res) => {
   User.find().then(users => {
     helpers.sendJSONresponse(res, 200, users);
   }).catch(err => {
-    console.log(err);
+    console.error(err);
     helpers.sendJSONresponse(res, 400, err);
   });
 }

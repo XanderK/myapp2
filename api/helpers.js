@@ -13,18 +13,18 @@ module.exports.createDefaultUsers = function () {
     name: username
   }).then(user => {
     if (user == null) {
-      console.log(user);
+      //console.log(user);
       User.register(new User({
         name: username,
         created: Date.now(),
         role: 'admin'
       }),
         '123456').catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   }).catch(err => {
-    console.log(err);
+    console.error(err);
   });
 
   // Cоздание пользователя для защиты точек API, если такового нет
@@ -33,17 +33,17 @@ module.exports.createDefaultUsers = function () {
     name: username
   }).then(user => {
     if (user == null) {
-      console.log(user);
+      //console.log(user);
       User.register(new User({
         name: username,
         created: Date.now(),
         role: 'guest'
       }),
         config.guest_password).catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   }).catch(err => {
-    console.log(err);
+    console.error(err);
   });
 }

@@ -9,11 +9,11 @@ if (process.env.NODE_ENV === 'production') {
   dbUri = process.env.MONGOLAB_URI;
 }
 
-mongoose.connect(dbUri, { autoIndex: false }).catch(err => console.log(err));
+mongoose.connect(dbUri, { autoIndex: false }).catch(err => console.error(err));
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', () => console.log('Mongoose connected to ' + dbUri));
-mongoose.connection.on('error', err => console.log('Mongoose connection error: ' + err));
+mongoose.connection.on('error', err => console.error('Mongoose connection error: ' + err));
 mongoose.connection.on('disconnected', () => console.log('Mongoose disconnected'));
 
 // CAPTURE APP TERMINATION / RESTART EVENTS
