@@ -1,0 +1,5 @@
+.git
+.vscode
+node_modules
+development.yml
+package-lock.json

@@ -1,11 +1,11 @@
 {
-  "name": "myapp",
+  "name": "carparts",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "DEBUG=myapp:* nodemon --inspect ./bin/www",
-    "debug-win": "set DEBUG=myapp:* & nodemon --inspect ./bin/www"
+    "debug": "DEBUG=carparts:* nodemon --inspect ./bin/www",
+    "debug-win": "set DEBUG=carparts:* & nodemon --inspect ./bin/www"
   },
   "dependencies": {
     "connect-mongo": "^2.0.1",
