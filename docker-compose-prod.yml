@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  app:
+  web:
     container_name: carparts
     restart: always
     build: .
