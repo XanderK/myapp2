@@ -6,42 +6,46 @@ module.exports.sendJSONresponse = (res, status, content) => {
   res.json(content);
 };
 
-module.exports.createDefaultUsers = function () {
+module.exports.createDefaultUsers = () => {
   // Cоздание пользователя для администрирования, если такового нет
-  let username = 'admin';
+  const adminUserName = 'admin';
   User.findOne({
-    name: username
+    name: adminUserName
   }).then(user => {
     if (user == null) {
-      //console.log(user);
       User.register(new User({
-        name: username,
+        name: adminUserName,
         created: Date.now(),
         role: 'admin'
       }),
-        '123456').catch(err => {
+      config.default_admin_password).catch(err => {
           console.error(err);
         });
+    }
+    else {
+      console.log('User "' + adminUserName + '" exists.')
     }
   }).catch(err => {
     console.error(err);
   });
 
   // Cоздание пользователя для защиты точек API, если такового нет
-  username = 'guest';
+  const guestUserName = 'guest';
   User.findOne({
-    name: username
+    name: guestUserName
   }).then(user => {
     if (user == null) {
-      //console.log(user);
       User.register(new User({
-        name: username,
+        name: guestUserName,
         created: Date.now(),
         role: 'guest'
       }),
-        config.guest_password).catch(err => {
+        config.default_guest_password).catch(err => {
           console.error(err);
         });
+    }
+    else {
+      console.log('User "' + guestUserName + '" exists.')
     }
   }).catch(err => {
     console.error(err);
