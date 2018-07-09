@@ -1,4 +1,5 @@
 .git
 .vscode
 node_modules
-npm-debug
+docker-compose-dev.yml
+package-lock.json

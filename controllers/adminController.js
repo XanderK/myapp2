@@ -11,11 +11,18 @@ const apiOptions = {
 
 module.exports.authenticate = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/admin/login'); }
+    if (err) { 
+      console.error(err);
+      return next(err); 
+    }
+    if (!user) { 
+      console.log(info);
+      return res.redirect('/admin/login'); }
     req.login(user, (err) => {
-      if (err) { return next(err); }
-
+      if (err) { 
+        console.error(err);
+        return next(err);
+      }
       // Формирование JWT
       req.session.token = jwt.sign({ id: user.id, name: user.name, role: user.role },
         config.secret, {
