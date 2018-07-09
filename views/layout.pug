@@ -5,7 +5,9 @@ html
     meta(name="description", content="")
     meta(name="author" content="")
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='preload', href='/stylesheets/style.css', as='style', onload="this.rel='stylesheet'")
+    //-
+     link(rel='stylesheet', href='/stylesheets/style.css')
 
     // For IE 9 and below. ICO should be 32x32 pixels in size.
     // [if IE]><link rel="shortcut icon" href="/images/favicon.ico"><![endif]
