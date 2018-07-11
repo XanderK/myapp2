@@ -2,7 +2,6 @@ version: '3.1'
 
 networks:
   apps:
-
 services:
   carparts:
     container_name: carparts
