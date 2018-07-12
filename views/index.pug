@@ -4,13 +4,28 @@ block content
 
   //- Header with Background Image
   header.business-header
-    section.container
+    section.container.text-white
       .row
         .col-lg-12
-          h1.display-1.text-center.text-white.mt-4 Запчасти для вашего автомобиля
+          h1.display-1.text-center.mt-4 Запчасти для вашего автомобиля
           p.text-center
             button.btn.btn-primary.btn-lg(type="button") Large button
-  
+
+  section.container.my-4
+    .row
+      .col-md-4
+        p.contact
+          span.material-icons home
+          span.ml-1 г. Гомель, ул. Лепешинского, 2Д
+      .col-md-4
+        p.contact
+          span.material-icons schedule
+          span.ml-1 Пн-Вс, с 9:00 до 18:00
+      .col-md-4
+        p.contact
+          span.material-icons call
+          span.ml-1 +375(29)693-09-36
+
   //-
    section.container.my-2
     ol.breadcrumb
@@ -20,7 +35,7 @@ block content
         a(href="#") Library
       li.breadcrumb-item.active Data
 
-  section.container.my-4
+  section.container
     .jumbotron
       h1.display-3 Добро пожаловать!
       p.lead Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.

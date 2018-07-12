@@ -72,7 +72,7 @@
 }
 
 .material-icons {
-  color: $secondary;
+  color: $primary; //$body-color;
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -84,6 +84,7 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  vertical-align: middle;
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
@@ -100,4 +101,10 @@
 .material-icons.success { color: $success; }
 .material-icons.danger { color: $danger; }
 .material-icons.white { color: $white; }
+
+.contact { 
+  font-size: $font-size-lg;
+  vertical-align: middle;
+  text-align: center;
+}
 
