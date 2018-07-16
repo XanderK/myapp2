@@ -11,35 +11,27 @@ block content
           p.text-center
             button.btn.btn-primary.btn-lg(type="button") Large button
 
-  section.container.my-4
+  section.container.mt-3.mb-1
     .row
       .col-md-4
         p.contact
           span.material-icons home
-          span.ml-1 г. Гомель, ул. Лепешинского, 2Д
+          strong.ml-1 г. Гомель, ул. Лепешинского, 2Д
       .col-md-4
         p.contact
           span.material-icons schedule
-          span.ml-1 Пн-Вс, с 9:00 до 18:00
+          strong.ml-1 Пн-Вс, с 9:00 до 18:00
       .col-md-4
         p.contact
           span.material-icons call
-          span.ml-1 +375(29)693-09-36
-
-  //-
-   section.container.my-2
-    ol.breadcrumb
-      li.breadcrumb-item
-        a(href="#") Home
-      li.breadcrumb-item
-        a(href="#") Library
-      li.breadcrumb-item.active Data
+          strong.ml-1 +375(29)693-09-36
 
   section.container
     .jumbotron
-      h1.display-3 Добро пожаловать!
-      p.lead Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.
-      a.btn.btn-primary.btn-sm(href="#") Call to action!
+      h2.display-3 Добро пожаловать!
+      p.lead Мы поможем Вам подобрать необходимые запчасти к автомобилю. Если вы ищете б/у запчасти для автомобилей - Audi, Volkswagen, Mercedes-Benz, Fiat, приглашаем Вас именно к нам. По поводу любой б/у запчасти - двигателей, трансмиссии, ходовой части и т.д., Вы можете звонить нам! Мы также покупаем автомашины на разборку.
+      //-
+       a.btn.btn-primary.btn-sm(href="#") Call to action!
 
   section.container.text-center
     .row
@@ -83,7 +75,10 @@ block content
     p Добро пожаловать в #{title}
 
   section.container.my-4
-    h1 Карта проезда
+    h2 Каталог
+
+  section.container.my-4
+    h2.display-4 Карта проезда
     include includes/map.pug
   
   include includes/footer.pug
