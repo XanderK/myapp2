@@ -22,28 +22,30 @@ function readCarData(fileName, callback) {
 }
 
 // сохранение справочников в БД
-function saveToDatabase() {
+async function saveMasterData() {
   readCarData(fileName, cars => {
-    CarBrand.find({}, (err, items) => {
-      if(err) return console.log(err);
-      let brands = [];
-      items.forEach(item => brands.push(item.name));
-      cars.forEach(car => {
-        if(brands.indexOf(car.brand) < 0) {
-          try{
-            let brand = new CarBrand({name : car.brand});
-            brand.save((err, entity) => {
-              if(err) throw new Error(err); 
+    CarBrand.find({}).then(items => {
+      let brands = {};
+
+      // добавление марок авто
+      items.forEach(item => brands[item.name] = item._id);
+      await cars.forEach(car => {
+        if (brands[car.brand] === 'undefined') {
+          let brand = new CarBrand({ name: car.brand });
+          brand.save()
+            .then(savedBrand => brands[savedBrand.name] = savedBrand._id)
+            .catch(err => {
+              throw new Error(err)
             });
-            brands.push(brand.name);
-          }
-          catch(err) {
-            console.log(err);
-          }
         }
-      });      
+      });
+
+      // добавление моделей авто
+
+    }).catch(err => {
+      throw new Error(err);
     });
   });
 }
 
-saveToDatabase();
+saveMasterData();
