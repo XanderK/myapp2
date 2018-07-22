@@ -1,7 +1,13 @@
 extends layout
 
 block content
-  header.container.my-2
+  header
+    .container.my-2
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href="/") Главная
+        li.breadcrumb-item.active #{title}
+  .container  
     h1 Каталог
     each brand, index in brands
       p

@@ -147,6 +147,7 @@ module.exports.createUser = (req, res) => {
     json: true,
     form: {
       name: req.body.name,
+      phone: req.body.phone,
       email: req.body.email,
       password: req.body.password,
       role: req.body.role
@@ -174,6 +175,7 @@ module.exports.updateUser = (req, res) => {
       form: {
         id: userId,
         name: req.body.name,
+        phone: req.body.phone,
         email: req.body.email,
         role: req.body.role,
         password: req.body.password

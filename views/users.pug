@@ -2,12 +2,13 @@
 extends layout
 
 block content
-  .container.my-2
-    ol.breadcrumb
-      li.breadcrumb-item
-        a(href="/") Главная
-      li.breadcrumb-item.active #{title}
-
+  header
+    .container.my-2
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href="/") Главная
+        li.breadcrumb-item.active #{title}
+  
   .container
     h1 #{title}
     p Здесь можно добавлять новых пользователей, редактировать и удалять существуюших.
@@ -29,6 +30,7 @@ block content
           tr
             th(scope="col") #
             th(scope="col") Логин
+            th(scope="col") Телефон
             th(scope="col") Email
             th(scope="col") Роль
             th(scope="col") Действия
@@ -37,6 +39,7 @@ block content
             tr
               th(scope="row")= index + 1
               td= user.name
+              td= user.phone
               td= user.email
               td= user.role
               td

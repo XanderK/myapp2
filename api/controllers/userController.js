@@ -27,6 +27,7 @@ module.exports.userById = (req, res) => {
 module.exports.createUser = (req, res) => {
   User.register(new User({
     name: req.body.name,
+    phone: req.body.phone,
     email: req.body.email,
     role: req.body.role,
     created: Date.now()
@@ -41,6 +42,7 @@ module.exports.createUser = (req, res) => {
 module.exports.updateUser = (req, res) => {
   User.findById(req.body.id).then(user => {
     user.name = req.body.name;
+    user.phone = req.body.phone;
     user.email = req.body.email;
     user.role = req.body.role;
     if(req.body.password) {

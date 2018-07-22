@@ -2,13 +2,14 @@
 extends layout
 
 block content
-  .container.my-2
-    ol.breadcrumb
-      li.breadcrumb-item
-        a(href="/") Главная
-      li.breadcrumb-item
-        a(href="/admin/users") Управление пользователями
-      li.breadcrumb-item.active #{title}
+  header
+    .container.my-2
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href="/") Главная
+        li.breadcrumb-item
+          a(href="/admin/users") Управление пользователями
+        li.breadcrumb-item.active #{title}
 
   .container
     h2 Checkout form
@@ -51,6 +52,11 @@ block content
             label(for="username") Логин
             input#username.form-control(type="text" aria-describedby="usernameHelp" placeholder="Введите логин" name="name" value=(editUser ? editUser.name : ''))
             small#usernameHelp.form-text.text-muted Имя пользователя по которому осуществляется вход на сайт.
+          .form-group.mb-3
+            label(for="email") Телефон 
+              span.text-muted (не обязательно)
+            input#email.form-control(type="tel", placeholder="+375(29)641-07-89", name="phone", value=(editUser ? editUser.phone : ''))
+            .invalid-feedback Введите коректный телефон.
           .form-group.mb-3
             label(for="email") Email 
               span.text-muted (не обязательно)
