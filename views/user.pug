@@ -12,9 +12,8 @@ block content
         li.breadcrumb-item.active #{title}
 
   .container
-    h2 Checkout form
-    p.lead Below is an example form built entirely with Bootstrap's form controls.&nbsp;
-      | Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.
+    h2 Редактирование данных пользователя
+    p.lead Заполните карточку пользователя.
 
     .row
       //-
@@ -45,7 +44,8 @@ block content
           </ul>
 
       .col-md-8.order-md-1
-        h4.mb-3 Редактирование пользователя
+        //-
+         h4.mb-3 Редактирование пользователя
         form.needs-validation(method="POST", action=(editUser ? "/admin/users/update" : "/admin/users"), enctype="application/x-www-form-urlencoded", novalidate)
           input(type="hidden", value=(editUser ? editUser._id : ''), name="id")
           .form-group.mb-3

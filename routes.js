@@ -16,6 +16,12 @@ const allowAccess = (roles) => {
 /* GET home page. */
 router.get('/', indexController.homePage);
 
+// Правила индексации для посковиков
+router.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send("User-agent: *\nDisallow: /admin/");
+});
+
 // Показать каталог
 router.get('/catalog', catalogController.catalog);
 
