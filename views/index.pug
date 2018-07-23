@@ -91,12 +91,10 @@ block content
           .col.d-flex.align-items-end.justify-content-center
             a.btn.btn-primary(href="#" role="button") Подробнее »
 
-  //-
-   section.container
-    h1= title
-    p Welcome to #{title}
-    p Добро пожаловать в #{title}
-
+  section.container.my-4
+    h2.display-4 Каталог
+    include includes/catalog.pug
+  
   section.container.my-4
     h2.display-4 Карта проезда
     include includes/map.pug

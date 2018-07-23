@@ -48,7 +48,6 @@ router.post('/admin/users/update', allowAccess(['admin']), adminController.updat
 router.post('/admin/users/delete', allowAccess(['admin']), adminController.deleteUser);
 
 // Проверка залогинен ли кто-нибудь
-router.get('/admin/checklogged', (req, res) =>
-  helpers.sendJSONresponse(res, 200, req.user));
+router.get('/admin/checklogged', (req, res) => helpers.sendJSONresponse(res, 200, req.user));
 
 module.exports = router;

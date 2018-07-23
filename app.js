@@ -10,7 +10,7 @@ const passport = require('passport');
 //const config = require('./api/config')
 //const db = require('./api/db')
 
-const helpers = require('./api/helpers');
+const userController = require('./api/controllers/userController');
 const appRouter = require('./routes');
 const apiRouter = require('./api/routes');
 
@@ -75,6 +75,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-helpers.createDefaultUsers();
+userController.createDefaultUsers();
 
 module.exports = app;
