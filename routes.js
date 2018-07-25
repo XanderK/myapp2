@@ -25,6 +25,9 @@ router.get('/robots.txt', (req, res) => {
 // Показать каталог
 router.get('/catalog', catalogController.catalog);
 
+// Редактирование каталога
+router.get('/admin/catalog', catalogController.catalogManager);
+
 // Страница входа на сайт
 router.get('/admin/login', adminController.login);
 // Вход на сайт

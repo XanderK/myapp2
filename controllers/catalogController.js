@@ -1,6 +1,6 @@
 const carBrands = require('../utils/car-brands');
 
-var renderCatalog = (req, res) => {
+module.exports.catalog = (req, res) => {
   const viewName = 'catalog';
   carBrands.allBrands((err, brands) => {
     if(err) return console.error(err);
@@ -13,6 +13,12 @@ var renderCatalog = (req, res) => {
   });
 }
 
-module.exports.catalog = (req, res) => {
-  renderCatalog(req, res);
+module.exports.catalogManager = (req, res) => {
+  const viewName = 'catalogManager';
+  res.render(viewName, {
+    title: 'Редактирование каталога',
+    activeView: viewName,
+    user: req.user,
+    users: []
+  });
 }

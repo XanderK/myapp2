@@ -1,4 +1,4 @@
-//- Управление пользователями
+//- Управление каталогом
 extends layout
 
 block content
@@ -11,17 +11,17 @@ block content
   
   .container
     h1 #{title}
-    p Здесь добавляются новые пользователи, редактируются и удаляются существуюшие.
+    p Здесь добавляются в каталог новые запчасти, редактируются и удаляются существующие.
 
   .container
     .row
       .col-md-8.order-md-1
-        h2 Список пользователей
+        h2 Список запчастей
       .col-md-4.order-md-2
         //-
          form(action="/admin/users/new" novalidate)
         a(href="/admin/users/new")
-          button.btn.btn-primary Новый пользователь
+          button.btn.btn-primary Новая запчасть
   
   if users.length > 0
     .container.mt-2
