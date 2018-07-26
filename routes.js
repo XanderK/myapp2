@@ -27,6 +27,10 @@ router.get('/catalog', catalogController.catalog);
 
 // Редактирование каталога
 router.get('/admin/catalog', catalogController.catalogManager);
+// Страница доавления нового элемента в каталог
+router.get('/admin/catalog/new', catalogController.newProduct);
+// Страница редактирования элемента каталога
+router.post('/admin/catalog/edit', catalogController.editProduct);
 
 // Страница входа на сайт
 router.get('/admin/login', adminController.login);

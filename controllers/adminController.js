@@ -2,7 +2,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken');
 const request = require('request');
 const config = require('../api/config');
-const User = require('../api/models/user');
+//const User = require('../api/models/User');
 const helpers = require('../api/helpers');
 
 const apiOptions = {

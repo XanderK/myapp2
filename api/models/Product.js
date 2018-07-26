@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const carModelSchema = require('./CarModel').schema;
-const carUserSchema = require('./User').schema;
+const userSchema = require('./User').schema;
 
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
   isPart: { type: Boolean, required: true, default: true, index: true },
   created: { type: Date, required: true },
   description: String,
-  owner: { type: carUserSchema, required: true, index: true }
+  owner: { type: userSchema, required: true, index: true }
 });
 
 module.exports = mongoose.model('Product', productSchema);
