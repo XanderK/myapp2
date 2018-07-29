@@ -26,7 +26,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
             .dropdown-menu(aria-labelledby="dropdown01")
               if user.role === 'admin'
                 a.dropdown-item(href="/admin/users") Управление пользователями
-              a.dropdown-item(href="/admin/catalog") Редактирование каталога
+              a.dropdown-item(href="/admin/catalog") Ведение каталога
               a.dropdown-item(href="/admin/logout") Выход
         else
           li.nav-item(class = (activeView === 'login' ? activeNavItem : ''))

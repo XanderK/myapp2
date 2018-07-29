@@ -9,8 +9,8 @@ if (process.env.NODE_ENV === 'production') {
   dbUri = process.env.MONGOLAB_URI;
 }
 
-//mongoose.connect(dbUri, { autoIndex: false }).catch(err => console.error(err));
-mongoose.connect(dbUri).catch(err => console.error(err));
+mongoose.connect(dbUri, { autoIndex: false }).catch(err => console.error(err));
+//mongoose.connect(dbUri).catch(err => console.error(err));
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', () => console.log('Mongoose connected to ' + dbUri));
@@ -35,6 +35,6 @@ process.on('SIGINT', () => gracefulShutdown('app termination', () => process.exi
 process.on('SIGTERM', () => gracefulShutdown('Heroku app termination', () => process.exit(0)));
 
 // BRING IN YOUR SCHEMAS & MODELS
-require('./models/user');
+require('./models/User');
 
 //module.exports.mongooseConnection = mongoose.connection;

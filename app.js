@@ -51,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // passport config
-var User = require('./api/models/user');
+var User = require('./api/models/User');
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

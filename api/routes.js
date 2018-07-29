@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('./controllers/userController');
+const catalogController = require('./controllers/catalogController');
 const helpers = require('./helpers')
 const router = express.Router();
 const config = require('./config');
@@ -35,6 +36,22 @@ router.put('/users', authenticate(['admin']), userController.updateUser);
 
 // Удаление пользователя
 router.delete('/users', authenticate(['admin']), userController.deleteUser);
+
+
+// Список всех элементов каталога
+router.get('/catalog', authenticate(['admin', 'manager', 'guest']), catalogController.allProducts);
+
+// Элемент каталога с указанным Id
+router.get('/catalog/:id', authenticate(['admin', 'manager', 'guest']), catalogController.productById);
+
+// Создание нового элемента каталога
+router.post('/catalog', authenticate(['admin', 'manager']), catalogController.createProduct);
+
+// Обновление элемента каталога
+router.put('/catalog', authenticate(['admin', 'manager']), catalogController.updateProduct);
+
+// Удаление элемента каталога
+router.delete('/catalog', authenticate(['admin', 'manager']), catalogController.deleteProduct);
 
 
 // Проверка доступности сервиса

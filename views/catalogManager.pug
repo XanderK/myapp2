@@ -20,10 +20,10 @@ block content
       .col-md-4.order-md-2
         //-
          form(action="/admin/users/new" novalidate)
-        a(href="/admin/users/new")
+        a(href="/admin/catalog/new")
           button.btn.btn-primary Новая запчасть
   
-  if users.length > 0
+  if products.length > 0
     .container.mt-2
       table.table.table-hover
         thead.thead-dark
@@ -35,37 +35,37 @@ block content
             th(scope="col") Роль
             th(scope="col") Действия
         tbody
-          each user, index in users
+          each product, index in products
             tr
               th(scope="row")= index + 1
-              td= user.name
-              td= user.phone
-              td= user.email
-              td= user.role
+              td= ""
+              td= ""
+              td= ""
+              td= ""
               td
                 .row
                   .col
-                    form(method='POST', action="/admin/users/edit", novalidate)
-                      input(type="hidden", name="id", value=user._id)
+                    form(method='POST', action="/admin/catalog/edit", novalidate)
+                      input(type="hidden", name="id", value=product._id)
                       button.btn.btn-link.p-0
                         i.material-icons.success create
                   .col
-                    a(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
+                    a(href="#",data-toggle="modal", data-target="#deleteProductModal", data-username="", data-userid=product._id)
                       i.material-icons.danger delete
 
 block scripts              
   //- модальное окно подтверждения удаления
-  #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true")
+  #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
-          h5#deleteUserModalLabel.modal-title Удаление пользователя
+          h5#deleteUserModalLabel.modal-title Удаление элемента каталога
           button(type="button" class="close" data-dismiss="modal" aria-label="Close")
             span(aria-hidden="true") &times;
         .modal-body 
         .modal-footer
           button.btn.btn-secondary(type="button" data-dismiss="modal") Отмена
-          form(method='POST', action="/admin/users/delete", novalidate)
+          form(method='POST', action="/admin/catalog/delete", novalidate)
             input.userId(type="hidden", name="id")
             button.btn.btn-primary Удалить
   script.

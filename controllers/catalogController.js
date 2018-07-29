@@ -1,14 +1,26 @@
 const carBrands = require('../utils/car-brands');
 //const User = require('../api/models/User');
-var Product = require('../api/models/Product');
+//var Product = require('../api/models/Product');
+const config = require('../api/config');
+const helpers = require('../api/helpers');
+
+const renderCatalog = (req, res, products) => {
+  const activeView = 'catalog';
+  res.render(activeView, {
+    title: 'Ведение каталога',
+    activeView: activeView,
+    user: req.user,
+    products: products
+  });
+}
 
 const renderProduct = (req, res, product) => {
   const activeView = 'product';
   res.render(activeView, {
-    title: 'Редактирование элемента каталога',
+    title: 'Редактирование элемента каталога' ,
     activeView: activeView,
     user: req.user,
-    editProduct: null // new Product()
+    editProduct: product
   });
 }
 
@@ -17,10 +29,38 @@ module.exports.newProduct = (req, res) => {
   if(req.user) renderProduct(req, res, null);
 }
 
+// Редактирование элемента каталога
 module.exports.editProduct = (req, res) => {
-  helpers.sendJSONresponse(res, 400, 'Bad request');
+  let productId = req.body.id
+  if (productId) {
+    const path = '/api/catalog/' + productId;
+    let options = {
+      url: config.server + path,
+      method: "GET",
+      headers: {
+        'x-access-token': req.session.token
+      },
+      json: true
+    };
+  
+    request(options, (err, response, body) => {
+      if(err) { 
+        helpers.sendJSONresponse(res, 400, err);
+      }
+      else if (response.statusCode === 200) {
+        renderProduct(req, res, body);
+      }
+      else {
+        helpers.sendJSONresponse(res, response.statusCode, body);
+      }
+    })    
+  }
+  else {
+    helpers.sendJSONresponse(res, 400, 'Bad request');
+  }
 }
 
+// Каталог
 module.exports.catalog = (req, res) => {
   const viewName = 'catalog';
   carBrands.allBrands((err, brands) => {
@@ -34,12 +74,28 @@ module.exports.catalog = (req, res) => {
   });
 }
 
+// Ведение каталога
 module.exports.catalogManager = (req, res) => {
-  const viewName = 'catalogManager';
-  res.render(viewName, {
-    title: 'Редактирование каталога',
-    activeView: viewName,
-    user: req.user,
-    products: []
+  const path = '/api/catalog';
+  let options = {
+    url: config.server + path,
+    method: "GET",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true
+  };
+
+  request(options, (err, response, body) => {
+    let products = [];
+    if (err) {
+      console.error(err);
+    }
+    else if (response.statusCode === 200) {
+      for (let i = 0; i < body.length; i++) {
+        products.push(body[i]);
+      }
+    }
+    renderCatalog(req, res, products);
   });
 }

@@ -2,8 +2,8 @@
 const fs = require('fs');
 const fileName = __dirname + '/data/cars_csv.csv'
 require('../api/db');
-const CarBrand = require('../api/models/carbrand');
-const CarModel = require('../api/models/carmodel');
+const CarBrand = require('../api/models/CarBrand');
+const CarModel = require('../api/models/CarModel');
 
 // загрузка марок и моделей из файла
 function readCarData(fileName, callback) {

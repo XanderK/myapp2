@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const indexController = require('./controllers/indexController');
 const catalogController = require('./controllers/catalogController');
-const adminController = require('./controllers/adminController');
+const adminController = require('./controllers/userController');
 const helpers = require('./api/helpers');
 
 // Проверка прав пользователя

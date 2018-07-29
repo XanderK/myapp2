@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const helpers = require('../helpers');
 
 module.exports.logout = (req, res, next) => {

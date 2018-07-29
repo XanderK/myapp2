@@ -1,6 +1,6 @@
 // Марка
 const mongoose = require('mongoose');
-//const carModelSchema = require('./carmodel').schema;
+//const carModelSchema = require('./CarModel').schema;
 
 const carBrandSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
