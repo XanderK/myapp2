@@ -19,29 +19,29 @@ module.exports.productById = (req, res) => {
 }
 
 module.exports.createProduct = (req, res) => {
-  /*
-  Product.register(new Product({
+  let product = new Product({
     name: req.body.name,
-    phone: req.body.phone,
-    email: req.body.email,
-    role: req.body.role,
+    model: req.body.model,
+    subModel: req.body.subModel,
+    year: req.body.year,
+    description: req.body.description,
+    owner: req.body.owner,
     created: Date.now()
-  }),
-    req.body.password,
-    (err, user) => {
-      if (err) return helpers.sendJSONresponse(res, 400, err);
-      helpers.sendJSONresponse(res, 200, { auth: true, message: 'User "' + user.name + '" successfuly created.' });
-    });
-    */
+  });
+  product.save((err, product) => {
+    if(err) return helpers.sendJSONresponse(res, 400, err);
+    helpers.sendJSONresponse(res, 200, product);
+  });
 }
 
 module.exports.updateProduct = (req, res) => {
   Product.findById(req.body.id).then(product => {
-    user.name = req.body.name;
-    user.phone = req.body.phone;
-    user.email = req.body.email;
-    user.role = req.body.role;
-      
+    product.name = req.body.name,
+    product.model = req.body.model,
+    product.subModel = req.body.subModel,
+    product.year = req.body.year,
+    product.description = req.body.description,
+
     product.save((err, product) => {
       if(err) return helpers.sendJSONresponse(res, 400, err);
       helpers.sendJSONresponse(res, 200, product);

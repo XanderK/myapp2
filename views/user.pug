@@ -53,9 +53,9 @@ block content
             input#username.form-control(type="text" aria-describedby="usernameHelp" placeholder="Введите логин" name="name" value=(editUser ? editUser.name : ''))
             small#usernameHelp.form-text.text-muted Имя пользователя по которому осуществляется вход на сайт.
           .form-group.mb-3
-            label(for="email") Телефон 
+            label(for="phone") Телефон 
               span.text-muted (не обязательно)
-            input#email.form-control(type="tel", placeholder="+375(29)641-07-89", name="phone", value=(editUser ? editUser.phone : ''))
+            input#phone.form-control(type="tel", placeholder="+375(29)641-07-89", name="phone", value=(editUser ? editUser.phone : ''))
             .invalid-feedback Введите коректный телефон.
           .form-group.mb-3
             label(for="email") Email 
@@ -73,7 +73,10 @@ block content
               input#read.custom-control-input(name="role", type="radio", checked, required)
               label.custom-control-label(for="guest") Чтение
             .custom-control.custom-radio
-              input#manager.custom-control-input(name="role", type="radio", required, checked=(editUser && editUser.role === 'manager'? 'checked' : undefined), value="manager")
+              input#guest.custom-control-input(name="role", type="radio", required, checked=(!editUser || editUser.role === 'guest' ? 'checked' : undefined), value="guest")
+              label.custom-control-label(for="guest") Гость
+            .custom-control.custom-radio
+              input#manager.custom-control-input(name="role", type="radio", required, checked=(editUser && editUser.role === 'manager' ? 'checked' : undefined), value="manager")
               label.custom-control-label(for="manager") Менеджер
             .custom-control.custom-radio
               input#admin.custom-control-input(name="role", type="radio", required, checked=(editUser && editUser.role === 'admin'? 'checked' : undefined), value="admin")

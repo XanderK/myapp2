@@ -50,12 +50,12 @@ block content
                       button.btn.btn-link.p-0
                         i.material-icons.success create
                   .col
-                    a(href="#",data-toggle="modal", data-target="#deleteProductModal", data-username="", data-userid=product._id)
+                    a(href="#",data-toggle="modal", data-target="#deleteProductModal", data-productName=product.name, data-productId=product._id)
                       i.material-icons.danger delete
 
 block scripts              
   //- модальное окно подтверждения удаления
-  #deleteUserModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true")
+  #deleteProductModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true")
     .modal-dialog(role="document")
       .modal-content
         .modal-header
@@ -66,16 +66,16 @@ block scripts
         .modal-footer
           button.btn.btn-secondary(type="button" data-dismiss="modal") Отмена
           form(method='POST', action="/admin/catalog/delete", novalidate)
-            input.userId(type="hidden", name="id")
+            input.productId(type="hidden", name="id")
             button.btn.btn-primary Удалить
   script.
-    $('#deleteUserModal').on('show.bs.modal', function (event) {
+    $('#deleteProductModal').on('show.bs.modal', function (event) {
       var element = $(event.relatedTarget) // Button that triggered the modal
-      var username = element.data('username') // Extract info from data-* attributes
-      var userid = element.data('userid') // Extract info from data-* attributes
+      var productName = element.data('productName') // Extract info from data-* attributes
+      var productId = element.data('productId') // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
-      modal.find('.modal-body').text('Пользователь "' + username + '" будет удален. Продолжить?')
-      modal.find('.userId').val(userid)
+      modal.find('.modal-body').text('Элемент "' + productName + '" будет удален из каталога. Продолжить?')
+      modal.find('.productId').val(userId)
     })

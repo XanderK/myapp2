@@ -53,7 +53,6 @@ router.put('/catalog', authenticate(['admin', 'manager']), catalogController.upd
 // Удаление элемента каталога
 router.delete('/catalog', authenticate(['admin', 'manager']), catalogController.deleteProduct);
 
-
 // Проверка доступности сервиса
 router.get('/ping', (req, res) => {
   res.status(200).send("pong!");

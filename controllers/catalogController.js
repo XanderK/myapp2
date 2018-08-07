@@ -1,11 +1,12 @@
 const carBrands = require('../utils/car-brands');
 //const User = require('../api/models/User');
 //var Product = require('../api/models/Product');
+const request = require('request');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
 
-const renderCatalog = (req, res, products) => {
-  const activeView = 'catalog';
+const renderCatalogManager = (req, res, products) => {
+  const activeView = 'catalogManager';
   res.render(activeView, {
     title: 'Ведение каталога',
     activeView: activeView,
@@ -96,6 +97,6 @@ module.exports.catalogManager = (req, res) => {
         products.push(body[i]);
       }
     }
-    renderCatalog(req, res, products);
+    renderCatalogManager(req, res, products);
   });
 }

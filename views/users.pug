@@ -71,11 +71,11 @@ block scripts
   script.
     $('#deleteUserModal').on('show.bs.modal', function (event) {
       var element = $(event.relatedTarget) // Button that triggered the modal
-      var username = element.data('username') // Extract info from data-* attributes
-      var userid = element.data('userid') // Extract info from data-* attributes
+      var userName = element.data('username') // Extract info from data-* attributes
+      var userId = element.data('userid') // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
-      modal.find('.modal-body').text('Пользователь "' + username + '" будет удален. Продолжить?')
-      modal.find('.userId').val(userid)
+      modal.find('.modal-body').text('Пользователь "' + userName + '" будет удален. Продолжить?')
+      modal.find('.userId').val(userId)
     })
