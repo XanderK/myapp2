@@ -28,9 +28,9 @@ router.get('/catalog', catalogController.catalog);
 // Редактирование каталога
 router.get('/admin/catalog', allowAccess(['admin','manager']), catalogController.catalogManager);
 // Страница доавления нового элемента в каталог
-router.get('/admin/catalog/new', catalogController.newProduct);
+router.get('/admin/catalog/new', allowAccess(['admin','manager']), catalogController.newProduct);
 // Страница редактирования элемента каталога
-router.post('/admin/catalog/edit', catalogController.editProduct);
+router.post('/admin/catalog/edit', allowAccess(['admin','manager']), catalogController.editProduct);
 
 // Страница входа на сайт
 router.get('/admin/login', adminController.login);

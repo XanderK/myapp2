@@ -1,6 +1,5 @@
-const carBrands = require('../utils/car-brands');
-//const User = require('../api/models/User');
-//var Product = require('../api/models/Product');
+const Product = require('../api/models/Product');
+const CarBrand = require('../api/models/CarBrand');
 const request = require('request');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
@@ -18,16 +17,58 @@ const renderCatalogManager = (req, res, products) => {
 const renderProduct = (req, res, product) => {
   const activeView = 'product';
   res.render(activeView, {
-    title: 'Редактирование элемента каталога' ,
+    title: 'Просмотр элемента каталога' ,
     activeView: activeView,
     user: req.user,
-    editProduct: product
+    product: product
   });
 }
 
-// страница регистрации нового пользователя
+
+async function getCarBrands() {
+  const path = '/api/masterdata/carbrands';
+  let options = {
+    url: apiOptions.server + path,
+    method: "GET",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true
+  };
+
+  let carBrands = [];
+  await request(options, (err, response, body) => {
+    if (err) {
+      console.error(err);
+    }
+    else if (response.statusCode === 200) {
+      for (let i = 0; i < body.length; i++) {
+        carBrands.push(body[i]);
+      }
+    }
+    return carBrands;
+  });  
+}
+
+const renderProductEdit = (req, res, product) => {
+  const activeView = 'productEdit';
+  res.render(activeView, {
+    title: 'Редактирование элемента каталога' ,
+    activeView: activeView,
+    user: req.user,
+    product: product ? product : new Product(),
+    carBrands: carBrands 
+  });
+}
+
+// Возвращает все марки авто
+const allCarBrands = () => {
+
+}
+
+// Страница добавления нового элемента в каталог
 module.exports.newProduct = (req, res) => {
-  if(req.user) renderProduct(req, res, null);
+  if(req.user) renderProductEdit(req, res, null);
 }
 
 // Редактирование элемента каталога
@@ -49,7 +90,7 @@ module.exports.editProduct = (req, res) => {
         helpers.sendJSONresponse(res, 400, err);
       }
       else if (response.statusCode === 200) {
-        renderProduct(req, res, body);
+        renderProductEdit(req, res, body);
       }
       else {
         helpers.sendJSONresponse(res, response.statusCode, body);

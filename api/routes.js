@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('./controllers/userController');
 const catalogController = require('./controllers/catalogController');
+const masterDataController = require('./controllers/masterDataController');
 const helpers = require('./helpers')
 const router = express.Router();
 const config = require('./config');
@@ -52,6 +53,9 @@ router.put('/catalog', authenticate(['admin', 'manager']), catalogController.upd
 
 // Удаление элемента каталога
 router.delete('/catalog', authenticate(['admin', 'manager']), catalogController.deleteProduct);
+
+// Список всех брендов
+router.get('/masterdata/carbrands', authenticate(['admin', 'manager', 'guest']), masterDataController.allCarBrands);
 
 // Проверка доступности сервиса
 router.get('/ping', (req, res) => {
