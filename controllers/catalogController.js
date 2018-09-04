@@ -1,6 +1,8 @@
+// Управление каталогом
 const Product = require('../api/models/Product');
-const CarBrand = require('../api/models/CarBrand');
+//const CarBrand = require('../api/models/CarBrand');
 const request = require('request');
+const rp = require('request-promise');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
 
@@ -24,8 +26,8 @@ const renderProduct = (req, res, product) => {
   });
 }
 
-
-async function getCarBrands() {
+// Возвращает все марки авто
+const getCarBrands = async () => {
   const path = '/api/masterdata/carbrands';
   let options = {
     url: apiOptions.server + path,
@@ -37,38 +39,33 @@ async function getCarBrands() {
   };
 
   let carBrands = [];
-  await request(options, (err, response, body) => {
-    if (err) {
-      console.error(err);
+  try {
+    const body = await rp(options);
+    for (let i = 0; i < body.length; i++) {
+      carBrands.push(body[i]);
     }
-    else if (response.statusCode === 200) {
-      for (let i = 0; i < body.length; i++) {
-        carBrands.push(body[i]);
-      }
-    }
-    return carBrands;
-  });  
+  }
+  catch(err) {
+    console.error(err);
+  }
+  return carBrands;
 }
 
+// Редактирование элемента какалога
 const renderProductEdit = (req, res, product) => {
   const activeView = 'productEdit';
   res.render(activeView, {
     title: 'Редактирование элемента каталога' ,
     activeView: activeView,
     user: req.user,
-    product: product ? product : new Product(),
-    carBrands: carBrands 
+    product: product,
+    carBrands: getCarBrands() 
   });
-}
-
-// Возвращает все марки авто
-const allCarBrands = () => {
-
 }
 
 // Страница добавления нового элемента в каталог
 module.exports.newProduct = (req, res) => {
-  if(req.user) renderProductEdit(req, res, null);
+  if(req.user) renderProductEdit(req, res, new Product());
 }
 
 // Редактирование элемента каталога
