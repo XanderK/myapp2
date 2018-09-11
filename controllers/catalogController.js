@@ -1,10 +1,15 @@
 // Управление каталогом
 const Product = require('../api/models/Product');
-//const CarBrand = require('../api/models/CarBrand');
+const CarModel = require('../api/models/CarModel');
 const request = require('request');
 const rp = require('request-promise');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
+const carBrands = require('../utils/car-brands');
+
+const apiOptions = {
+  server: config.server
+};
 
 const renderCatalogManager = (req, res, products) => {
   const activeView = 'catalogManager';
@@ -26,9 +31,9 @@ const renderProduct = (req, res, product) => {
   });
 }
 
-// Возвращает все марки авто
-const getCarBrands = async () => {
-  const path = '/api/masterdata/carbrands';
+// Возвращает все модели авто
+const getCarModels = async (req) => {
+  const path = '/api/masterdata/carmodels';
   let options = {
     url: apiOptions.server + path,
     method: "GET",
@@ -38,34 +43,47 @@ const getCarBrands = async () => {
     json: true
   };
 
-  let carBrands = [];
+  let carModels = [];
   try {
     const body = await rp(options);
     for (let i = 0; i < body.length; i++) {
-      carBrands.push(body[i]);
+      let carModel = body[i];
+      carModel.fullName = carModel.brand.name + ' ' + carModel.name + ' (' + carModel.startYear + ' - ' + (carModel.finishYear ? carModel.finishYear : '') + ')';
+      carModels.push(carModel);
     }
   }
   catch(err) {
     console.error(err);
   }
-  return carBrands;
+  
+  return carModels.sort((a, b) => {
+    if (a.fullName > b.fullName) {
+      return 1;
+    }
+    if (a.fullName < b.fullName) {
+      return -1;
+    }
+    return 0;
+  });
 }
 
 // Редактирование элемента какалога
-const renderProductEdit = (req, res, product) => {
-  const activeView = 'productEdit';
+const renderProductEditor = async (req, res, product) => {
+  const activeView = 'productEditor';
   res.render(activeView, {
     title: 'Редактирование элемента каталога' ,
     activeView: activeView,
     user: req.user,
     product: product,
-    carBrands: getCarBrands() 
+    carModels: await getCarModels(req) 
   });
 }
 
 // Страница добавления нового элемента в каталог
 module.exports.newProduct = (req, res) => {
-  if(req.user) renderProductEdit(req, res, new Product());
+  let product = new Product();
+  product.model = new CarModel();
+  if(req.user) renderProductEditor(req, res, product);
 }
 
 // Редактирование элемента каталога

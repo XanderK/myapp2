@@ -25,8 +25,7 @@ module.exports.createProduct = (req, res) => {
     subModel: req.body.subModel,
     year: req.body.year,
     description: req.body.description,
-    owner: req.body.owner,
-    created: Date.now()
+    owner: req.body.owner
   });
   product.save((err, product) => {
     if(err) return helpers.sendJSONresponse(res, 400, err);

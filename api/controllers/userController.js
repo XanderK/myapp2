@@ -29,8 +29,7 @@ module.exports.createUser = (req, res) => {
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
-    role: req.body.role,
-    created: Date.now()
+    role: req.body.role
   }),
     req.body.password,
     (err, user) => {
@@ -82,7 +81,6 @@ module.exports.createDefaultUsers = () => {
     if (user == null) {
       User.register(new User({
         name: adminUserName,
-        created: Date.now(),
         role: 'admin'
       }),
       config.default_admin_password).catch(err => {
@@ -104,7 +102,6 @@ module.exports.createDefaultUsers = () => {
     if (user == null) {
       User.register(new User({
         name: guestUserName,
-        created: Date.now(),
         role: 'guest'
       }),
         config.default_guest_password).catch(err => {

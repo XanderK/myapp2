@@ -54,8 +54,8 @@ router.put('/catalog', authenticate(['admin', 'manager']), catalogController.upd
 // Удаление элемента каталога
 router.delete('/catalog', authenticate(['admin', 'manager']), catalogController.deleteProduct);
 
-// Список всех брендов
-router.get('/masterdata/carbrands', authenticate(['admin', 'manager', 'guest']), masterDataController.allCarBrands);
+// Список всех моделей авто
+router.get('/masterdata/carmodels', authenticate(['admin', 'manager', 'guest']), masterDataController.allCarModels);
 
 // Проверка доступности сервиса
 router.get('/ping', (req, res) => {

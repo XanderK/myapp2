@@ -18,8 +18,7 @@ describe("Schema", () => {
 
     user = new User({
       name: 'Maximus73bc',
-      role: 'manager',
-      created: Date.now()
+      role: 'manager'
     });
     
     product = new Product({
@@ -27,8 +26,6 @@ describe("Schema", () => {
       model: CarModel.findOne(),
       subModel: "LC200",
       year: 2008,
-      isPart: true,
-      created: Date.now(),
       description: 'Nice glass...',
       owner: user
     });

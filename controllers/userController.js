@@ -52,8 +52,8 @@ const renderUsers = (req, res, users) => {
   });
 }
 
-const renderUser = (req, res, user) => {
-  const activeView = 'user';
+const renderUserEditor = (req, res, user) => {
+  const activeView = 'userEditor';
   res.render(activeView, {
     title: 'Редактирование пользователя',
     activeView: activeView,
@@ -101,7 +101,7 @@ module.exports.users = (req, res) => {
 
 // страница регистрации нового пользователя
 module.exports.newUser = (req, res) => {
-  if(req.user) renderUser(req, res, null);
+  if(req.user) renderUserEditor(req, res, null);
 }
 
 // страница редактирования пользователя
@@ -123,7 +123,7 @@ module.exports.editUser = (req, res) => {
         helpers.sendJSONresponse(res, 400, err);
       }
       else if (response.statusCode === 200) {
-        renderUser(req, res, body);
+        renderUserEditor(req, res, body);
       }
       else {
         helpers.sendJSONresponse(res, response.statusCode, body);

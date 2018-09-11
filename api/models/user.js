@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   phone: String,
   email: String,
   role: { type: String, required: true, index: true },
-  created: { type: Date, required: true }
+  created: { type: Date, required: true, default: Date.now }
 });
 
 userSchema.plugin(passportLocalMongoose, {usernameField: 'name', usernameLowerCase: true});
