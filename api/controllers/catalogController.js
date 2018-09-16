@@ -21,11 +21,11 @@ module.exports.productById = (req, res) => {
 module.exports.createProduct = (req, res) => {
   let product = new Product({
     name: req.body.name,
-    model: req.body.model,
-    subModel: req.body.subModel,
+    model: JSON.parse(req.body.model),
+    engine: req.body.engine,
     year: req.body.year,
     description: req.body.description,
-    owner: req.body.owner
+    owner: JSON.parse(req.body.owner)
   });
   product.save((err, product) => {
     if(err) return helpers.sendJSONresponse(res, 400, err);

@@ -1,6 +1,5 @@
 // Управление каталогом
 const Product = require('../api/models/Product');
-const CarModel = require('../api/models/CarModel');
 const request = require('request');
 const rp = require('request-promise');
 const config = require('../api/config');
@@ -67,23 +66,22 @@ const getCarModels = async (req) => {
   });
 }
 
-// Редактирование элемента какалога
 const renderProductEditor = async (req, res, product) => {
   const activeView = 'productEditor';
   res.render(activeView, {
     title: 'Редактирование элемента каталога' ,
     activeView: activeView,
     user: req.user,
-    product: product,
+    editProduct: product,
     carModels: await getCarModels(req) 
   });
 }
 
 // Страница добавления нового элемента в каталог
 module.exports.newProduct = (req, res) => {
-  let product = new Product();
-  product.model = new CarModel();
-  if(req.user) renderProductEditor(req, res, product);
+  //let product = new Product();
+  //product.model = new CarModel();
+  if(req.user) renderProductEditor(req, res, null);
 }
 
 // Редактирование элемента каталога
@@ -155,4 +153,95 @@ module.exports.catalogManager = (req, res) => {
     }
     renderCatalogManager(req, res, products);
   });
+}
+
+// Создание елемента каталога через API
+module.exports.createProduct = (req, res) => {
+  const path = '/api/catalog';
+  let options = {
+    url: apiOptions.server + path,
+    method: "POST",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true,
+    form: {
+      model: req.body.carModel,
+      year: req.body.issueYear,
+      name: req.body.name,
+      engine: req.body.engine,
+      responsible: req.body.responsible,
+      description: req.body.description,
+      owner: req.body.user
+    }
+  };
+
+  request(options, (err, response, body) => {
+    if(err) helpers.sendJSONresponse(res, 400, err);
+    else res.redirect('/admin/catalog');
+  });
+}
+
+// Обновление пользователя через API
+module.exports.updateProduct = (req, res) => {
+  /*
+  let userId = req.body.id
+  if (userId) {
+    const path = '/api/users';
+    let options = {
+      url: apiOptions.server + path,
+      method: "PUT",
+      headers: {
+        'x-access-token': req.session.token
+      },
+      json: true,
+      form: {
+        id: userId,
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        role: req.body.role,
+        password: req.body.password
+      }
+    };
+
+    request(options, (err, response, body) => {
+      if(err) { 
+        helpers.sendJSONresponse(res, 400, err);
+      }
+      else if (response.statusCode === 200) {
+        res.redirect('/admin/users');
+      }
+      else {
+        helpers.sendJSONresponse(res, response.statusCode, body);
+      }
+    })    
+  }
+  else {
+    helpers.sendJSONresponse(res, 400, 'Bad request');
+  }
+  */
+}
+
+// Удаление пользователя через API
+module.exports.deleteProduct = (req, res) => {
+  /*
+  //helpers.sendJSONresponse(res, 200, req.body);
+  const path = '/api/users';
+  let options = {
+    url: apiOptions.server + path,
+    method: "DELETE",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true,
+    form: {
+      id: req.body.id
+    }
+  };
+
+  request(options, (err, response, body) => {
+    res.redirect('/admin/users');
+  });
+*/
 }

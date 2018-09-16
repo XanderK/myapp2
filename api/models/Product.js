@@ -4,7 +4,7 @@ const userSchema = require('./User').schema;
 const carModelSchema = require('./CarModel').schema;
 
 const productSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: true, index: true },
   model: { type: carModelSchema, required: true, index: true },
   engine: String,
   year: { type: Number, required: true, index: true },
@@ -12,7 +12,9 @@ const productSchema = new mongoose.Schema({
   created: { type: Date, required: true, default: Date.now },
   description: String,
   owner: { type: userSchema, required: true, index: true },
-  responsible: String
+  responsible: String,
+  images: [String],
+  mainImageIndex: Number
 });
 
 module.exports = mongoose.model('Product', productSchema);

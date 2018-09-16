@@ -28,13 +28,14 @@ block content
            span.text-muted $12
       
       .col-md-8.order-md-1
-        form.needs-validation(method="POST", action=(editUser ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
+        form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
           input(type="hidden", value=(editProduct ? editProduct._id : ''), name="id")
+          input(type="hidden", value=user, name="user")
           .form-group.mb-3
             label(for="carModel") Модель автомобиля
-            select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel" value=(product && product.model ? product.model.name : ''))
+            select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel" value=(product ? product.model : null))
               each carModel, index in carModels
-                option= carModel.fullName
+                option(value = carModel)= carModel.fullName
             //-
              small#carBrandHelp.form-text.text-muted Имя пользователя по которому осуществляется вход на сайт.
           .form-group.mb-3
@@ -44,7 +45,10 @@ block content
           .form-group.mb-3
             label(for="engine") Модель двигателя 
               span.text-muted (не обязательно)
-            input#engine.form-control(type="text", name="engine", value='')
+            input#engine.form-control(type="text", placeholder="1.9 CDI", name="engine", value='')
+          .form-group.mb-3
+            label(for="name") Название запчасти 
+            input#name.form-control(type="text", name="name", value='')
           .form-group.mb-3
             label(for="responsible") Ответственный 
               span.text-muted (не обязательно)
@@ -54,3 +58,21 @@ block content
             textarea#description.form-control(name="description", rows='6')
           hr.mb-4
           button.btn.btn-primary.btn-lg.btn-block.mb-4(type="submit") Сохранить элемент каталога
+
+block scripts
+  script.
+    function setIssueYears() {
+      $('#issueYear').empty();
+      let selectedCarModel = JSON.parse($('#carModel').val());
+      if(selectedCarModel) {
+        let maxYear = selectedCarModel.finishYear ? selectedCarModel.finishYear : (new Date).getFullYear();
+        for(let year = selectedCarModel.startYear; year <= maxYear; year++) {
+          $('#issueYear').append($('<option>', { value : year }).text(year));
+        }
+      }
+    }    
+
+    $('#carModel').on('change', () => {
+      setIssueYears();
+    });
+              

@@ -50,8 +50,9 @@ block content
                       button.btn.btn-link.p-0
                         i.material-icons.success create
                   .col
-                    a(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
-                      i.material-icons.danger delete
+                    if user.name != 'admin' && user.name != 'guest'
+                      a(href="#",data-toggle="modal", data-target="#deleteUserModal", data-username=user.name, data-userid=user._id)
+                        i.material-icons.danger delete
 
 block scripts              
   //- модальное окно подтверждения удаления
