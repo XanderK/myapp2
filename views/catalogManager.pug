@@ -28,20 +28,26 @@ block content
       table.table.table-hover
         thead.thead-dark
           tr
-            th(scope="col") #
-            th(scope="col") Логин
-            th(scope="col") Телефон
-            th(scope="col") Email
-            th(scope="col") Роль
+            th(scope="col") Фото
+            th(scope="col") Модель
+            th(scope="col") Год
+            th(scope="col") Мотор
+            th(scope="col") Название запчасти
+            th(scope="col") Описание
+            th(scope="col") Ответственный
+            th(scope="col") Автор
             th(scope="col") Действия
         tbody
           each product, index in products
             tr
               th(scope="row")= index + 1
-              td= ""
-              td= ""
-              td= ""
-              td= ""
+              td= product.model.brand + " " + product.model.name
+              td= product.year
+              td= product.engine
+              td= product.name
+              td= product.description
+              td= product.responsible
+              td= product.owner.name
               td
                 .row
                   .col
