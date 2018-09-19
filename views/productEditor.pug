@@ -33,41 +33,43 @@ block content
           input(type="hidden", value=user, name="user")
           .form-group.mb-3
             label(for="carModel") Модель автомобиля
-            select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel" value=(product ? product.model : null))
+            select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel")
+              - var carModelId = (editProduct && editProduct.model ? editProduct.model._id : null)
               each carModel, index in carModels
-                option(value = carModel)= carModel.fullName
+                option(value = carModel, selected= (carModel._id == carModelId ? true : false) )= carModel.fullName
             //-
              small#carBrandHelp.form-text.text-muted Имя пользователя по которому осуществляется вход на сайт.
           .form-group.mb-3
             label(for="issueYear") Год выпуска 
-            select#issueYear.form-control(aria-describedby="issueYearHelp" placeholder="Год выпуска" name="issueYear" value='')
+            select#issueYear.form-control(aria-describedby="issueYearHelp" placeholder="Год выпуска" name="issueYear" data-issueyear=(editProduct ? editProduct.year : null))
             .invalid-feedback Введите коректный год выпуска.
           .form-group.mb-3
             label(for="engine") Модель двигателя 
               span.text-muted (не обязательно)
-            input#engine.form-control(type="text", placeholder="1.9 CDI", name="engine", value='')
+            input#engine.form-control(type="text", placeholder="1.9 CDI", name="engine", value=(editProduct ? editProduct.engine : null))
           .form-group.mb-3
             label(for="name") Название запчасти 
-            input#name.form-control(type="text", name="name", value='')
+            input#name.form-control(type="text", name="name", value=(editProduct ? editProduct.name : null))
           .form-group.mb-3
             label(for="responsible") Ответственный 
               span.text-muted (не обязательно)
-            input#responsible.form-control(type="text", placeholder="Игорь, +375(29)693-09-36‬" name="responsible", value='')
+            input#responsible.form-control(type="text", placeholder="Игорь, +375(29)693-09-36‬" name="responsible", value=(editProduct ? editProduct.responsible : null))
           .form-group.mb-3
             label(for="description") Описание
-            textarea#description.form-control(name="description", rows='6')
+            textarea#description.form-control(name="description", rows='6')= editProduct ? editProduct.description : ''
           hr.mb-4
           button.btn.btn-primary.btn-lg.btn-block.mb-4(type="submit") Сохранить элемент каталога
 
 block scripts
   script.
     function setIssueYears() {
+      let issueYear = $('#issueYear').data('issueyear');
       $('#issueYear').empty();
       let selectedCarModel = JSON.parse($('#carModel').val());
       if(selectedCarModel) {
         let maxYear = selectedCarModel.finishYear ? selectedCarModel.finishYear : (new Date).getFullYear();
         for(let year = selectedCarModel.startYear; year <= maxYear; year++) {
-          $('#issueYear').append($('<option>', { value : year }).text(year));
+          $('#issueYear').append($('<option>', { value : year, selected : (issueYear == year ? true : false) }).text(year));
         }
       }
     }    
@@ -75,4 +77,13 @@ block scripts
     $('#carModel').on('change', () => {
       setIssueYears();
     });
+
+    $(document).ready( () => {
+      setIssueYears();
+    });
+
+    //$(window).load(function() {
+    //   alert("window load occurred!");
+    //});
+
               

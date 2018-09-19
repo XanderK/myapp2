@@ -30,7 +30,6 @@ block content
           tr
             th(scope="col") Фото
             th(scope="col") Модель
-            th(scope="col") Год
             th(scope="col") Мотор
             th(scope="col") Название запчасти
             th(scope="col") Описание
@@ -41,8 +40,7 @@ block content
           each product, index in products
             tr
               th(scope="row")= index + 1
-              td= product.model.brand + " " + product.model.name
-              td= product.year
+              td= product.model.brand.name + " " + product.model.name + ", " + product.year
               td= product.engine
               td= product.name
               td= product.description
@@ -56,7 +54,7 @@ block content
                       button.btn.btn-link.p-0
                         i.material-icons.success create
                   .col
-                    a(href="#",data-toggle="modal", data-target="#deleteProductModal", data-productName=product.name, data-productId=product._id)
+                    a(href="#",data-toggle="modal", data-target="#deleteProductModal", data-productName=( product.name + " (" + product.model.brand.name + " " + product.model.name + ", " + product.year + ")"), data-productId=product._id)
                       i.material-icons.danger delete
 
 block scripts              
@@ -65,7 +63,7 @@ block scripts
     .modal-dialog(role="document")
       .modal-content
         .modal-header
-          h5#deleteUserModalLabel.modal-title Удаление элемента каталога
+          h5#deleteProductModalLabel.modal-title Удаление элемента каталога
           button(type="button" class="close" data-dismiss="modal" aria-label="Close")
             span(aria-hidden="true") &times;
         .modal-body 
@@ -77,11 +75,11 @@ block scripts
   script.
     $('#deleteProductModal').on('show.bs.modal', function (event) {
       var element = $(event.relatedTarget) // Button that triggered the modal
-      var productName = element.data('productName') // Extract info from data-* attributes
-      var productId = element.data('productId') // Extract info from data-* attributes
+      var productName = element.data('productname') // Extract info from data-* attributes
+      var productId = element.data('productid') // Extract info from data-* attributes
       // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
       // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
       var modal = $(this)
       modal.find('.modal-body').text('Элемент "' + productName + '" будет удален из каталога. Продолжить?')
-      modal.find('.productId').val(userId)
+      modal.find('.productId').val(productId)
     })

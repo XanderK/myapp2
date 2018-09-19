@@ -103,7 +103,7 @@ module.exports.editProduct = (req, res) => {
         helpers.sendJSONresponse(res, 400, err);
       }
       else if (response.statusCode === 200) {
-        renderProductEdit(req, res, body);
+        renderProductEditor(req, res, body);
       }
       else {
         helpers.sendJSONresponse(res, response.statusCode, body);
@@ -184,10 +184,9 @@ module.exports.createProduct = (req, res) => {
 
 // Обновление пользователя через API
 module.exports.updateProduct = (req, res) => {
-  /*
-  let userId = req.body.id
-  if (userId) {
-    const path = '/api/users';
+  let productId = req.body.id
+  if (productId) {
+    const path = '/api/catalog';
     let options = {
       url: apiOptions.server + path,
       method: "PUT",
@@ -196,13 +195,15 @@ module.exports.updateProduct = (req, res) => {
       },
       json: true,
       form: {
-        id: userId,
+        id: productId,
+        model: req.body.carModel,
+        year: req.body.issueYear,
         name: req.body.name,
-        phone: req.body.phone,
-        email: req.body.email,
-        role: req.body.role,
-        password: req.body.password
-      }
+        engine: req.body.engine,
+        responsible: req.body.responsible,
+        description: req.body.description,
+        owner: req.body.user
+        }
     };
 
     request(options, (err, response, body) => {
@@ -210,7 +211,7 @@ module.exports.updateProduct = (req, res) => {
         helpers.sendJSONresponse(res, 400, err);
       }
       else if (response.statusCode === 200) {
-        res.redirect('/admin/users');
+        res.redirect('/admin/catalog');
       }
       else {
         helpers.sendJSONresponse(res, response.statusCode, body);
@@ -220,14 +221,12 @@ module.exports.updateProduct = (req, res) => {
   else {
     helpers.sendJSONresponse(res, 400, 'Bad request');
   }
-  */
 }
 
 // Удаление пользователя через API
 module.exports.deleteProduct = (req, res) => {
-  /*
   //helpers.sendJSONresponse(res, 200, req.body);
-  const path = '/api/users';
+  const path = '/api/catalog';
   let options = {
     url: apiOptions.server + path,
     method: "DELETE",
@@ -241,7 +240,6 @@ module.exports.deleteProduct = (req, res) => {
   };
 
   request(options, (err, response, body) => {
-    res.redirect('/admin/users');
+    res.redirect('/admin/catalog');
   });
-*/
 }

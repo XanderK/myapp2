@@ -25,6 +25,7 @@ module.exports.createProduct = (req, res) => {
     engine: req.body.engine,
     year: req.body.year,
     description: req.body.description,
+    responsible: req.body.responsible,
     owner: JSON.parse(req.body.owner)
   });
   product.save((err, product) => {
@@ -35,11 +36,12 @@ module.exports.createProduct = (req, res) => {
 
 module.exports.updateProduct = (req, res) => {
   Product.findById(req.body.id).then(product => {
-    product.name = req.body.name,
-    product.model = req.body.model,
-    product.subModel = req.body.subModel,
-    product.year = req.body.year,
-    product.description = req.body.description,
+    product.name = req.body.name;
+    product.model = JSON.parse(req.body.model);
+    product.year = req.body.year;
+    product.description = req.body.description;
+    product.responsible = req.body.responsible;
+    product.owner = JSON.parse(req.body.owner);
 
     product.save((err, product) => {
       if(err) return helpers.sendJSONresponse(res, 400, err);
