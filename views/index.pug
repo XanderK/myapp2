@@ -9,7 +9,7 @@ block content
         .col-lg-12
           h1.display-1.text-center.mt-4 Запчасти для вашего автомобиля
           p.text-center
-            button.btn.btn-primary.btn-lg(type="button") Перейти в каталог
+            a.btn.btn-primary.btn-lg(role="button", href="/catalog") Перейти в каталог
 
   section.container.mt-3.mb-1
     .row
@@ -93,7 +93,7 @@ block content
 
   section.container.my-4
     h2.display-4 Новое в каталоге
-    include includes/catalog.pug
+    include includes/catalogItem.pug
   
   section.container.my-4
     h2.display-4 Карта проезда

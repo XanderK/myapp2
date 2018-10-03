@@ -5,6 +5,7 @@ const rp = require('request-promise');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
 const carBrands = require('../utils/car-brands');
+const dateTime = require('../utils/DateTime');
 
 const apiOptions = {
   server: config.server
@@ -115,7 +116,7 @@ module.exports.editProduct = (req, res) => {
   }
 }
 
-// Каталог
+// Просмотр каталога
 module.exports.catalog = (req, res) => {
   const viewName = 'catalog';
   carBrands.allBrands((err, brands) => {
@@ -148,7 +149,10 @@ module.exports.catalogManager = (req, res) => {
     }
     else if (response.statusCode === 200) {
       for (let i = 0; i < body.length; i++) {
-        products.push(body[i]);
+        let product = body[i];
+        product.created = new Date(product.created);
+        product.createdText = dateTime.toString(product.created);
+        products.push(product);
       }
     }
     renderCatalogManager(req, res, products);

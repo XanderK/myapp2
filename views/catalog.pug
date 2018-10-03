@@ -1,4 +1,24 @@
+//- Каталог
 extends layout
+
+mixin product(carModel, partName, description, publishDate, detailsUrl)
+  .col-lg-6.my-1
+    .card
+      .row.no-gutters
+        .col-sm-auto
+          img.img-fluid.w-100(src="//placehold.it/160x120" alt="")
+        .col.d-flex.flex-column
+          .card-body.flex-grow-1.px-2.py-1
+            strong.card-title.text-primary= carModel
+            .card-text= partName
+            .text-muted= description
+          .card-footer.flex-shrink-0.px-2.py-1
+            .row
+              .col
+                small.text-muted= publishDate
+              .col-auto
+                a(href="#")
+                  small Подробнее...
 
 block content
   header
@@ -7,7 +27,14 @@ block content
         li.breadcrumb-item
           a(href="/") Главная
         li.breadcrumb-item.active #{title}
-  .container  
+
+  .container.mb-2
+    .row
+      +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
+      +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
+
+  //-
+   .container  
     h1 Каталог
     each brand, index in brands
       p
@@ -15,4 +42,3 @@ block content
         span= brand.name
 
   include includes/footer.pug
-
