@@ -17,9 +17,10 @@ block content
 
     .row
       .col-md-8.order-md-1
-        form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
+        form#input-form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
           input(type="hidden", value=(editProduct ? editProduct._id : ''), name="id")
           input(type="hidden", value=user, name="user")
+          input(type="hidden", value="-1", name="defaultPhotoIndex", id="default-photo-index")
           .form-group.mb-3
             label(for="carModel") Модель автомобиля
             select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel")
@@ -74,12 +75,23 @@ block content
       .col-md-6
         button.btn.btn-primary.btn-lg.btn-block.mb-4(type="submit") Сохранить элемент каталога
       .col-md-3
-
       
 block scripts
-  script(src="/fotorama-4.6.4/fotorama.js")
+  //-
+   script(src="/fotorama-4.6.4/fotorama.js")
 
   script.
+    function deletePhoto(fileName) {
+      var thumb = document.createElement('thumb_' + fileName);
+      if(thumb != null) {
+        thumb.remove();
+      }
+      var photo = document.createElement('photo_' + fileName);
+      if(photo != null) {
+        photo.remove();
+      }
+    }
+    
     function addPhoto(files) {
       for (var i = 0, f; f = files[i]; i++) {
         if (!f.type.match('image.*')) continue;
@@ -89,8 +101,19 @@ block scripts
           return function(e) {
             // Render thumbnail.
             var span = document.createElement('span');
+            span.id = 'thumb_' + theFile.name;
             span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
             document.getElementById('photo-place').append(span);
+
+            var inputPhoto = document.createElement('input');
+            inputPhoto.id = 'photo_' + theFile.name;
+            inputPhoto.type = 'hidden';
+            inputPhoto.name = 'photo'
+            inputPhoto.id = theFile.name;
+            inputPhoto.value = e.target.result;
+
+            document.createElement('span')('input-form').append(inputPhoto);
+
             //document.getElementById('photo-place').insertBefore(span, null);
           };
         })(f);
