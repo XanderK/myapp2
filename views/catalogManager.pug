@@ -14,10 +14,10 @@ block content
     p Здесь добавляются в каталог новые запчасти, редактируются и удаляются существующие.
 
   .container
-    .row
-      .col-md-8.order-md-1
+    .row.justify-content-end
+      .col-auto
         h2 Список запчастей
-      .col-md-4.order-md-2
+      .col.d-flex.justify-content-end
         //-
          form(action="/admin/users/new" novalidate)
         a(href="/admin/catalog/new")
