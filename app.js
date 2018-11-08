@@ -6,6 +6,7 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
 //const config = require('./api/config')
 //const db = require('./api/db')
@@ -23,6 +24,10 @@ app.set('trust proxy', 1);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// для загрузки фотографий
+app.use(bodyParser.json({limit: '32mb'}));
+app.use(bodyParser.urlencoded({limit: '32mb', extended: true}));
 
 app.use(logger('dev'));
 app.use(express.json());

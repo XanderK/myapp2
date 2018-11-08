@@ -28,6 +28,13 @@ module.exports.createProduct = (req, res) => {
     responsible: req.body.responsible,
     owner: JSON.parse(req.body.owner)
   });
+    
+  if(req.body.images) 
+  {
+    // в БД храним только имена файлов
+    //images: req.body.images
+  }
+
   product.save((err, product) => {
     if(err) return helpers.sendJSONresponse(res, 400, err);
     helpers.sendJSONresponse(res, 200, product);
@@ -42,6 +49,12 @@ module.exports.updateProduct = (req, res) => {
     product.description = req.body.description;
     product.responsible = req.body.responsible;
     product.owner = JSON.parse(req.body.owner);
+    
+    if(req.body.images)
+    {
+      // в БД храним только имена файлов 
+      //product.images = //req.body.images;
+    }
 
     product.save((err, product) => {
       if(err) return helpers.sendJSONresponse(res, 400, err);

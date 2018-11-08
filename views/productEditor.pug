@@ -15,12 +15,12 @@ block content
     h2 Редактирование элемента каталога
     p.lead Заполните карточку запчасти.
 
-    .row
-      .col-md-8.order-md-1
-        form#input-form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
+    form#input-form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
+      .row
+        .col-md-8.order-md-1
           input(type="hidden", value=(editProduct ? editProduct._id : ''), name="id")
           input(type="hidden", value=user, name="user")
-          input(type="hidden", value="-1", name="defaultPhotoIndex", id="default-photo-index")
+          input(type="hidden", value="-1", name="defaultImageIndex", id="default-image-index")
           .form-group.mb-3
             label(for="carModel") Модель автомобиля
             select#carModel.form-control(aria-describedby="carModelHelp" placeholder="Модель автомобиля" name="carModel")
@@ -47,52 +47,52 @@ block content
           .form-group.mb-3
             label(for="description") Описание
             textarea#description.form-control(name="description", rows='6')= editProduct ? editProduct.description : ''
-
-      .col-md-4.order-md-2.mb-4
-        h4.d-flex.justify-content-between.align-items-center.mb-3
-          span.text-muted Фото
-          label.btn.btn-primary(for="photoFileSelector") Добавить
-            input#photoFileSelector(type="file", accept="image/*", hidden, style="display:none", onchange="addPhoto(this.files)")
-            //-
-             input#photoFileSelector(type="file", accept="image/*", hidden, style="display:none", onchange="$('#upload-file-info').html(this.files[0].name)")
-        //-
-         span.label.label-info(id="upload-file-info")
-
-        #photoList.ul.list-group.mb-3
+  
+        .col-md-4.order-md-2.mb-4
+          h4.d-flex.justify-content-between.align-items-center.mb-3
+            span.text-muted Фото
+            label.btn.btn-primary(for="imageFileSelector") Добавить
+              input#imageFileSelector(type="file", accept="image/*", hidden, style="display:none", onchange="addImage(this.files)")
+              //-
+               input#imageFileSelector(type="file", accept="image/*", hidden, style="display:none", onchange="$('#upload-file-info').html(this.files[0].name)")
           //-
-          li.list-group-item.d-flex.justify-content-between.lh-condensed
-            div#photo-place  
-              //--
-                h6.my-0 Product name
-                small.text-muted Brief description
-
-            span.text-muted $12
-    .row
-      .col
-        hr.mb-4
-    .row
-      .col-md-3
-      .col-md-6
-        button.btn.btn-primary.btn-lg.btn-block.mb-4(type="submit") Сохранить элемент каталога
-      .col-md-3
+           span.label.label-info(id="upload-file-info")
+  
+          #imageList.ul.list-group.mb-3
+            //-
+            li.list-group-item.d-flex.justify-content-between.lh-condensed
+              div#image-place  
+                //--
+                  h6.my-0 Product name
+                  small.text-muted Brief description
+  
+              span.text-muted $12
+      .row
+        .col
+          hr.mb-4
+      .row
+        .col-md-3
+        .col-md-6
+          button.btn.btn-primary.btn-lg.btn-block.mb-4(type="submit") Сохранить элемент каталога
+        .col-md-3
       
 block scripts
   //-
    script(src="/fotorama-4.6.4/fotorama.js")
 
   script.
-    function deletePhoto(fileName) {
+    function deleteImage(fileName) {
       var thumb = document.createElement('thumb_' + fileName);
       if(thumb != null) {
         thumb.remove();
       }
-      var photo = document.createElement('photo_' + fileName);
-      if(photo != null) {
-        photo.remove();
+      var image = document.createElement('image_' + fileName);
+      if(image != null) {
+        image.remove();
       }
     }
     
-    function addPhoto(files) {
+    function addImage(files) {
       for (var i = 0, f; f = files[i]; i++) {
         if (!f.type.match('image.*')) continue;
         var reader = new FileReader();
@@ -103,18 +103,19 @@ block scripts
             var span = document.createElement('span');
             span.id = 'thumb_' + theFile.name;
             span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
-            document.getElementById('photo-place').append(span);
+            document.getElementById('image-place').append(span);
 
-            var inputPhoto = document.createElement('input');
-            inputPhoto.id = 'photo_' + theFile.name;
-            inputPhoto.type = 'hidden';
-            inputPhoto.name = 'photo'
-            inputPhoto.id = theFile.name;
-            inputPhoto.value = e.target.result;
+            var inputImage = document.createElement('input');
+            inputImage.id = 'image_' + theFile.name;
+            inputImage.type = 'hidden';
+            inputImage.name = 'images'
+            inputImage.id = theFile.name;
+            inputImage.value = e.target.result;
+            
+            document.getElementById('input-form').append(inputImage);
 
-            document.createElement('span')('input-form').append(inputPhoto);
-
-            //document.getElementById('photo-place').insertBefore(span, null);
+            //document.createElement('span')('').append(inputImage);
+            //document.getElementById('image-place').insertBefore(span, null);
           };
         })(f);
         // Read in the image file as a data URL.

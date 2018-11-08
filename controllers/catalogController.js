@@ -176,7 +176,8 @@ module.exports.createProduct = (req, res) => {
       engine: req.body.engine,
       responsible: req.body.responsible,
       description: req.body.description,
-      owner: req.body.user
+      owner: req.body.user,
+      images: req.body.images
     }
   };
 
@@ -206,8 +207,9 @@ module.exports.updateProduct = (req, res) => {
         engine: req.body.engine,
         responsible: req.body.responsible,
         description: req.body.description,
-        owner: req.body.user
-        }
+        owner: req.body.user,
+        images: req.body.images
+      }
     };
 
     request(options, (err, response, body) => {
