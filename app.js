@@ -43,6 +43,7 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'files')));
 
 //require('./api/auth').init(app)
 

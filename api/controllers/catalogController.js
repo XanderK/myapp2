@@ -33,6 +33,7 @@ module.exports.createProduct = (req, res) => {
   {
     // в БД храним только имена файлов
     //images: req.body.images
+    
   }
 
   product.save((err, product) => {
