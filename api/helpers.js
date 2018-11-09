@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import {promisify} from 'util';
+import sharp from 'sharp';
 
 const imagesDirectoryBase = path.join(__dirname, 'files');
 
@@ -31,6 +32,12 @@ async function myF() {
 
 myF();
 */
+
+async function makeThumb(fileName) {
+  let fileInfo = path.parse(fileName);
+  let thumbFileName = path.join(fileInfo.dir, fileInfo.name + '-thumb' + fileInfo.ext);
+  ???
+}
 
 async function base64ToJpeg(fileName, base64String) {
   const base64Image = base64String.split(';base64,').pop();
