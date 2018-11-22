@@ -10,14 +10,14 @@
     "karma": "./node_modules/karma/bin/karma start"
   },
   "dependencies": {
-    "connect-mongo": "^2.0.1",
+    "connect-mongo": "^2.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
+    "express": "^4.16.4",
     "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
-    "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.2.17",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.13",
     "morgan": "^1.9.1",
     "node-sass-middleware": "0.11.0",
     "passport": "^0.4.0",
@@ -27,9 +27,9 @@
     "sharp": "^0.21.0"
   },
   "devDependencies": {
-    "jasmine": "^3.2.0",
-    "jasmine-core": "^3.2.1",
-    "karma": "^3.0.0",
+    "jasmine": "^3.3.0",
+    "jasmine-core": "^3.3.0",
+    "karma": "^3.1.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.2"
   }

@@ -1,5 +1,8 @@
-import Product from '../models/Product';
-import helpers from '../helpers';
+const Product = require('../models/Product');
+const helpers = require('../helpers');
+
+//import Product from '../models/Product';
+//import helpers from '../helpers';
 //import {promisify} from 'util';
 
 module.exports.allProducts = (req, res) => {
@@ -19,7 +22,7 @@ module.exports.productById = (req, res) => {
   });
 }
 
-module.exports.createProduct = (req, res) => {
+module.exports.createProduct = async (req, res) => {
   let product = new Product({
     name: req.body.name,
     model: JSON.parse(req.body.model),

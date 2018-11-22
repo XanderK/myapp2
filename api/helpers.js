@@ -1,7 +1,13 @@
+const fs = require('fs');
+const path = require('path');
+const promisify = require('util').promisify;
+const sharp = require('sharp');
+/*
 import fs from 'fs';
 import path from 'path';
 import {promisify} from 'util';
 import sharp from 'sharp';
+*/
 
 const imagesDirectoryBase = path.join(__dirname, 'files');
 module.exports.thumbSuffix = '-thumb';
