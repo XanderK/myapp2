@@ -4,6 +4,7 @@ import {promisify} from 'util';
 import sharp from 'sharp';
 
 const imagesDirectoryBase = path.join(__dirname, 'files');
+module.exports.thumbSuffix = '-thumb';
 
 module.exports.sendJSONresponse = (res, status, content) => {
   res.status(status);
@@ -33,12 +34,21 @@ async function myF() {
 myF();
 */
 
+// Сохраняет малое изображение 
 async function makeThumb(fileName) {
   let fileInfo = path.parse(fileName);
-  let thumbFileName = path.join(fileInfo.dir, fileInfo.name + '-thumb' + fileInfo.ext);
-  ???
+  let thumbFileName = path.join(fileInfo.dir, fileInfo.name + thumbSuffix + fileInfo.ext);
+
+  // преобразование изображения к 160x120
+  try {
+    await sharp(fileName).resize(160, 120).toFile(thumbFileName);
+  }
+  catch(e) {
+    console.log(e);
+  }
 }
 
+// Сохраняет base64String в файл JPEG
 async function base64ToJpeg(fileName, base64String) {
   const base64Image = base64String.split(';base64,').pop();
   const writeFile = promisify(fs.writeFile);
@@ -66,23 +76,16 @@ module.exports.saveImages = async (id, images) => {
     let fullFileName = path.join(imagesPath, fileName);
     try {
       // Сохранение большого изображения
-      var err = await base64ToJpeg(fullFileName, image[i]);
-      if(err) {
-        console.log(err);
-      }
-      else {
-        files.push(path.join(imagesDirectory, fileName));
-      }
+      await base64ToJpeg(fullFileName, image[i]);
+      files.push(path.join(imagesDirectory, fileName));
 
       // Формирование малого изображения как: "productId-1-thumb.jpg"
-      ???
-
+      await makeThumb(fullFileName);
     }
     catch(e) {
       console.log(e);
     }
   }
-
   return files;
 };
 

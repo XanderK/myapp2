@@ -1,5 +1,6 @@
-const Product = require('../models/Product');
-const helpers = require('../helpers');
+import Product from '../models/Product';
+import helpers from '../helpers';
+//import {promisify} from 'util';
 
 module.exports.allProducts = (req, res) => {
   Product.find().then(products => {
@@ -29,17 +30,36 @@ module.exports.createProduct = (req, res) => {
     owner: JSON.parse(req.body.owner)
   });
     
+  try {
+    product = await product.save();
+  }
+  catch(e) {
+    return helpers.sendJSONresponse(res, 400, e);
+  }
+
+  // Сохранение изображений
   if(req.body.images) 
   {
     // в БД храним только имена файлов
-    //images: req.body.images
-    
+    try {
+      let filenames = await helpers.saveImages(product.id, req.body.images);
+      product.images = filenames;
+      await product.save();
+    }
+    catch(e) {
+      return helpers.sendJSONresponse(res, 400, e);
+    }
   }
 
+  helpers.sendJSONresponse(res, 200, product);
+
+  /*
   product.save((err, product) => {
     if(err) return helpers.sendJSONresponse(res, 400, err);
     helpers.sendJSONresponse(res, 200, product);
   });
+  */
+
 }
 
 module.exports.updateProduct = (req, res) => {
