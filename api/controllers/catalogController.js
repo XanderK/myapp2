@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const helpers = require('../helpers');
+const imageHelper = require('../imageHelper');
 
 //import Product from '../models/Product';
 //import helpers from '../helpers';
@@ -18,6 +19,7 @@ module.exports.productById = (req, res) => {
   Product.findById(req.params.id).then(product => {
     helpers.sendJSONresponse(res, 200, product);
   }).catch(err => {
+    console.log(err);
     helpers.sendJSONresponse(res, 400, err);
   });
 }
@@ -37,6 +39,7 @@ module.exports.createProduct = async (req, res) => {
     product = await product.save();
   }
   catch(e) {
+    console.log(e);
     return helpers.sendJSONresponse(res, 400, e);
   }
 
@@ -45,11 +48,12 @@ module.exports.createProduct = async (req, res) => {
   {
     // в БД храним только имена файлов
     try {
-      let filenames = await helpers.saveImages(product.id, req.body.images);
+      let filenames = await imageHelper.saveImages(product.id, req.body.images);
       product.images = filenames;
       await product.save();
     }
     catch(e) {
+      console.log(e);
       return helpers.sendJSONresponse(res, 400, e);
     }
   }
@@ -65,8 +69,9 @@ module.exports.createProduct = async (req, res) => {
 
 }
 
-module.exports.updateProduct = (req, res) => {
-  Product.findById(req.body.id).then(product => {
+module.exports.updateProduct = async (req, res) => {
+  try {
+    let product = await Product.findById(req.body.id);
     product.name = req.body.name;
     product.model = JSON.parse(req.body.model);
     product.year = req.body.year;
@@ -74,25 +79,36 @@ module.exports.updateProduct = (req, res) => {
     product.responsible = req.body.responsible;
     product.owner = JSON.parse(req.body.owner);
     
-    if(req.body.images)
+    // Сохранение изображений
+    if(req.body.images) 
     {
-      // в БД храним только имена файлов 
-      //product.images = //req.body.images;
+      // в БД храним только имена файлов
+      try {
+        let images = Array.isArray(req.body.images) ? req.body.images : new Array(req.body.images); 
+        let filenames = await imageHelper.saveImages(product.id, images);
+        product.images = filenames;
+        await product.save();
+      }
+      catch(e) {
+        console.log(e);
+        return helpers.sendJSONresponse(res, 400, e);
+      }
     }
 
-    product.save((err, product) => {
-      if(err) return helpers.sendJSONresponse(res, 400, err);
-      helpers.sendJSONresponse(res, 200, product);
-    });
-
-  }).catch(err => {
-    helpers.sendJSONresponse(res, 400, err);
-  });
+    helpers.sendJSONresponse(res, 200, product);
+  }
+  catch(e) {
+    console.log(e);
+    helpers.sendJSONresponse(res, 400, e);
+  }
 }
 
 module.exports.deleteProduct = (req, res) => {
   Product.remove({ _id: req.body.id }, (err) => {
-    if(err) helpers.sendJSONresponse(res, 400, err);
+    if(err) {
+      console.log(err);
+      helpers.sendJSONresponse(res, 400, err);
+    }
     helpers.sendJSONresponse(res, 200, { auth: true, message: 'Product with ID "' + req.body.id + '" successfuly deleted.' });
   });
 }

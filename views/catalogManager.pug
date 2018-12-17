@@ -75,8 +75,7 @@ block scripts
             input.productId(type="hidden", name="id")
             button.btn.btn-primary Удалить
   script.
-    'use strict';
-    $('#deleteProductModal').on('show.bs.modal', (event) => {
+    $('#deleteProductModal').on('show.bs.modal', function(event) {
       var element = $(event.relatedTarget) // Button that triggered the modal
       var productName = element.data('productname') // Extract info from data-* attributes
       var productId = element.data('productid') // Extract info from data-* attributes
