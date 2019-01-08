@@ -63,3 +63,6 @@ typings/
 public/stylesheets/*.css
 public/stylesheets/*.css.*
 package-lock.json
+
+# Data files
+data/

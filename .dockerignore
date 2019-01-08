@@ -1,5 +1,7 @@
 .git
 .vscode
+.gitignore
 node_modules
-docker-compose-dev.yml
+docker-compose*.yml
 package-lock.json
+Dockerfile

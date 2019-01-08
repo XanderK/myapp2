@@ -6,7 +6,10 @@ const sharp = require('sharp');
 const mkdirp = promisify(require('mkdirp'));
 const helpers = require('./helpers');
 
-const imagesDirectoryBase = path.join(__dirname, 'files');
+// Каталог в котором будут храниться изображения
+const imagesDirectoryBase = path.join(__dirname, '../data/files');
+
+// Суффикс для названия файла с малым изображением
 const thumbSuffix = '-thumb';
 
 // Сохраняет малое изображение 
@@ -28,7 +31,7 @@ async function makeThumb(fileName) {
     kernel: sharp.kernel.nearest
   };
   try {
-    await sharp(fileName).resize(imageOptions).toFile(thumbFileName);
+    await sharp(fileName).resize(imageOptions).sharpen().toFile(thumbFileName);
   }
   catch (e) {
     console.log(e);
