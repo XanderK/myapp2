@@ -49,7 +49,7 @@ async function base64ToJpeg(fileName, base64String) {
 // Возвращает список файлов.
 module.exports.saveImages = async (id, images) => {
   let currentDate = new Date();
-  const imagesDirectory = path.join(currentDate.getFullYear().toString(), (currentDate.getMonth() + 1).toPrecision(2));
+  const imagesDirectory = path.join(currentDate.getFullYear().toString(), (currentDate.getMonth() + 1).toString().padStart(2, '0'));
   let imagesPath = path.join(imagesDirectoryBase, imagesDirectory);
 
   console.log(imagesPath);
