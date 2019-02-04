@@ -5,9 +5,10 @@ const promisify = require('util').promisify;
 const sharp = require('sharp');
 const mkdirp = promisify(require('mkdirp'));
 const helpers = require('./helpers');
+const config = require('./config');
 
 // Каталог в котором будут храниться изображения
-const imagesDirectoryBase = path.join(__dirname, '../data/files');
+const imagesDirectoryBase = path.join(__dirname, '../' + config.product_images_dir);
 
 // Суффикс для названия файла с малым изображением
 const thumbSuffix = '-thumb';

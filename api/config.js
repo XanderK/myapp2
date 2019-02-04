@@ -8,7 +8,8 @@ const development = {
   },
   default_admin_password: '123456',  
   default_guest_password: 'mn$/Qw.V>2u7D)AP',
-  secret: 'wSr@j=6Y+=$%?ppm!RXAEUzw?zyX-tPGRQWLABpc_zeST=@Zkb-Dddq5^U?deP?F'
+  secret: 'wSr@j=6Y+=$%?ppm!RXAEUzw?zyX-tPGRQWLABpc_zeST=@Zkb-Dddq5^U?deP?F',
+  product_images_dir: 'data/files'
 };
 
 const productive = {
@@ -19,7 +20,8 @@ const productive = {
   },
   default_admin_password: '123456',
   default_guest_password: 'mn$/Qw.V>2u7D)AP',
-  secret: 'wSr@j=6Y+=$%?ppm!RXAEUzw?zyX-tPGRQWLABpc_zeST=@Zkb-Dddq5^U?deP?F'
+  secret: 'wSr@j=6Y+=$%?ppm!RXAEUzw?zyX-tPGRQWLABpc_zeST=@Zkb-Dddq5^U?deP?F',
+  product_images_dir: 'data/files'
 };
 
 const config = {

@@ -1,4 +1,17 @@
 //- Просмотр элемента каталога
 extends layout
 
+block head
+  link(rel='stylesheet', href='/fotorama/fotorama-4.6.4.min.css')
+  
 block content
+  .fotorama(data-width="700" data-ratio="3/2" data-nav="thumbs" data-thumbheight="48")
+    img(src="images/car-brands/Acura-logo.png")
+    img(src="images/car-brands/Alpina-logo.png")
+    img(src="images/car-brands/Audi-logo.png")
+    img(src="images/car-brands/Austin-logo.png")
+    img(src="images/car-brands/AMG-logo.png")
+
+block scripts
+  script(src="/fotorama/fotorama-4.6.4.min.js")
+

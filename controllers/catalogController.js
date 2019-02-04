@@ -130,6 +130,16 @@ module.exports.catalog = (req, res) => {
   });
 }
 
+// Просмотр продукта
+module.exports.product = (req, res) => {
+  const viewName = 'product';
+  res.render(viewName, {
+    title: 'Продукт',
+    activeView: viewName,
+    user: req.user
+  });
+}
+ 
 // Ведение каталога
 module.exports.catalogManager = (req, res) => {
   const path = '/api/catalog';

@@ -8,14 +8,11 @@ const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-//const config = require('./api/config')
-//const db = require('./api/db')
-
 const userController = require('./api/controllers/userController');
 const appRouter = require('./routes');
 const apiRouter = require('./api/routes');
 
-require('./api/config');
+const config = require('./api/config');
 require('./api/db');
 
 const app = express();
@@ -43,7 +40,7 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('files', express.static(path.join(__dirname, 'data/files')));
+app.use('/files', express.static(path.join(__dirname, config.product_images_dir)));
 
 //require('./api/auth').init(app)
 

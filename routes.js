@@ -25,6 +25,9 @@ router.get('/robots.txt', (req, res) => {
 // Показать каталог
 router.get('/catalog', catalogController.catalog);
 
+// Показать продукт
+router.get('/product', catalogController.product);
+
 // Редактирование каталога
 router.get('/admin/catalog', allowAccess(['admin','manager']), catalogController.catalogManager);
 // Страница добавления нового элемента в каталог
