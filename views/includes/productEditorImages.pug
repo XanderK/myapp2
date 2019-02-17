@@ -9,7 +9,9 @@ h4.d-flex.justify-content-between.align-items-center.mb-3
     .container
       each imageSrc, index in editProduct.images
         .row
-          img.thumb(src = '/files/' + imageSrc, type = 'hidden', name = 'images')
+          span
+            img.thumb(src = '/files/' + imageSrc)
+            input(type = 'hidden', name = 'images', value = '/files/' + imageSrc)
       .row#image-place  
 
 script.
@@ -40,7 +42,7 @@ script.
           inputImage.id = 'image_' + theFile.name;
           inputImage.type = 'hidden';
           inputImage.name = 'images'
-          inputImage.id = theFile.name;
+          //inputImage.id = theFile.name;
           inputImage.value = e.target.result;
           
           document.getElementById('input-form').append(inputImage);
