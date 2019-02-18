@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema({
   owner: { type: userSchema, required: true, index: true },
   responsible: String,
   images: [String],
+  //storedImages: [{id: String, src: String, value: String}],
   mainImageIndex: Number
 });
 
