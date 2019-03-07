@@ -109,7 +109,9 @@
 }
 
 .thumb {
-  height: 120px;
-  border: 1px solid #000;
+  height: 150px;
+  //border: 1px solid #000;
+  border: $input-border-width solid $input-border-color;
+  border-radius: $input-border-radius;
   margin: 10px 5px 0 0;
 }

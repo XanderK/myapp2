@@ -2,10 +2,6 @@ const Product = require('../models/Product');
 const helpers = require('../helpers');
 const imageHelper = require('../imageHelper');
 
-//import Product from '../models/Product';
-//import helpers from '../helpers';
-//import {promisify} from 'util';
-
 module.exports.allProducts = (req, res) => {
   Product.find().then(products => {
     helpers.sendJSONresponse(res, 200, products);
@@ -48,10 +44,8 @@ module.exports.createProduct = async (req, res) => {
   {
     // в БД храним только имена файлов
     try {
-      let filenames = await imageHelper.saveImages(product.id, req.body.images);
-
-      // TODO: Create array of ImageSchema and save that into storedImages
-      product.images = filenames;
+      let images = await imageHelper.saveImages(product.id, req.body.images);
+      product.images = images;
       await product.save();
     }
     catch(e) {
@@ -86,17 +80,16 @@ module.exports.updateProduct = async (req, res) => {
     {
       // в БД храним только имена файлов
       try {
-        let images = Array.isArray(req.body.images) ? req.body.images : new Array(req.body.images); 
-        let filenames = await imageHelper.saveImages(product.id, images);
-        product.images = filenames;
-        await product.save();
+        let sourceImages = Array.isArray(req.body.images) ? req.body.images : new Array(req.body.images); 
+        let resultImages = await imageHelper.saveImages(product.id, sourceImages);
+        product.images = product.images.concat(resultImages);
       }
       catch(e) {
         console.log(e);
         return helpers.sendJSONresponse(res, 400, e);
       }
     }
-
+    await product.save();
     helpers.sendJSONresponse(res, 200, product);
   }
   catch(e) {
@@ -106,7 +99,11 @@ module.exports.updateProduct = async (req, res) => {
 }
 
 module.exports.deleteProduct = (req, res) => {
-  Product.remove({ _id: req.body.id }, (err) => {
+  const productId = req.body.id;
+  
+  // TODO: Удалить изображения
+  
+  Product.remove({ _id: productId }, (err) => {
     if(err) {
       console.log(err);
       helpers.sendJSONresponse(res, 400, err);

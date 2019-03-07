@@ -1,13 +1,8 @@
 // Эемент каталога
 const mongoose = require('mongoose');
 const UserSchema = require('./User').schema;
+const ImageSchema = require('./Image').schema;
 const CarModelSchema = require('./CarModel').schema;
-
-const ImageSchema = new mongoose.Schema({
-  id: { type: String, required: false, index: false },
-  src: { type: String, required: false, index: false },
-  value: { type: String, required: false, index: false }
-});
 
 const ProductSchema = new mongoose.Schema({
   name: { type: String, required: true, index: true },
@@ -19,8 +14,8 @@ const ProductSchema = new mongoose.Schema({
   description: String,
   owner: { type: UserSchema, required: true, index: true },
   responsible: String,
-  images: [String],
-  storedImages: [ImageSchema],
+  //images: [String],
+  images: [ImageSchema],
   mainImageIndex: Number
 });
 

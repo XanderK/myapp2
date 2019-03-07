@@ -6,6 +6,8 @@ const sharp = require('sharp');
 const mkdirp = promisify(require('mkdirp'));
 const helpers = require('./helpers');
 const config = require('./config');
+const uuidv4 = require('uuid/v4');
+const Image = require('./models/Image');
 
 // Каталог в котором будут храниться изображения
 const imagesDirectoryBase = path.join(__dirname, '../' + config.product_images_dir);
@@ -14,39 +16,31 @@ const imagesDirectoryBase = path.join(__dirname, '../' + config.product_images_d
 const thumbSuffix = '-thumb';
 
 // Сохраняет малое изображение 
-async function makeThumb(fileName) {
-  let fileInfo = path.parse(fileName);
-  let thumbFileName = path.join(fileInfo.dir, fileInfo.name + thumbSuffix + fileInfo.ext);
-
+async function makeThumb(sourceFullFileName, thumbFullFileName) {
   // удалим thumb
-  if(await helpers.doesFileExist(thumbFileName)) {
-    await fsPromises.unlink(thumbFileName);
+  if(await helpers.doesFileExist(thumbFullFileName)) {
+    await fsPromises.unlink(thumbFullFileName);
   }
   
-  // преобразование изображения к 160x120
+  // параметры преобразования изображения в thumb
   const imageOptions = {
-    width: 160,
-    hight: 120,
+    width: 176,
+    hight: 132,
     fit: sharp.fit.cover,
     position: sharp.strategy.entropy,
-    kernel: sharp.kernel.nearest
+    //kernel: sharp.kernel.nearest
   };
-  try {
-    await sharp(fileName).resize(imageOptions).sharpen().toFile(thumbFileName);
-  }
-  catch (e) {
-    console.log(e);
-  }
+  return await sharp(sourceFullFileName).resize(imageOptions).sharpen().toFile(thumbFullFileName);
 }
 
 // Сохраняет base64String в файл JPEG
-async function base64ToJpeg(fileName, base64String) {
+async function base64ToJpeg(fullFileName, base64String) {
   const base64Image = base64String.split(';base64,').pop();
   const writeFile = promisify(fs.writeFile);
-  return await writeFile(fileName, base64Image, { encoding: 'base64' });
+  return await writeFile(fullFileName, base64Image, { encoding: 'base64' });
 }
 
-// Сохранеие изображений.
+// Сохраняет изображения.
 // Возвращает список файлов.
 module.exports.saveImages = async (id, images) => {
   let currentDate = new Date();
@@ -57,29 +51,48 @@ module.exports.saveImages = async (id, images) => {
 
   // Создание каталога для хранения изображений
   if (!fs.existsSync(imagesPath)) {
-    //fs.mkdirSync(imagesPath);
     await mkdirp(imagesPath);
     console.log('Directory ' + imagesPath + ' created.');
   }
 
-  let files = new Array();
+  let resultImages = new Array();
   for (let i = 0; i < images.length; i++) {
-    // Формирование названия для файла с изображением как: "productId-1.jpg"
-    let fileName = id + '-' + (i+1) + '.jpg';
+    // Формирование названия для файла с изображением как: "productId-uuid.jpg"
+    let fileName = id + '-' + uuidv4().replace(/-/g, '') + '.jpg';
     let fullFileName = path.join(imagesPath, fileName);
+
     try {
       // Сохранение большого изображения
-      await base64ToJpeg(fullFileName, images[i]);
-      files.push(path.join(imagesDirectory, fileName));
+      try {
+        await base64ToJpeg(fullFileName, images[i]);
+      }
+      catch (e) {
+        console.log(e);
+      }
 
-      // Формирование малого изображения как: "productId-1-thumb.jpg"
-      await makeThumb(fullFileName);
+      // Формирование малого изображения как: "productId-uuid-thumb.jpg"
+      let fileInfo = path.parse(fullFileName);
+      let thumbFileName = fileInfo.name + thumbSuffix + fileInfo.ext;
+      let fullThunbFileName = path.join(fileInfo.dir, thumbFileName);
+      try {
+        await makeThumb(fullFileName, fullThunbFileName);
+      }
+      catch (e) {
+        console.log(e);
+      }
+
+      resultImages.push(
+        new Image({
+          thumb: path.join(imagesDirectory, thumbFileName),
+          full: path.join(imagesDirectory, fileName)
+        })
+      );
     }
     catch (e) {
       console.log(e);
     }
   }
-  return files;
+  return resultImages;
 };
 
 // Удаление изображений.
