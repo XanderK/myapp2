@@ -4,6 +4,7 @@ const path = require('path');
 const promisify = require('util').promisify;
 const sharp = require('sharp');
 const mkdirp = promisify(require('mkdirp'));
+const rimraf = require('rimraf');
 const helpers = require('./helpers');
 const config = require('./config');
 const uuidv4 = require('uuid/v4');
@@ -97,6 +98,7 @@ module.exports.saveImages = async (id, images) => {
 
 // Удаление изображений.
 module.exports.deleteImages = async (fileNameMask) => {
+  /*
   const unlink = promisify(fs.unlink);
   try {
     await unlink(fileNameMask);
@@ -104,5 +106,16 @@ module.exports.deleteImages = async (fileNameMask) => {
   catch(e) {
     console.log(e);
   }
+  */
+
+  const rmrf = promisify(rimraf);
+  const pattern = path.join(imagesDirectoryBase + '**' + fileNameMask);
+  try {
+    await rmrf(pattern);
+  }
+  catch(e) {
+    console.log(e);
+  }
+
 };
 
