@@ -197,7 +197,7 @@ module.exports.createProduct = (req, res) => {
   });
 }
 
-// Обновление пользователя через API
+// Обновление элемента каталога через API
 module.exports.updateProduct = (req, res) => {
   let productId = req.body.id
   if (productId) {
@@ -218,7 +218,8 @@ module.exports.updateProduct = (req, res) => {
         responsible: req.body.responsible,
         description: req.body.description,
         owner: req.body.user,
-        images: req.body.images
+        images: req.body.images,
+        deletedImages: req.body.deletedImages
       }
     };
 

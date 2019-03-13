@@ -9,21 +9,43 @@ h4.d-flex.justify-content-between.align-items-center.mb-3
     .container
       if editProduct && editProduct.images
         each image, index in editProduct.images
-          .row
-            span
-              img.thumb(src = '/files/' + image.thumb)
-              input(type = 'hidden', name = 'stored-images', value = '')
+          span(id = image.key)
+            .row
+              .col  
+                img.thumb(src = '/files/' + image.thumb)
+              .col
+                button.btn.btn-danger(type = "button", onClick = "deleteStoredImage(" + image.key + ")")
+                  span.material-icons.white delete
       .row#image-place  
 
 script.
-  function deleteImage(fileName) {
-    var thumb = document.createElement('thumb-' + fileName);
-    if(thumb != null) {
-      thumb.remove();
-    }
-    var image = document.createElement('image-' + fileName);
+  var thumbIdPrefix = 'thumb-';
+  var imageIdPrefix = 'image-';
+
+  //- удаляет сохраненое в БД изображение
+  function deleteStoredImage(imageKey) {
+    var image = document.getElementById(imageKey);
     if(image != null) {
       image.remove();
+    }
+    
+    var deletedImage = document.createElement('input');
+    deletedImage.type = 'hidden';
+    deletedImage.name = 'deletedImages'
+    deletedImage.value = key;
+    document.getElementById('input-form').append(inputImage);
+  }
+
+  //- удаляет не сохраненое в БД изображение
+  function deleteImage(fileName) {
+    var image = document.getElementById(imageIdPrefix + fileName);
+    if(image != null) {
+      image.remove();
+    }
+
+    var thumb = document.getElementById(thumbIdPrefix + fileName);
+    if(thumb != null) {
+      thumb.remove();
     }
   }
   
@@ -36,19 +58,26 @@ script.
         return function(e) {
           // Render thumbnail.
           var span = document.createElement('span');
-          span.id = 'thumb-' + theFile.name;
-          span.innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+          span.id = thumbIdPrefix + theFile.name;
+          span.innerHTML = [
+            '<div class="row">',
+              '<div class="col">',
+                '<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>',
+              '</div>',
+              '<div class="col">',
+                '<button class="btn btn-danger" type="button" onClick="deleteImage(' + theFile.name + ')">',
+                  '<span class="material-icons white">delete</span>',
+                '</button>',
+              '</div>',
+            '</div>'].join('');
           document.getElementById('image-place').append(span);
+          
           var inputImage = document.createElement('input');
-          inputImage.id = 'image-' + theFile.name;
+          inputImage.id = imageIdPrefix + theFile.name;
           inputImage.type = 'hidden';
           inputImage.name = 'images'
-          //inputImage.id = theFile.name;
           inputImage.value = e.target.result;
-          
           document.getElementById('input-form').append(inputImage);
-          //document.createElement('span')('').append(inputImage);
-          //document.getElementById('image-place').insertBefore(span, null);
         };
       })(f);
       // Read in the image file as a data URL.

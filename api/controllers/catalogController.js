@@ -75,6 +75,14 @@ module.exports.updateProduct = async (req, res) => {
     product.responsible = req.body.responsible;
     product.owner = JSON.parse(req.body.owner);
     
+    // Удаление изображений
+    if(req.body.deletedImages) {
+      let deletedImages = Array.isArray(req.body.deletedImages) ? req.body.deletedImages : new Array(req.body.deletedImages); 
+      deletedImages.forEach(element => {
+        await imageHelper.deleteImages(element + "*");
+      });
+    }
+    
     // Сохранение изображений
     if(req.body.images) 
     {

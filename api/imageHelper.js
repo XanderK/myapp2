@@ -96,18 +96,19 @@ module.exports.saveImages = async (id, images) => {
   return resultImages;
 };
 
-// Удаление изображений.
-module.exports.deleteImages = async (fileNameMask) => {
-  /*
+// Удаление изображения
+module.exports.deleteImage = async (fileName) => {
   const unlink = promisify(fs.unlink);
   try {
-    await unlink(fileNameMask);
+    await unlink(fileName);
   }
   catch(e) {
     console.log(e);
   }
-  */
+};
 
+// Удаление изображений
+module.exports.deleteImages = async (fileNameMask) => {
   const rmrf = promisify(rimraf);
   const pattern = path.join(imagesDirectoryBase + '**' + fileNameMask);
   try {

@@ -54,10 +54,10 @@ block content
                     form(method='POST', action="/admin/catalog/edit", novalidate)
                       input(type="hidden", name="id", value=product._id)
                       button.btn.btn-link.p-0
-                        i.material-icons.success create
+                        span.material-icons.success create
                   .col
                     a(href="#", data-toggle="modal", data-target="#deleteProductModal", data-productName=( product.name + " (" + product.model.brand.name + " " + product.model.name + ", " + product.year + ")"), data-productId=product._id)
-                      i.material-icons.danger delete
+                      span.material-icons.danger delete
 
 block scripts              
   //- модальное окно подтверждения удаления
