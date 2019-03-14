@@ -78,8 +78,13 @@ module.exports.updateProduct = async (req, res) => {
     // Удаление изображений
     if(req.body.deletedImages) {
       let deletedImages = Array.isArray(req.body.deletedImages) ? req.body.deletedImages : new Array(req.body.deletedImages); 
+      /*
+      for(let i=0; i < deletedImages.length; i++) {
+        await imageHelper.deleteImages(deletedImages[i] + "*");
+      }
+      */
       deletedImages.forEach(element => {
-        await imageHelper.deleteImages(element + "*");
+        imageHelper.deleteImages(element + "*");
       });
     }
     

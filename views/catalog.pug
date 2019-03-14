@@ -1,7 +1,7 @@
 //- Каталог
 extends layout
 
-mixin product(carModel, partName, description, publishDate, detailsUrl)
+mixin product(carModel, partName, description, publishDate, imageUrl, detailsUrl)
   .col-lg-6.my-1
     .card
       .row.no-gutters
@@ -30,7 +30,7 @@ block content
 
   .container.mb-2
     .row
-      +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
+      +product(products[0].carModelText, products[0].description, products[0].description, products[0].createdText, "", "")
       +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
 
   //-

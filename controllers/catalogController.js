@@ -5,7 +5,6 @@ const rp = require('request-promise');
 const config = require('../api/config');
 const helpers = require('../api/helpers');
 const carBrands = require('../utils/car-brands');
-const dateTime = require('../utils/DateTime');
 
 const apiOptions = {
   server: config.server
@@ -118,7 +117,40 @@ module.exports.editProduct = (req, res) => {
 
 // Просмотр каталога
 module.exports.catalog = (req, res) => {
-  const viewName = 'catalog';
+  const path = '/api/catalog';
+  let options = {
+    url: config.server + path,
+    method: "GET",
+    headers: {
+      'x-access-token': req.session.token
+    },
+    json: true
+  };
+
+  request(options, (err, response, body) => {
+    let products = [];
+    if (err) {
+      console.error(err);
+    }
+    else if (response.statusCode === 200) {
+      for (let i = 0; i < body.length; i++) {
+        let product = body[i];
+        //product.created = new Date(product.created);
+        products.push(product);
+      }
+      const viewName = 'catalog'; 
+      res.render(viewName, {
+        title: 'КАТАЛОГ',
+        activeView: viewName,
+        products: products
+      });
+    }
+    else {
+      helpers.sendJSONresponse(res, response.statusCode, body);
+    }
+  });
+  
+  /*
   carBrands.allBrands((err, brands) => {
     if(err) return console.error(err);
     res.render(viewName, {
@@ -128,6 +160,7 @@ module.exports.catalog = (req, res) => {
       brands: brands
     });
   });
+  */
 }
 
 // Просмотр продукта
