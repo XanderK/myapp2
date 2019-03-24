@@ -10,17 +10,18 @@ const ProductSchema = new mongoose.Schema({
   model: { type: CarModelSchema, required: true, index: true },
   engine: String,
   year: { type: Number, required: true, index: true },
-  //isPart: { type: Boolean, required: true, default: true, index: true },
   created: { type: Date, required: true, default: Date.now },
   description: String,
   owner: { type: UserSchema, required: true, index: true },
   responsible: String,
-  //images: [String],
   images: [ImageSchema],
   mainImageIndex: Number
+},
+{
+  toJSON: { virtuals: true }  
 });
 
-ProductSchema.virtual('createdText').get(() => {
+ProductSchema.virtual('createdText').get(function() {
   let createdText = "";
   if(this.created != null) {
     createdText = DateTime.toString(this.created);
@@ -28,8 +29,8 @@ ProductSchema.virtual('createdText').get(() => {
   return createdText;
 });
 
-ProductSchema.virtual('carModelText').get(() => {
-  let carModelText = this.model + " " + this.name;
+ProductSchema.virtual('carModelText').get(function() {
+  let carModelText = this.model.carModelText + " " + this.name;
   if(this.engine) {
     carModelText = carModelText + ", " + this.engine;
   }

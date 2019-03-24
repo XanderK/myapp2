@@ -4,7 +4,7 @@ const path = require('path');
 const promisify = require('util').promisify;
 const sharp = require('sharp');
 const mkdirp = promisify(require('mkdirp'));
-const rimraf = require('rimraf');
+// const rimraf = require('rimraf');
 const helpers = require('./helpers');
 const config = require('./config');
 const uuidv4 = require('uuid/v4');
@@ -29,7 +29,15 @@ async function makeThumb(sourceFullFileName, thumbFullFileName) {
     hight: 132,
     fit: sharp.fit.cover,
     position: sharp.strategy.entropy,
-    //kernel: sharp.kernel.nearest
+    /*
+    Possible interpolation kernels are:
+    nearest: Use nearest neighbour interpolation.
+    cubic: Use a Catmull-Rom spline.
+    mitchell: Use a Mitchell-Netravali spline.
+    lanczos2: Use a Lanczos kernel with a=2.
+    lanczos3: Use a Lanczos kernel with a=3 (the default).
+    */
+    kernel: sharp.kernel.cubic
   };
   return await sharp(sourceFullFileName).resize(imageOptions).sharpen().toFile(thumbFullFileName);
 }
@@ -100,23 +108,23 @@ module.exports.saveImages = async (id, images) => {
 module.exports.deleteImage = async (fileName) => {
   const unlink = promisify(fs.unlink);
   try {
-    await unlink(fileName);
+    // await unlink(fileName);
+    await unlink(path.join(imagesDirectoryBase, fileName));
   }
   catch(e) {
     console.log(e);
   }
 };
 
-// Удаление изображений
-module.exports.deleteImages = async (fileNameMask) => {
-  const rmrf = promisify(rimraf);
-  const pattern = path.join(imagesDirectoryBase + '**' + fileNameMask);
-  try {
-    await rmrf(pattern);
-  }
-  catch(e) {
-    console.log(e);
-  }
-
-};
+// // Удаление изображений
+// module.exports.deleteImages = async (fileNameMask) => {
+//   const rmrf = promisify(rimraf);
+//   const pattern = imagesDirectoryBase + '/**/' + fileNameMask;
+//   try {
+//     await rmrf(pattern);
+//   }
+//   catch(e) {
+//     console.log(e);
+//   }
+// };
 

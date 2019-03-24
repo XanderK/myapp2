@@ -9,12 +9,12 @@ h4.d-flex.justify-content-between.align-items-center.mb-3
     .container
       if editProduct && editProduct.images
         each image, index in editProduct.images
-          span(id = image.key)
+          span(id = image._id)
             .row
               .col  
                 img.thumb(src = '/files/' + image.thumb)
               .col
-                button.btn.btn-danger(type = "button", onClick = "deleteStoredImage(" + image.key + ")")
+                button.btn.btn-danger(type = "button", onClick = "deleteStoredImage('" + image._id + "')")
                   span.material-icons.white delete
       .row#image-place  
 
@@ -23,8 +23,9 @@ script.
   var imageIdPrefix = 'image-';
 
   //- удаляет сохраненое в БД изображение
-  function deleteStoredImage(imageKey) {
-    var image = document.getElementById(imageKey);
+  function deleteStoredImage(imageId) {
+    console.log(imageId);
+    var image = document.getElementById(imageId);
     if(image != null) {
       image.remove();
     }
@@ -32,8 +33,8 @@ script.
     var deletedImage = document.createElement('input');
     deletedImage.type = 'hidden';
     deletedImage.name = 'deletedImages'
-    deletedImage.value = key;
-    document.getElementById('input-form').append(inputImage);
+    deletedImage.value = imageId;
+    document.getElementById('input-form').append(deletedImage);
   }
 
   //- удаляет не сохраненое в БД изображение

@@ -7,8 +7,19 @@ const CarModelSchema = new mongoose.Schema({
   brand: { type: CarBrandSchema, required: true, index: true },
   startYear: { type: Number, required: true },
   finishYear: {type: Number } 
+},
+{
+  toJSON: { virtuals: true }   
 });
 
 CarModelSchema.index({brand: 1, name: 1}, {unique: true});
+
+CarModelSchema.virtual('carModelText').get(function() {
+  let carModelText = this.name;
+  if(this.brand != null) {
+    carModelText = this.brand.name + " " + carModelText;
+  }
+  return carModelText;
+});
 
 module.exports = mongoose.model('CarModel', CarModelSchema);

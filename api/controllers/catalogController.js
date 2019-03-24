@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+//const Image = require('../models/Image');
 const helpers = require('../helpers');
 const imageHelper = require('../imageHelper');
 
@@ -62,11 +63,18 @@ module.exports.createProduct = async (req, res) => {
     helpers.sendJSONresponse(res, 200, product);
   });
   */
-
 }
 
 module.exports.updateProduct = async (req, res) => {
   try {
+    // Удаление изображений
+    if(req.body.deletedImages) {
+      let deletedImages = Array.isArray(req.body.deletedImages) ? req.body.deletedImages : new Array(req.body.deletedImages); 
+      deletedImages.forEach(element => {
+        deleteImageById(element);
+      });
+    }
+    
     let product = await Product.findById(req.body.id);
     product.name = req.body.name;
     product.model = JSON.parse(req.body.model);
@@ -74,20 +82,7 @@ module.exports.updateProduct = async (req, res) => {
     product.description = req.body.description;
     product.responsible = req.body.responsible;
     product.owner = JSON.parse(req.body.owner);
-    
-    // Удаление изображений
-    if(req.body.deletedImages) {
-      let deletedImages = Array.isArray(req.body.deletedImages) ? req.body.deletedImages : new Array(req.body.deletedImages); 
-      /*
-      for(let i=0; i < deletedImages.length; i++) {
-        await imageHelper.deleteImages(deletedImages[i] + "*");
-      }
-      */
-      deletedImages.forEach(element => {
-        imageHelper.deleteImages(element + "*");
-      });
-    }
-    
+        
     // Сохранение изображений
     if(req.body.images) 
     {
@@ -108,6 +103,33 @@ module.exports.updateProduct = async (req, res) => {
   catch(e) {
     console.log(e);
     helpers.sendJSONresponse(res, 400, e);
+  }
+}
+
+async function deleteImageById(id) {
+  // поиск в продукте изображения по Id
+  try {
+    //let image = await Product.findOne({images : {$elemMatch: { id: imageId }}});
+    let product = await Product.findOne({images: {$elemMatch: {_id: id}}});
+    if(product != null) {
+      //let imageIndex = -1;
+      let image = product.images.find((element, index, array) => {
+        //imageIndex = index;
+        return element.id === id;
+      });
+      if(image != null) {
+        // удаление файлов
+        await imageHelper.deleteImage(image.thumb);
+        await imageHelper.deleteImage(image.full);
+        // удаления из продукта
+        // product.images.splice(imageIndex, 1);
+        product.images.pull(image._id);
+        await product.save();
+      }
+    }
+  }
+  catch(e) {
+    console.log(e);
   }
 }
 
