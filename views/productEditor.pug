@@ -17,7 +17,7 @@ block content
 
     form#input-form.needs-validation(method="POST", action=(editProduct ? "/admin/catalog/update" : "/admin/catalog"), enctype="application/x-www-form-urlencoded", novalidate)
       .row
-        .col-md-8.order-md-1
+        .col-md-7.order-md-1
           input(type="hidden", value=(editProduct ? editProduct._id : ''), name="id")
           input(type="hidden", value=user, name="user")
           input(type="hidden", value="-1", name="defaultImageIndex", id="default-image-index")
@@ -48,7 +48,7 @@ block content
             label(for="description") Описание
             textarea#description.form-control(name="description", rows='6')= editProduct ? editProduct.description : ''
   
-        .col-md-4.order-md-2.mb-4          
+        .col-md-5.order-md-2.mb-4          
           //- Добавление и удаление фото продукта
           include includes/productEditorImages.pug
 

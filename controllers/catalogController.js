@@ -143,7 +143,8 @@ module.exports.catalog = (req, res) => {
       res.render(viewName, {
         title: 'КАТАЛОГ',
         activeView: viewName,
-        products: products
+        products: products,
+        user: req.user
       });
     }
     else {

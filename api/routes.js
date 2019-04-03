@@ -40,10 +40,10 @@ router.delete('/users', authenticate(['admin']), userController.deleteUser);
 
 
 // Список всех элементов каталога
-router.get('/catalog', authenticate(['admin', 'manager', 'guest']), catalogController.allProducts);
+router.get('/catalog', /*authenticate(['admin', 'manager', 'guest']),*/ catalogController.allProducts);
 
 // Элемент каталога с указанным Id
-router.get('/catalog/:id', authenticate(['admin', 'manager', 'guest']), catalogController.productById);
+router.get('/catalog/:id', /*authenticate(['admin', 'manager', 'guest']),*/ catalogController.productById);
 
 // Создание нового элемента каталога
 router.post('/catalog', authenticate(['admin', 'manager']), catalogController.createProduct);

@@ -18,7 +18,7 @@
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.5.1",
     "mkdirp": "^0.5.1",
-    "mongoose": "^5.4.19",
+    "mongoose": "^5.4.21",
     "morgan": "^1.9.1",
     "node-sass-middleware": "0.11.0",
     "passport": "^0.4.0",

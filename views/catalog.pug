@@ -18,16 +18,16 @@ block content
       .row
         .col-lg-6.my-1
           if products[n].images.length > 0
-            thumbUrl = "/files/" + products[n].images[0].thumb
-          +product(products[n].carModelText, products[n].description, products[n].description, products[n].createdText, thumbUrl, "/product?id=" + products[n]._id)
+            - thumbUrl = "/files/" + products[n].images[0].thumb
+          +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/product?id=" + products[n]._id)
 
         if ++n < products.length
           .col-lg-6.my-1
             if products[n].images.length > 0
-              thumbUrl = "/files/" + products[n].images[0].thumb
+              - thumbUrl = "/files/" + products[n].images[0].thumb
             else
-              thumbUrl = ""
-            +product(products[n].carModelText, products[n].description, products[n].description, products[n].createdText, thumbUrl, "/product?id=" + products[n]._id)
+              - thumbUrl = ""
+            +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/product?id=" + products[n]._id)
             //- +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
             - n++
 

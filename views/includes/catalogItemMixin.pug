@@ -3,7 +3,8 @@ mixin product(carModel, partName, description, publishDate, imageUrl, detailsUrl
   .card
     .row.no-gutters
       .col-sm-auto
-        img.img-fluid.w-100(src=imageUrl alt=carModel)
+        a(href=detailsUrl)
+          img.img-fluid.w-100(src=imageUrl alt=carModel)
       .col.d-flex.flex-column
         .card-body.flex-grow-1.px-2.py-1
           strong.card-title.text-primary= carModel

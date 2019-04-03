@@ -30,7 +30,7 @@ ProductSchema.virtual('createdText').get(function() {
 });
 
 ProductSchema.virtual('carModelText').get(function() {
-  let carModelText = this.model.carModelText + " " + this.name;
+  let carModelText = this.model.carModelText;
   if(this.engine) {
     carModelText = carModelText + ", " + this.engine;
   }

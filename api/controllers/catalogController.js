@@ -4,7 +4,7 @@ const helpers = require('../helpers');
 const imageHelper = require('../imageHelper');
 
 module.exports.allProducts = (req, res) => {
-  Product.find().then(products => {
+  Product.find(null, null, {sort: {created : -1}}).then(products => {
     helpers.sendJSONresponse(res, 200, products);
   }).catch(err => {
     console.error(err);

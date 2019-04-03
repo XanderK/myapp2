@@ -17,8 +17,9 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
           a.nav-link(href="/catalog") Каталог
         li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
           a.nav-link(href="/service") Сервис
-        li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
-          a.nav-link(href="/contacts") Контакты
+        //-
+          li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
+            a.nav-link(href="/contacts") Контакты
         
         if user
           li.nav-item.dropdown
