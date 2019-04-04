@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
   dbUri = process.env.MONGOLAB_URI;
 }
 
-mongoose.connect(dbUri, { autoIndex: false }).catch(err => console.error(err));
+mongoose.connect(dbUri, { autoIndex: false, useNewUrlParser: true }).catch(err => console.error(err));
 //mongoose.connect(dbUri).catch(err => console.error(err));
 
 // CONNECTION EVENTS
