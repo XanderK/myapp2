@@ -9,7 +9,7 @@ const CarModelSchema = new mongoose.Schema({
   finishYear: {type: Number } 
 },
 {
-  toJSON: { virtuals: true }   
+  toObject: { virtuals: true }   
 });
 
 CarModelSchema.index({brand: 1, name: 1}, {unique: true});

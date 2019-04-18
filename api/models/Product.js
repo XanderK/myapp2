@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema({
   mainImageIndex: Number
 },
 {
-  toJSON: { virtuals: true }  
+  toObject: { virtuals: true }  
 });
 
 ProductSchema.virtual('createdText').get(function() {

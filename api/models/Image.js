@@ -1,6 +1,5 @@
 // Изображение продукта
 const mongoose = require('mongoose');
-const path = require('path');
 
 const ImageSchema = new mongoose.Schema({
   thumb: { type: String, required: false, index: false },

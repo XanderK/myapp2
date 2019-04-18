@@ -8,6 +8,9 @@ const UserSchema = new mongoose.Schema({
   email: String,
   role: { type: String, required: true, index: true },
   created: { type: Date, required: true, default: Date.now }
+},
+{
+  toObject: { virtuals: true }  
 });
 
 UserSchema.plugin(passportLocalMongoose, {usernameField: 'name', usernameLowerCase: true});

@@ -18,11 +18,8 @@ block content
     .row
       .col-md-6  
         .fotorama(data-width="700" data-ratio="3/2" data-nav="thumbs" data-thumbheight="48")
-          img(src="images/car-brands/Acura-logo.png")
-          img(src="images/car-brands/Alpina-logo.png")
-          img(src="images/car-brands/Audi-logo.png")
-          img(src="images/car-brands/Austin-logo.png")
-          img(src="images/car-brands/AMG-logo.png")
+          each image, index in product.images
+            img(src= '/files/' + image.thumb)
       .col-md-6
   include includes/footer.pug
 

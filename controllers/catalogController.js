@@ -21,10 +21,11 @@ const renderCatalogManager = (req, res, products) => {
   });
 }
 
-const renderProduct = (req, res, product) => {
+const renderProduct = async (req, res, product) => {
   const activeView = 'product';
   res.render(activeView, {
-    title: 'Просмотр элемента каталога' ,
+    //title: 'Просмотр элемента каталога' ,
+    title: product.carModelText,
     activeView: activeView,
     user: req.user,
     product: product
@@ -166,16 +167,39 @@ module.exports.catalog = (req, res) => {
 }
 
 // Просмотр продукта
-module.exports.product = (req, res) => {
-  const viewName = 'product';
-  res.render(viewName, {
-    title: 'Продукт',
-    activeView: viewName,
-    user: req.user
-  });
+module.exports.product = async (req, res) => {
+  let productId = req.params.id
+  if (productId) {
+    const path = '/api/catalog/' + productId;
+    let options = {
+      url: config.server + path,
+      method: "GET",
+      headers: {
+        'x-access-token': req.session.token
+      },
+      json: true
+    };
+  
+    request(options, (err, response, body) => {
+      let product = null;
+      if (err) {
+        console.error(err);
+      }
+      else if (response.statusCode === 200) {
+        product = body;
+        renderProduct(req, res, product);
+      }
+      else {
+        helpers.sendJSONresponse(res, response.statusCode, body);
+      }
+    });
+  }
+  else {
+    helpers.sendJSONresponse(res, 400, 'Bad request');
+  }
 }
  
-// Ведение каталога
+// Редактирование каталога
 module.exports.catalogManager = (req, res) => {
   const path = '/api/catalog';
   let options = {
@@ -275,9 +299,8 @@ module.exports.updateProduct = (req, res) => {
   }
 }
 
-// Удаление пользователя через API
+// Удаление элемента каталога через API
 module.exports.deleteProduct = (req, res) => {
-  //helpers.sendJSONresponse(res, 200, req.body);
   const path = '/api/catalog';
   let options = {
     url: apiOptions.server + path,
