@@ -10,16 +10,17 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
       ul.navbar-nav.ml-auto
         -var activeNavItem = 'active'
         //-
-          li.nav-item(class = (activeView === 'index' ? activeNavItem : ''))
+         li.nav-item(class = (activeView === 'index' ? activeNavItem : ''))
           a.nav-link(href="/") Home
             span.sr-only (current)
         li.nav-item(class = (activeView === 'catalog' ? activeNavItem : ''))
           a.nav-link(href="/catalog") Каталог
-        li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
+        //-
+         li.nav-item(class = (activeView === 'service' ? activeNavItem : ''))
           a.nav-link(href="/service") Сервис
         //-
-          li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
-            a.nav-link(href="/contacts") Контакты
+         li.nav-item(class = (activeView === 'contacts' ? activeNavItem : ''))
+          a.nav-link(href="/contacts") Контакты
         
         if user
           li.nav-item.dropdown

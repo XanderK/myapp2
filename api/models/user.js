@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
   created: { type: Date, required: true, default: Date.now }
 },
 {
-  toObject: { virtuals: true }  
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }    
 });
 
 UserSchema.plugin(passportLocalMongoose, {usernameField: 'name', usernameLowerCase: true});

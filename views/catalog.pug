@@ -1,8 +1,6 @@
 //- Каталог
 extends layout
 
-include includes/catalogItemMixin.pug
-
 block content
   header
     .container.my-2
@@ -12,24 +10,7 @@ block content
         li.breadcrumb-item.active #{title}
 
   .container.mb-2
-    - var n = 0;
-    - var thumbUrl = "";
-    while n < products.length
-      .row
-        .col-lg-6.my-1
-          if products[n].images.length > 0
-            - thumbUrl = "/files/" + products[n].images[0].thumb
-          +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/catalog/" + products[n]._id)
-
-        if ++n < products.length
-          .col-lg-6.my-1
-            if products[n].images.length > 0
-              - thumbUrl = "/files/" + products[n].images[0].thumb
-            else
-              - thumbUrl = ""
-            +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/catalog/" + products[n]._id)
-            //- +product("Toyota Land Cruiser 200", "Суппорт передний", "123qwer", "02.10.2018 8:45")
-            - n++
+    include includes/catalogItems.pug
 
   //-
    .container  

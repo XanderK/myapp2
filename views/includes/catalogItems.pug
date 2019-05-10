@@ -1,4 +1,24 @@
-.row
+include ./catalogItemMixin.pug
+
+- var n = 0;
+- var thumbUrl = "";
+while n < products.length
+  .row
+    .col-lg-6.my-1
+      if products[n].images.length > 0
+        - thumbUrl = "/files/" + products[n].images[0].thumb
+      +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/catalog/" + products[n]._id)
+    if ++n < products.length
+      .col-lg-6.my-1
+        if products[n].images.length > 0
+          - thumbUrl = "/files/" + products[n].images[0].thumb
+        else
+          - thumbUrl = ""
+        +product(products[n].carModelText, products[n].name, products[n].description, products[n].createdText, thumbUrl, "/catalog/" + products[n]._id)
+        - n++
+
+//-
+ .row
   .col-lg-6.my-1
     .card.flex-md-row.box-shadow.h-100
       img.img-fluid.flex-auto(src="http://placehold.it/176x132" alt="")
@@ -7,6 +27,7 @@
         h3
           a.text-dark(href="#") Featured post
         .text-muted Nov 12
+        .text-muted Products: #{products.length}
         a(href="#") Continue reading
 
   .col-lg-6.my-1

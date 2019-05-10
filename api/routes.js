@@ -40,6 +40,9 @@ router.delete('/users', authenticate(['admin']), userController.deleteUser);
 
 
 // Список всех элементов каталога
+router.get('/lastProducts', /*authenticate(['admin', 'manager', 'guest']),*/ catalogController.lastProducts);
+
+// Список всех элементов каталога
 router.get('/catalog', /*authenticate(['admin', 'manager', 'guest']),*/ catalogController.allProducts);
 
 // Элемент каталога с указанным Id

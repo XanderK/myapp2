@@ -2,6 +2,17 @@ const Product = require('../models/Product');
 const helpers = require('../helpers');
 const imageHelper = require('../imageHelper');
 
+
+module.exports.lastProducts = async (req, res) => {
+  try {
+    const products = await Product.find(null, null, {sort: {created : -1}, limit: 4});
+    helpers.sendJSONresponse(res, 200, products);
+  }
+  catch(e) {
+    console.error(e);
+  }
+}
+
 module.exports.allProducts = async (req, res) => {
   try {
     const products = await Product.find(null, null, {sort: {created : -1}});
@@ -69,8 +80,8 @@ module.exports.updateProduct = async (req, res) => {
     // Удаление изображений
     if(req.body.deletedImages) {
       let deletedImages = Array.isArray(req.body.deletedImages) ? req.body.deletedImages : new Array(req.body.deletedImages); 
-      deletedImages.forEach(async(imageId) => {
-        const image = oldProduct.images.find((element, index, array) => {
+      for(const imageId of deletedImages) {
+        const image = await oldProduct.images.find((element, index, array) => {
           return element.id === imageId;
         });
         if(image != null) {
@@ -79,9 +90,9 @@ module.exports.updateProduct = async (req, res) => {
           await imageHelper.deleteImage(image.full);
           
           // удаления изображения из продукта
-          oldProduct.images.pull(image._id);
+          oldProduct.images.remove(image._id);
         }
-      });
+      }
     }
 
     // Добавление изображений

@@ -15,14 +15,25 @@ block content
         li.breadcrumb-item.active #{title}
 
   section.container.mb-2
+    //-
+     .row
+      .col
+        h1= product.carModelText
     .row
-      .col-md-6  
-        .fotorama(data-width="100%" data-ratio="3/2" data-nav="thumbs" data-thumbheight="48")
+      .col-md-7  
+        .fotorama(data-width="100%" data-ratio="3/2" data-nav="thumbs" data-thumbheight="96" data-thumbwidth="144" data-allowfullscreen="true")
           each image, index in product.images
             a(href= '/files/' + image.full)
               img(src= '/files/' + image.thumb)
-      .col-md-6
-  
+      .col-md-5
+        h2.text-primary= product.carModelText
+        h3.card-text= product.name
+        p.text-muted= product.description
+        small Добавлено: #{product.createdText}
+          br
+          . 
+            #{product.responsible}
+
   include includes/footer.pug
 
 block scripts
