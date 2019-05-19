@@ -51,7 +51,7 @@ async function base64ToJpeg(fullFileName, base64String) {
 
 // Сохраняет изображения.
 // Возвращает список файлов.
-module.exports.saveImages = async (id, images) => {
+module.exports.saveImages = async (id, data) => {
   let currentDate = new Date();
   const imagesDirectory = path.join(currentDate.getFullYear().toString(), (currentDate.getMonth() + 1).toString().padStart(2, '0'));
   let imagesPath = path.join(imagesDirectoryBase, imagesDirectory);
@@ -62,7 +62,9 @@ module.exports.saveImages = async (id, images) => {
     console.log('Directory ' + imagesPath + ' created.');
   }
 
-  let resultImages = new Array();
+  let images = Array.isArray(data) ? data : new Array(data); 
+
+  let resultImages = [];
   for (let i = 0; i < images.length; i++) {
     // Формирование названия для файла с изображением как: "productId-uuid.jpg"
     let fileName = id + '-' + uuidv4().replace(/-/g, '') + '.jpg';

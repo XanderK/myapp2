@@ -57,8 +57,8 @@ module.exports.createProduct = async (req, res) => {
   {
     // в БД храним только имена файлов
     try {
-      let images = await imageHelper.saveImages(product.id, req.body.images);
-      product.images = images;
+      let sourceImages = Array.isArray(req.body.images) ? req.body.images : new Array(req.body.images); 
+      product.images = await imageHelper.saveImages(product.id, sourceImages);
       await product.save();
     }
     catch(e) {
