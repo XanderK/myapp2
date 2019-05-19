@@ -9,8 +9,7 @@
             "program": "${workspaceFolder}/app.js",
             "restart": true,
             "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "runtimeArgs": ["--nolazy"]
+            "internalConsoleOptions": "neverOpen"
         },
         {
             "type": "node",

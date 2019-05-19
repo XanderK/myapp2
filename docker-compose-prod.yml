@@ -1,27 +1,20 @@
-version: '3.1'
-
-networks:
-  apps:
+version: "3"
 services:
-  carparts:
+  app:
     container_name: carparts
     restart: always
-    build: .
+    build: ./
     ports:
       - "3000:3000"
     volumes:
-      - "./app:/app"
-    networks:
-      - apps
-    depends_on:
-      - mongo    
+      - ./data/files:/app/data/files
+    links:
+      - mongo
   mongo:
     container_name: mongo
     restart: always
     image: mongo
-    volumes:
-      - ./data:/data/db
     ports:
       - "27017:27017"
-    networks:
-      - apps
+    volumes:
+      - ./data/db:/data/db

@@ -1,22 +1,23 @@
 // Заполнение справочнков марок и моделей авто
 const fs = require('fs');
-const fileName = __dirname + '/data/cars_csv.csv'
-require('../api/db');
+//require('../api/db');
 const CarBrand = require('../api/models/CarBrand');
 const CarModel = require('../api/models/CarModel');
+const fileName = __dirname + '/data/cars_csv.csv'
 
 // загрузка марок и моделей из файла
-function readCarData(fileName, callback) {
+const readCarData = (fileName, callback) => {
   fs.readFile(fileName, 'utf8', (err, data) => {
     if (err) throw new Error(err);
     let cars = [];
-    data.split('\n').forEach(value => {
-      let carData = value.split(';');
+    const rows = data.split('\n');
+    for(let i = 0; i < rows.length; i++) {
+      let carData = rows[i].split(';');
       if (carData[0].length > 0) {
         //callback({ brand: carData[0], model: carData[1], startYear: carData[2], finishYear: carData[3] !== '-' ? carData[3] : null });
         cars.push({ brand: carData[0], model: carData[1], startYear: carData[2], finishYear: carData[3] !== '-' ? carData[3] : null });
       }
-    });
+    }
     callback(cars.sort((a, b) => {
       if (a.brand < b.brand) return -1;
       if (a.brand > b.brand) return 1;
@@ -26,7 +27,8 @@ function readCarData(fileName, callback) {
 }
 
 // загрузка справочников в БД
-function uploadMasterData() {
+module.exports.uploadMasterData = () => {
+  console.log("Initial masterdata import from " + fileName);
   readCarData(fileName, cars => {
     CarBrand.find({}).then(async (carBrands) => {
       let storedCarBrands = carBrands.slice();
@@ -68,5 +70,5 @@ function uploadMasterData() {
   });
 }
 
-uploadMasterData();
+//uploadMasterData();
 //process.exit(0);

@@ -12,7 +12,7 @@ const development = {
   product_images_dir: 'data/files'
 };
 
-const productive = {
+const production = {
   server: 'http://localhost:3000',
   db: {
     host: 'mongo',
@@ -26,7 +26,7 @@ const productive = {
 
 const config = {
     development,
-    productive
+    production
 };
 
 module.exports = config[env];

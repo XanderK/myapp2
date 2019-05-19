@@ -9,6 +9,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 
 const userController = require('./api/controllers/userController');
+const masterData = require('./utils/masterdata');
 const appRouter = require('./routes');
 const apiRouter = require('./api/routes');
 
@@ -78,6 +79,12 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-userController.createDefaultUsers();
+try {
+  userController.createDefaultUsers();
+  masterData.uploadMasterData();
+}
+catch(e) {
+  console.error(e);
+}
 
 module.exports = app;

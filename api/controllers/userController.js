@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const helpers = require('../helpers');
+const config = require('../config');
 
 module.exports.logout = (req, res, next) => {
   req.logout(() => {

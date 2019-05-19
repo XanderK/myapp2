@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const config = require('./config');
 
 let gracefulShutdown;
-const dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
+let dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
 //const dbUri = 'mongodb+srv://test:OiCfD9NVvBZeu03m@cluster0-5d1tq.mongodb.net/test'
 
-if (process.env.NODE_ENV === 'production') {
-  dbUri = process.env.MONGOLAB_URI;
-}
+// if (process.env.NODE_ENV === 'production') {
+//   dbUri = process.env.MONGOLAB_URI;
+//   console.log(dbUri);
+// }
 
 mongoose.connect(dbUri, { autoIndex: false, useNewUrlParser: true }).catch(err => console.error(err));
 //mongoose.connect(dbUri).catch(err => console.error(err));
