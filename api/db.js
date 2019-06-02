@@ -2,16 +2,17 @@ const mongoose = require('mongoose');
 const config = require('./config');
 
 let gracefulShutdown;
-let dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
+
 //const dbUri = 'mongodb+srv://test:OiCfD9NVvBZeu03m@cluster0-5d1tq.mongodb.net/test'
+const dbUri = 'mongodb://' + config.db.host + '/' + config.db.name;
 
 // if (process.env.NODE_ENV === 'production') {
 //   dbUri = process.env.MONGOLAB_URI;
 //   console.log(dbUri);
 // }
 
-mongoose.connect(dbUri, { autoIndex: false, useNewUrlParser: true }).catch(err => console.error(err));
 //mongoose.connect(dbUri).catch(err => console.error(err));
+mongoose.connect(dbUri, { autoIndex: false, useNewUrlParser: true }).catch(err => console.error(err));
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', () => console.log('Mongoose connected to ' + dbUri));
@@ -37,5 +38,3 @@ process.on('SIGTERM', () => gracefulShutdown('Heroku app termination', () => pro
 
 // BRING IN YOUR SCHEMAS & MODELS
 require('./models/User');
-
-//module.exports.mongooseConnection = mongoose.connection;

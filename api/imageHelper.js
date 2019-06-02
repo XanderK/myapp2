@@ -29,14 +29,14 @@ async function makeThumb(sourceFullFileName, thumbFullFileName) {
     hight: 132,
     fit: sharp.fit.cover,
     position: sharp.strategy.entropy,
-    /*
-    Possible interpolation kernels are:
-    nearest: Use nearest neighbour interpolation.
-    cubic: Use a Catmull-Rom spline.
-    mitchell: Use a Mitchell-Netravali spline.
-    lanczos2: Use a Lanczos kernel with a=2.
-    lanczos3: Use a Lanczos kernel with a=3 (the default).
-    */
+
+    // Possible interpolation kernels are:
+    // nearest: Use nearest neighbour interpolation.
+    // cubic: Use a Catmull-Rom spline.
+    // mitchell: Use a Mitchell-Netravali spline.
+    // lanczos2: Use a Lanczos kernel with a=2.
+    // lanczos3: Use a Lanczos kernel with a=3 (the default).
+
     kernel: sharp.kernel.cubic
   };
   return await sharp(sourceFullFileName).resize(imageOptions).sharpen().toFile(thumbFullFileName);

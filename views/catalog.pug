@@ -12,12 +12,4 @@ block content
   .container.mb-2
     include includes/catalogItems.pug
 
-  //-
-   .container  
-    h1 Каталог
-    each brand, index in brands
-      p
-        img(src=brand.file, alt=brand.name, height="72" width="96")
-        span= brand.name
-
   include includes/footer.pug

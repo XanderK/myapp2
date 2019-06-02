@@ -28,11 +28,12 @@ app.use(bodyParser.json({limit: '32mb'}));
 app.use(bodyParser.urlencoded({limit: '32mb', extended: true}));
 
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -43,14 +44,13 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/files', express.static(path.join(__dirname, config.product_images_dir)));
 
-//require('./api/auth').init(app)
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24h
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 

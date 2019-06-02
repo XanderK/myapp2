@@ -45,7 +45,7 @@ block content
               span.text-muted (не обязательно)
             input#responsible.form-control(type="text", placeholder="Игорь, +375(29)693-09-36‬" name="responsible", value=(editProduct ? editProduct.responsible : null))
           .form-group.mb-3
-            label(for="description") Описание
+            label(for="description") Описание (не обязательно)
             textarea#description.form-control(name="description", rows='6')= editProduct ? editProduct.description : ''
   
         .col-md-5.order-md-2.mb-4          

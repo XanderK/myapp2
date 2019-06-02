@@ -4,8 +4,9 @@ const imageHelper = require('../imageHelper');
 
 
 module.exports.lastProducts = async (req, res) => {
-  try {
-    const products = await Product.find(null, null, {sort: {created : -1}, limit: 4});
+  try {  
+    const itemsCount = 6; // Колчество прподуктов, которые будут загружены
+    const products = await Product.find(null, null, {sort: {created : -1}, limit: itemsCount});
     helpers.sendJSONresponse(res, 200, products);
   }
   catch(e) {

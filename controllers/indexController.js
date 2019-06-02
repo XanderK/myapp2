@@ -44,27 +44,9 @@ const getLastProducts = async(req) => {
       let product = body[i];
       products.push(product);
     }
-    //console.log(body)
     return products;
   }
   catch(e) {
     console.error(e);
   }
-
-  // request(options, (err, response, body) => {
-  //   let products = [];
-  //   if (err) {
-  //     console.error(err);
-  //   }
-  //   else if (response.statusCode === 200) {
-  //     for (let i = 0; i < body.length; i++) {
-  //       let product = body[i];
-  //       products.push(product);
-  //     }
-  //     return products;
-  //   }
-  //   else {
-  //     console.error(response);
-  //   }
-  // });
 }

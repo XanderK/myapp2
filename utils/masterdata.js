@@ -1,6 +1,5 @@
 // Заполнение справочнков марок и моделей авто
 const fs = require('fs');
-//require('../api/db');
 const CarBrand = require('../api/models/CarBrand');
 const CarModel = require('../api/models/CarModel');
 const fileName = __dirname + '/data/cars_csv.csv'

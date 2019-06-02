@@ -30,8 +30,6 @@ block content
     .jumbotron
       h2.display-3 Добро пожаловать!
       p.lead Мы поможем Вам подобрать необходимые запчасти к автомобилю. Если Вы ищете б/у запчасти для автомобилей - Audi, Volkswagen, Mercedes-Benz, Fiat, приглашаем Вас именно к нам. У нас Вы найдете кузовные бу запчасти, детали двигателя, подвески, тормозной и топливной систем, систем охлаждения и зажигания, и других узлов. Мы также покупаем автомашины на разборку. Звоните нам! 
-      //-
-       a.btn.btn-primary.btn-sm(href="#") Call to action!
 
   section.container.text-center
     .row
@@ -73,7 +71,10 @@ block content
   section.container.my-4
     h2.display-4 Новое в каталоге
     include includes/catalogItems.pug
-  
+    .row.justify-content-end.mt-2
+      .col-auto
+        a(href="/catalog") Перейти в каталог &raquo;
+
   section.container.my-4
     h2.display-4 Карта проезда
     include includes/map.pug
