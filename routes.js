@@ -19,7 +19,7 @@ router.get('/', indexController.homePage);
 // Правила индексации для посковиков
 router.get('/robots.txt', (req, res) => {
   res.type('text/plain');
-  res.send("User-agent: *\nDisallow: /admin/");
+  res.send("User-agent: *\nDisallow: /admin/\nAllow: /");
 });
 
 // Показать каталог
