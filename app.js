@@ -68,12 +68,12 @@ app.use('/', appRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use( (req, res, next) => {
   next(createError(404, 'Страница не найдена'));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use( (err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -90,5 +90,25 @@ try {
 catch(e) {
   console.error(e);
 }
+
+const sitemap = require('express-sitemap');
+sitemap({
+  map: {
+    '/': ['get'],
+    '/catalog': ['get']
+  },
+  route: {
+    '/': {
+      lastmod: '2019-06-18',
+      changefreq: 'always',
+      priority: 1.0
+    },
+    '/catalog': {
+      lastmod: '2019-06-18',
+      changefreq: 'always',
+      priority: 1.0
+    }
+  }
+}).XMLtoFile();
 
 module.exports = app;
