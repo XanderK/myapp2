@@ -44,6 +44,10 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/files', express.static(path.join(__dirname, config.product_images_dir)));
 
+app.use('/favicon.ico', express.static('public/images/favicon.ico'));
+app.use('/favicon.png', express.static('public/images/favicon.png'));
+app.use('/apple-touch-icon-precomposed.png', express.static('public/images/apple-touch-icon-precomposed.png'));
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
