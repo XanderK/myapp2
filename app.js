@@ -94,18 +94,20 @@ catch(e) {
 const sitemap = require('express-sitemap');
 const sitemapPath = 'public/sitemap.xml';
 sitemap({
+  http: 'https',
+  url: 'busauto.by',
   map: {
     '/': ['get'],
     '/catalog': ['get']
   },
   route: {
     '/': {
-      lastmod: '2019-06-18',
+      lastmod: '2019-06-20',
       changefreq: 'always',
       priority: 1.0
     },
     '/catalog': {
-      lastmod: '2019-06-18',
+      lastmod: '2019-06-20',
       changefreq: 'always',
       priority: 1.0
     }
