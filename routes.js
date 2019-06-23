@@ -16,12 +16,6 @@ const allowAccess = (roles) => {
 /* GET home page. */
 router.get('/', indexController.homePage);
 
-// Правила индексации для посковиков
-router.get('/robots.txt', (req, res) => {
-  res.type('text/plain');
-  res.send("User-agent: *\nDisallow: /admin/");
-});
-
 // Показать каталог
 router.get('/catalog', catalogController.catalog);
 
@@ -76,5 +70,46 @@ router.post('/admin/users/delete', allowAccess(['admin']), adminController.delet
 
 // Проверка залогинен ли кто-нибудь
 router.get('/admin/checklogged', (req, res) => helpers.sendJSONresponse(res, 200, req.user));
+
+const sitemap = require('express-sitemap')({
+  http: 'https',
+  url: 'busauto.by',
+  map: {
+    '/': ['get'],
+    '/catalog': ['get']
+  },
+  route: {
+    '/': {
+      lastmod: '2019-06-20',
+      changefreq: 'always',
+      priority: 1.0
+    },
+    '/catalog': {
+      lastmod: '2019-06-20',
+      changefreq: 'always',
+      priority: 1.0
+    },
+    '/admin': {
+      disallow: true
+    }
+  }
+});
+
+router.get('/sitemap.xml', (req, res) => {
+  sitemap.XMLtoWeb(res);
+});
+
+/*
+// WARN: Don't work!
+router.get('/robots.txt', (req, res) => {
+  sitemap.TXTtoWeb(res);
+});
+*/
+
+// Правила индексации для посковиков
+router.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send("User-agent: *\nDisallow: /admin");
+});
 
 module.exports = router;

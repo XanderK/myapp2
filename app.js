@@ -91,6 +91,7 @@ catch(e) {
   console.error(e);
 }
 
+/*
 const sitemap = require('express-sitemap');
 const sitemapPath = 'public/sitemap.xml';
 sitemap({
@@ -110,9 +111,13 @@ sitemap({
       lastmod: '2019-06-20',
       changefreq: 'always',
       priority: 1.0
+    },
+    '/admin': {
+      disallow: true,
     }
   }
 }).XMLtoFile(path.join(__dirname, sitemapPath));
 app.use('/sitemap.xml', express.static(sitemapPath));
+*/
 
 module.exports = app;

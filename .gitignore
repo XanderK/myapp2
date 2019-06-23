@@ -68,3 +68,5 @@ package-lock.json
 data/
 
 sitemap.xml
+sitemap.txt
+robots.txt
