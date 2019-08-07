@@ -29,7 +29,12 @@ module.exports.allProducts = async (req, res) => {
 module.exports.productById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    helpers.sendJSONresponse(res, 200, product);
+    if(product != null) {
+      helpers.sendJSONresponse(res, 200, product);
+    }
+    else {
+      helpers.sendJSONresponse(res, 400, 'Product not found');
+    }
   }
   catch(e) {
     console.log(e);
