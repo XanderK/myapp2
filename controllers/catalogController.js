@@ -189,8 +189,10 @@ module.exports.product = async (req, res) => {
         product = body;
         renderProduct(req, res, product);
       }
-      else {
-        helpers.sendJSONresponse(res, response.statusCode, body);
+      else if (response.statusCode === 400){
+        res.render('error', { message: 'Такого элемента в каталоге нет' });
+        //helpers.sendJSONresponse(res, 404, 'Такого элемента в каталоге нет');
+        //helpers.sendJSONresponse(res, response.statusCode, body);
       }
     });
   }

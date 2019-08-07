@@ -2,20 +2,24 @@ const CarBrand = require('../models/CarBrand');
 const CarModel = require('../models/CarModel');
 const helpers = require('../helpers');
 
-module.exports.allCarBrands = (req, res) => {
-  CarBrand.find().then(carBrands => {
+module.exports.allCarBrands = async (req, res) => {
+  try { 
+    const carBrands = await CarBrand.find();
     helpers.sendJSONresponse(res, 200, carBrands);
-  }).catch(err => {
-    console.error(err);
-    helpers.sendJSONresponse(res, 400, err);
-  });
+  }
+  catch(e) {
+    console.error(e);
+    helpers.sendJSONresponse(res, 400, e);
+  }
 }
 
-module.exports.allCarModels = (req, res) => {
-  CarModel.find().then(carModels => {
+module.exports.allCarModels = async (req, res) => {
+  try { 
+    const carModels = await CarModel.find();
     helpers.sendJSONresponse(res, 200, carModels);
-  }).catch(err => {
-    console.error(err);
-    helpers.sendJSONresponse(res, 400, err);
-  });
+  }
+  catch(e) {
+    console.error(e);
+    helpers.sendJSONresponse(res, 400, e);
+  }
 }

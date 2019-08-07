@@ -3,8 +3,9 @@ extends layout
 block content
   section.container
     h1= message
-    h2= error.status
-    pre #{error.stack}
+    if error
+      h2= error.status
+      pre #{error.stack}
 
   //-
    include includes/footer.pug

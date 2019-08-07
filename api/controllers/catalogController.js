@@ -11,6 +11,7 @@ module.exports.lastProducts = async (req, res) => {
   }
   catch(e) {
     console.error(e);
+    helpers.sendJSONresponse(res, 400, e);
   }
 }
 
@@ -21,6 +22,7 @@ module.exports.allProducts = async (req, res) => {
   }
   catch(e) {
     console.error(e);
+    helpers.sendJSONresponse(res, 400, e);
   }
 }
 
@@ -31,6 +33,7 @@ module.exports.productById = async (req, res) => {
   }
   catch(e) {
     console.log(e);
+    helpers.sendJSONresponse(res, 400, e);
   }
 }
 
@@ -149,8 +152,8 @@ module.exports.deleteProduct = async(req, res) => {
     await Product.deleteOne({ _id: product._id });
   }
   catch(e) {
-    console.log(err);
-    helpers.sendJSONresponse(res, 400, err);
+    console.log(e);
+    helpers.sendJSONresponse(res, 400, e);
   }
   helpers.sendJSONresponse(res, 200, { auth: true, message: 'Product with ID "' + req.body.id + '" successfuly deleted.' });
 }
